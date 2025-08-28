@@ -3,11 +3,11 @@
 import { signOut } from "next-auth/react";
 import React from "react";
 
-interface ComponentNameProps {
+interface LogoutButtonProps {
   id?: string;
 }
 
-const ComponentName: React.FC<ComponentNameProps> = ({ id }) => {
+const LogoutButton: React.FC<LogoutButtonProps> = ({ id }) => {
   return (
     <button
       onClick={() => signOut({ callbackUrl: "/login" })}
@@ -19,4 +19,4 @@ const ComponentName: React.FC<ComponentNameProps> = ({ id }) => {
   );
 };
 
-export default ComponentName;
+export default LogoutButton;

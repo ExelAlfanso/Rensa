@@ -4,6 +4,7 @@ import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import GoogleLoginButton from "@/components/GoogleLoginButton";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -13,16 +14,11 @@ export default function Login() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const res = await signIn("credentials", {
+    await signIn("credentials", {
       email: formData.get("email"),
       password: formData.get("password"),
-      redirect: false,
+      callbackUrl: "/home",
     });
-    if (res?.error) {
-      setError(res.error as string);
-    } else {
-      router.push("/");
-    }
   };
   return (
     <section className="min-h-screen flex items-center justify-center">
@@ -30,7 +26,6 @@ export default function Login() {
         <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
           {error && <div className="text-red">{error}</div>}
           <legend className="fieldset-legend">Login</legend>
-
           <label className="label">Email</label>
           <input
             type="email"
@@ -39,7 +34,6 @@ export default function Login() {
             placeholder="Email"
             onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
-
           <label className="label">Password</label>
           <input
             type="password"
@@ -48,8 +42,9 @@ export default function Login() {
             placeholder="Password"
             onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
-
           <button className="btn btn-neutral mt-4">Login</button>
+          <div className="divider">or</div>
+          <GoogleLoginButton />
           <Link href="/register" className="hover:underline">
             Don&apos;t have an account?
           </Link>

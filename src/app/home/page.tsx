@@ -1,12 +1,22 @@
-import Button from "@/components/Button";
+"use client";
+
 import LogoutButton from "@/components/LogoutButton";
-import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+  const { data: session, status } = useSession();
+
   return (
     <section className="min-h-screen flex items-center justify-center gap-5">
-      {" "}
+      {session && (
+        <div>
+          <h1>Welcome, {session?.user.name}</h1>
+          <p>Email: {session?.user.email}</p>
+          <p>ID: {session?.user.id}</p>
+          <p>Provider: {session?.user.provider}</p>
+        </div>
+      )}
       <Link href={"/login"} className="btn btn-primary">
         Login
       </Link>
