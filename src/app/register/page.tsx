@@ -6,9 +6,11 @@ import Link from "next/link";
 import api from "@/lib/axios";
 import { signIn } from "next-auth/react";
 import { useLoading } from "@/context/LoadingContext";
+import axios from "axios";
 
 export default function Register() {
   const [form, setForm] = useState({
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -21,6 +23,7 @@ export default function Register() {
     if (form.password !== form.confirmPassword) return "Passwords do not match";
     if (!form.email.trim()) return "Email is required";
     if (!form.password.trim()) return "Password is required";
+    if (!form.username.trim()) return "Username is required";
     if (!form.email.includes("@")) return "Invalid email format";
   };
   const handleSubmit = async (e: React.FormEvent) => {
@@ -39,9 +42,20 @@ export default function Register() {
         callbackUrl: "/home",
       });
       if (res) router.push("/");
-    } catch (err) {
-      console.error(err);
-      setError("Email already exists");
+    } catch (err: unknown) {
+      console.error("Register failed:", err);
+
+      if (axios.isAxiosError(err)) {
+        // Check if server sent back a message
+        setError(
+          err.response?.data?.message ||
+            "Something went wrong. Please try again."
+        );
+      } else if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Unknown error occurred");
+      }
     } finally {
       setLoading(false);
     }
@@ -53,6 +67,14 @@ export default function Register() {
           {error && <div className="text-red">{error}</div>}
           <legend className="fieldset-legend">Sign Up</legend>
 
+          <label className="label">Username</label>
+          <input
+            type="text"
+            name="username"
+            className="input"
+            placeholder="Username"
+            onChange={(e) => setForm({ ...form, username: e.target.value })}
+          />
           <label className="label">Email</label>
           <input
             type="email"

@@ -50,7 +50,7 @@ export const authOptions: NextAuthOptions = {
 
         return {
           id: user._id.toString(),
-          name: user.name,
+          name: user.username,
           email: user.email,
         };
       },
@@ -61,7 +61,7 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt",
   },
   callbacks: {
-    async redirect({ url, baseUrl }) {
+    async redirect() {
       return "/home";
     },
     async jwt({ token, account, user }) {
@@ -81,6 +81,8 @@ export const authOptions: NextAuthOptions = {
         session.user = {
           ...(session.user as any),
           id: token.id as string,
+          name: token.name,
+          email: token.email,
           provider: token.provider,
         };
         session.accessToken = token.accessToken as string | undefined;

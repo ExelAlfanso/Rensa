@@ -2,13 +2,15 @@ import mongoose, { model, Schema } from "mongoose";
 
 export interface UserDocument {
   _id: string;
+  username: string;
   email: string;
   password: string;
-  phone: string;
+  avatar: string;
 }
 
 const UserSchema = new Schema<UserDocument>(
   {
+    username: { type: String, required: true, unique: true },
     email: {
       type: String,
       unique: true,
@@ -21,6 +23,9 @@ const UserSchema = new Schema<UserDocument>(
     password: {
       type: String,
       required: true,
+    },
+    avatar: {
+      type: String,
     },
   },
   {

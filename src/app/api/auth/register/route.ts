@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
-    const { email, password, confirmPassword } = await req.json();
+    const { username, email, password, confirmPassword } = await req.json();
     if (password != confirmPassword)
       return NextResponse.json(
         { message: "Invalid Password" },
@@ -20,7 +20,7 @@ export async function POST(req: Request) {
         { status: 409 }
       );
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ email, password: hashedPassword });
+    const user = new User({ username, email, password: hashedPassword });
     await user.save();
 
     return NextResponse.json(
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
     );
   } catch (err) {
     return NextResponse.json(
-      { message: "Error registering user" },
+      { message: `Error registering user: ${err}` },
       { status: 500 }
     );
   }
