@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import api from "@/lib/axios";
 import { signIn } from "next-auth/react";
+import { useLoading } from "@/context/LoadingContext";
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -14,6 +15,7 @@ export default function Register() {
   });
   const [error, setError] = useState("");
   const router = useRouter();
+  const { setLoading } = useLoading();
 
   const validateForm = () => {
     if (form.password !== form.confirmPassword) return "Passwords do not match";
@@ -28,17 +30,20 @@ export default function Register() {
       setError(errorMsg);
       return;
     }
+    setLoading(true);
     try {
       await api.post("/auth/register", form);
       const res = await signIn("credentials", {
         email: form.email,
         password: form.password,
-        redirect: false,
+        callbackUrl: "/home",
       });
       if (res) router.push("/");
     } catch (err) {
       console.error(err);
-      setError("Registration Failed");
+      setError("Email already exists");
+    } finally {
+      setLoading(false);
     }
   };
   return (
