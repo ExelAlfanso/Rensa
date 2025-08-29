@@ -58,7 +58,7 @@ const images = [
   "https://picsum.photos/300/360",
 ];
 
-export default function TestPage() {
+export default function MasonryGalleyPage() {
   const breakpointColumnsObj = {
     default: 4,
     1100: 3,

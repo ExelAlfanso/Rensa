@@ -4,6 +4,7 @@ import LogoutButton from "@/components/LogoutButton";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import LoadingOverlay from "@/components/LoadingOverlay";
+import UploadButton from "@/components/UploadButton";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -25,6 +26,7 @@ export default function Home() {
         Sign Up
       </Link>
       <LogoutButton />
+      <UploadButton userId={session?.user.id}></UploadButton>
     </section>
   );
 }

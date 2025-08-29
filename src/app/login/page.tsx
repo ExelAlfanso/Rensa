@@ -2,15 +2,15 @@
 
 import { FormEvent, useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import Link from "next/link";
-import GoogleLoginButton from "@/components/GoogleLoginButton";
+// import GoogleLoginButton from "@/components/GoogleLoginButton";
 import { useLoading } from "@/context/LoadingContext";
 
 export default function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
-  const router = useRouter();
+  // const router = useRouter();
   const { setLoading } = useLoading();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
