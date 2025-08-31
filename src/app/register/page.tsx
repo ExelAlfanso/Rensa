@@ -1,114 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import api from "@/lib/axios";
-import { signIn } from "next-auth/react";
-import { useLoading } from "@/context/LoadingContext";
-import axios from "axios";
+import RegisterForm from "@/components/RegisterForm";
+import Image from "next/image";
 
 export default function Register() {
-  const [form, setForm] = useState({
-    username: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const [error, setError] = useState("");
-  const router = useRouter();
-  const { setLoading } = useLoading();
-
-  const validateForm = () => {
-    if (form.password !== form.confirmPassword) return "Passwords do not match";
-    if (!form.email.trim()) return "Email is required";
-    if (!form.password.trim()) return "Password is required";
-    if (!form.username.trim()) return "Username is required";
-    if (!form.email.includes("@")) return "Invalid email format";
-  };
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const errorMsg = validateForm();
-    if (errorMsg) {
-      setError(errorMsg);
-      return;
-    }
-    setLoading(true);
-    try {
-      await api.post("/auth/register", form);
-      const res = await signIn("credentials", {
-        email: form.email,
-        password: form.password,
-        callbackUrl: "/home",
-      });
-      if (res) router.push("/");
-    } catch (err: unknown) {
-      console.error("Register failed:", err);
-
-      if (axios.isAxiosError(err)) {
-        // Check if server sent back a message
-        setError(
-          err.response?.data?.message ||
-            "Something went wrong. Please try again."
-        );
-      } else if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("Unknown error occurred");
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
   return (
-    <section className="min-h-screen flex items-center justify-center">
-      <form onSubmit={handleSubmit}>
-        <fieldset className="fieldset bg-base-200 border-base-300 rounded-box w-xs border p-4">
-          {error && <div className="text-red">{error}</div>}
-          <legend className="fieldset-legend">Sign Up</legend>
-
-          <label className="label">Username</label>
-          <input
-            type="text"
-            name="username"
-            className="input"
-            placeholder="Username"
-            onChange={(e) => setForm({ ...form, username: e.target.value })}
-          />
-          <label className="label">Email</label>
-          <input
-            type="email"
-            name="email"
-            className="input"
-            placeholder="Email"
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-          />
-
-          <label className="label">Password</label>
-          <input
-            type="password"
-            name="password"
-            className="input"
-            placeholder="Password"
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-          />
-          <label className="label">Confirm Password</label>
-          <input
-            type="password"
-            name="confirmPassword"
-            className="input"
-            placeholder="Confirm Password"
-            onChange={(e) =>
-              setForm({ ...form, confirmPassword: e.target.value })
-            }
-          />
-
-          <button className="btn btn-neutral mt-4">Signup</button>
-          <Link href="/login" className="hover:underline">
-            Already have an account?
-          </Link>
-        </fieldset>
-      </form>
+    <section className="min-h-screen flex flex-row">
+      <div className="relative w-1/4">
+        <Image src={"/forest.jpg"} fill alt={""}></Image>
+      </div>
+      <div className=" bg-gray-100 w-3/4 flex items-center justify-center">
+        <RegisterForm></RegisterForm>
+      </div>
     </section>
   );
 }
