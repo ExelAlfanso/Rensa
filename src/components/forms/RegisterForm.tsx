@@ -1,9 +1,9 @@
 import Link from "next/link";
 // import GoogleLoginButton from "@/components/GoogleLoginButton";
 import React, { useState } from "react";
-import Button from "./Button";
-import InputField from "./InputField";
-import Logo from "./Logo";
+import Button from "../buttons/Button";
+import InputField from "../inputfields/InputField";
+import Logo from "../icons/Logo";
 import { useLoading } from "@/context/LoadingContext";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -75,7 +75,6 @@ const RegisterForm = () => {
         </div>
         <fieldset className="fieldset w-full p-4">
           {error && <div className="text-red">{error}</div>}
-          <label className="label">username</label>
           <InputField
             type="text"
             name="username"
@@ -88,11 +87,10 @@ const RegisterForm = () => {
             placeholder="Email"
             onChange={(e) => setForm({ ...form, email: e.target.value })}
           />
-          <label className="label">Password</label>
           <InputField
             type="text"
             name="password"
-            placeholder="password"
+            placeholder="Password"
             onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
           <InputField
@@ -103,18 +101,18 @@ const RegisterForm = () => {
               setForm({ ...form, confirmPassword: e.target.value })
             }
           />
-          <Button type={"primary"}>Login</Button>
+          <Button type={"primary"}>Register</Button>
           {/* <div className="divider">or</div> */}
           {/* <GoogleLoginButton /> */}
         </fieldset>
       </form>
       <div className="flex flex-col items-center justify-center gap-5">
-        <Link href="/register" className="hover:underline text-gray-700">
+        <Link href="/register" className=" text-gray-700">
           Forgot password?
         </Link>
         <span className="text-gray-700 flex items-center justify-center gap-1">
           No account?
-          <Link href="/register" className="hover:underline text-orange-500">
+          <Link href="/register" className=" text-orange-500">
             Create one
           </Link>
         </span>

@@ -3,18 +3,20 @@ import Button from "./Button";
 import { PlusIcon } from "@phosphor-icons/react";
 
 interface IconButtonProps {
-  type: "primary" | "secondary" | "tertiary";
+  type?: "submit" | "button";
   iconPosition: "left" | "right";
+  color?: "primary" | "secondary" | "tertiary";
   children?: React.ReactNode;
 }
 
 const IconButton: React.FC<IconButtonProps> = ({
-  type,
+  type = "button",
+  color = "primary",
   children,
   iconPosition,
 }) => {
   return (
-    <Button type={type}>
+    <Button type={type} color={color}>
       {iconPosition === "left" && <PlusIcon size={18} />}
       {children}
       {iconPosition === "right" && <PlusIcon size={18} />}

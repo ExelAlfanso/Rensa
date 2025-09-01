@@ -5,27 +5,36 @@ import Photo from "@/models/Photo";
 
 export async function POST(req: Request) {
   try {
-    const { file, userId, caption } = await req.json();
+    const { file, userId, title, caption } = await req.json();
 
     await connectDB();
 
     const uploadRes = await cloudinary.uploader.upload(file, {
       folder: `user_uploads/${userId}`,
       resource_type: "image",
+      image_metadata: true,
     });
-    const { secure_url, width, height, format, exif, bytes, created_at } =
-      uploadRes;
+    const {
+      secure_url,
+      width,
+      height,
+      format,
+      image_metadata,
+      bytes,
+      created_at,
+    } = uploadRes;
 
     const photo = await Photo.create({
       userId,
       url: secure_url,
+      title,
       caption,
       metadata: {
         width,
         height,
         format,
         size: bytes,
-        exif,
+        exif: image_metadata,
         uploadedAt: created_at,
       },
     });

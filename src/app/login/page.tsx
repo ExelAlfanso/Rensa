@@ -1,14 +1,14 @@
 "use client";
 
-import LoginForm from "@/components/LoginForm";
-import Image from "next/image";
+import ForestSection from "@/sections/ForestSection";
+import LoginForm from "@/components/forms/LoginForm";
 export default function Login() {
   return (
-    <section className="min-h-screen flex flex-row">
-      <div className="relative w-1/4">
-        <Image src={"/forest.jpg"} fill alt={""}></Image>
+    <section className="flex flex-row min-h-screen">
+      <div className="w-1/4">
+        <ForestSection></ForestSection>
       </div>
-      <div className=" bg-gray-100 w-3/4 flex items-center justify-center">
+      <div className="flex items-center justify-center w-3/4 bg-gray-100 ">
         <LoginForm></LoginForm>
       </div>
     </section>

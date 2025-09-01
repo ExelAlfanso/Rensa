@@ -1,9 +1,9 @@
 import Link from "next/link";
 // import GoogleLoginButton from "@/components/GoogleLoginButton";
 import React, { FormEvent, useState } from "react";
-import Button from "./Button";
-import InputField from "./InputField";
-import Logo from "./Logo";
+import Button from "@/components/buttons/Button";
+import InputField from "@/components/inputfields/InputField";
+import Logo from "@/components/icons/Logo";
 import { useLoading } from "@/context/LoadingContext";
 import { signIn } from "next-auth/react";
 
@@ -35,13 +35,13 @@ const LoginForm = () => {
     <div>
       <form
         onSubmit={handleSubmit}
-        className="w-xl h-full flex items-center justify-center flex-col mb-5"
+        className="flex flex-col items-center justify-center h-full mb-5 w-xl"
       >
         <div className="flex flex-col items-center justify-center">
           <Logo />
           <h1 className="font-serif text-3xl text-black">Login</h1>
         </div>
-        <fieldset className="fieldset w-full p-4">
+        <fieldset className="w-full p-4 fieldset">
           {error && <div className="text-red">{error}</div>}
           <label className="label">Email</label>
           <InputField
@@ -52,23 +52,26 @@ const LoginForm = () => {
           />
           <label className="label">Password</label>
           <InputField
-            type="text"
+            type="password"
             name="password"
-            placeholder="password"
+            placeholder="Password"
             onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
-          <Button type={"primary"}>Login</Button>
+          <Button type={"submit"} color="primary">
+            Login
+          </Button>
+          {/* <button>login</button> */}
           {/* <div className="divider">or</div> */}
           {/* <GoogleLoginButton /> */}
         </fieldset>
       </form>
       <div className="flex flex-col items-center justify-center gap-5">
-        <Link href="/register" className="hover:underline text-gray-700">
+        <Link href="/register" className="text-gray-700">
           Forgot password?
         </Link>
-        <span className="text-gray-700 flex items-center justify-center gap-1">
+        <span className="flex items-center justify-center gap-1 text-gray-700">
           No account?
-          <Link href="/register" className="hover:underline text-orange-500">
+          <Link href="/register" className="text-orange-500">
             Create one
           </Link>
         </span>

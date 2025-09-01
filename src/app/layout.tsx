@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Forum, Figtree } from "next/font/google";
 import "./globals.css";
-import SessionProviderWrapper from "@/components/SessionProviderWrapper";
+import SessionProviderWrapper from "@/wrappers/SessionProviderWrapper";
 import { LoadingProvider } from "@/context/LoadingContext";
 
 const forum = Forum({
