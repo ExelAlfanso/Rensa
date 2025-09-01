@@ -4,12 +4,14 @@ interface FilterData {
 }
 
 interface ListWithTitle {
+  column: number;
   title: string;
   items: FilterData[];
 }
 
 export const FilterLists: ListWithTitle[] = [
   {
+    column: 1,
     title: "Categories",
     items: [
       { id: "all", label: "All" },
@@ -21,6 +23,7 @@ export const FilterLists: ListWithTitle[] = [
     ],
   },
   {
+    column: 3,
     title: "Cameras",
     items: [
       { id: "all", label: "All" },
@@ -32,11 +35,24 @@ export const FilterLists: ListWithTitle[] = [
       { id: "lumix", label: "Lumix" },
       { id: "leica", label: "Leica" },
       { id: "ricoh", label: "Ricoh" },
-      { id: "hasselblad", label: "Hasselblad" },
       { id: "other", label: "Other" },
+      { id: "hasselblad", label: "Hasselblad" },
     ],
   },
   {
+    column: 1,
+    title: "Styles",
+    items: [
+      { id: "all", label: "All" },
+      { id: "cinematic", label: "Cinematic" },
+      { id: "minimalist", label: "Minimalist" },
+      { id: "vintage", label: "Vintage" },
+      { id: "modern", label: "Modern" },
+      { id: "abstract", label: "Abstract  " },
+    ],
+  },
+  {
+    column: 2,
     title: "Colors",
     items: [
       { id: "all", label: "All" },
@@ -47,17 +63,6 @@ export const FilterLists: ListWithTitle[] = [
       { id: "cool", label: "Cool" },
       { id: "filmLook", label: "Film Look" },
       { id: "pastel", label: "Pastel" },
-    ],
-  },
-  {
-    title: "Styles",
-    items: [
-      { id: "all", label: "All" },
-      { id: "cinematic", label: "Cinematic" },
-      { id: "minimalist", label: "Minimalist" },
-      { id: "vintage", label: "Vintage" },
-      { id: "modern", label: "Modern" },
-      { id: "abstract", label: "Abstract  " },
     ],
   },
 ];

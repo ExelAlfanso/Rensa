@@ -1,35 +1,23 @@
-import MasonryGalleryPage from "../MasonryGallery/page";
-import { FilterLists } from "../datas/filterDatas";
+"use client";
+
+import ExploreTabs from "@/components/tabs/ExploreTabs";
+import { useState } from "react";
+import FilterList from "../../components/lists/FilterList";
+import MasonryGalleryPage from "@/sections/MasonryGallerySection";
 export default function ExplorePage() {
+  const [activeTab, setActiveTab] = useState("tab1");
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white-500 px-100">
+    <div className="flex flex-col items-start justify-start min-h-screen bg-white-500 px-[260px]">
       <section
         id="filter"
         className="text-black flex flex-row justify-between w-full"
       >
-        {FilterLists.map((list, idx) => {
-          return (
-            <div key={idx}>
-              <h3 className="text-[18px] text-white-700 font-light">
-                {list.title}
-              </h3>
-              <div
-                className={`grid ${
-                  idx % 2 === 0 ? "grid-cols-1" : "grid-cols-2"
-                }`}
-              >
-                {list.items.map((item, idx) => (
-                  <div key={idx} className="mr-2 font-serif text-3xl">
-                    <button className="cursor-pointer">{item.label}</button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          );
-        })}
+        <FilterList></FilterList>
       </section>
-      <div className="border-t border-white-700 w-full">Default</div>
-      <MasonryGalleryPage></MasonryGalleryPage>
+      <div className="border-t border-white-700 w-full my-11"></div>
+      <ExploreTabs setActiveTab={setActiveTab} className="mb-10"></ExploreTabs>
+      <MasonryGalleryPage activeTab={activeTab}></MasonryGalleryPage>
     </div>
   );
 }
