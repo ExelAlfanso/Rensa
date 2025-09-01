@@ -27,7 +27,7 @@ const Button: React.FC<ButtonProps> = ({
       type={type}
       id={id}
       onClick={onClick}
-      className={`btn btn-lg border-0 outline-0 ring-0 ${colorClasses[color]} rounded-[50px] text-[16px] font-semibold px-6 ${className}`}
+      className={`btn flex border-0 outline-0 ring-0 ${colorClasses[color]} rounded-[50px] text-[16px] font-semibold px-6 ${className}`}
     >
       {children}
     </button>

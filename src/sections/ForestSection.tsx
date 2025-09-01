@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 const ForestSection = () => {
   return (
-    <div className="relative h-full font-serif text-white text-3xl">
+    <div className="relative h-full font-serif text-3xl text-white">
       <Image
         src={"/forest.jpg"}
         priority

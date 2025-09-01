@@ -75,16 +75,16 @@ export default function MasonryGalleyPage() {
       >
         {images.map((src, idx) => (
           <div key={idx} className="mb-6">
-            <div className="relative overflow-hidden rounded-2xl group cursor-pointer">
+            <div className="relative overflow-hidden cursor-pointer rounded-2xl group">
               <Image
                 src={src}
                 alt={`Image ${idx}`}
                 width={300}
                 height={400}
                 loading="lazy"
-                className="w-full h-auto transform transition-transform duration-300 group-hover:scale-105"
+                className="w-full h-auto transition-transform duration-300 transform group-hover:scale-105"
               />
-              <div className="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 group-hover:opacity-40"></div>
+              <div className="absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40"></div>
             </div>
           </div>
         ))}

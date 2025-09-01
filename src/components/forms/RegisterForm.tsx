@@ -67,13 +67,13 @@ const RegisterForm = () => {
     <div>
       <form
         onSubmit={handleSubmit}
-        className="w-xl h-full flex items-center justify-center flex-col mb-5"
+        className="flex flex-col items-center justify-center h-full mb-5 w-xl"
       >
         <div className="flex flex-col items-center justify-center">
           <Logo />
           <h1 className="font-serif text-3xl text-black">Register</h1>
         </div>
-        <fieldset className="fieldset w-full p-4">
+        <fieldset className="w-full p-4 fieldset">
           {error && <div className="text-red">{error}</div>}
           <InputField
             type="text"
@@ -101,18 +101,20 @@ const RegisterForm = () => {
               setForm({ ...form, confirmPassword: e.target.value })
             }
           />
-          <Button type={"primary"}>Register</Button>
+          <Button color={"primary"} type={"button"}>
+            Register
+          </Button>
           {/* <div className="divider">or</div> */}
           {/* <GoogleLoginButton /> */}
         </fieldset>
       </form>
       <div className="flex flex-col items-center justify-center gap-5">
-        <Link href="/register" className=" text-gray-700">
+        <Link href="/register" className="text-gray-700 ">
           Forgot password?
         </Link>
-        <span className="text-gray-700 flex items-center justify-center gap-1">
+        <span className="flex items-center justify-center gap-1 text-gray-700">
           No account?
-          <Link href="/register" className=" text-orange-500">
+          <Link href="/register" className="text-orange-500 ">
             Create one
           </Link>
         </span>

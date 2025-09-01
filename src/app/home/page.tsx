@@ -4,7 +4,6 @@ import LogoutButton from "@/components/buttons/LogoutButton";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import LoadingOverlay from "@/components/LoadingOverlay";
-import UploadButton from "@/components/buttons/UploadButton";
 import Button from "@/components/buttons/Button";
 import InputField from "@/components/inputfields/InputField";
 import IconButton from "@/components/buttons/IconButton";
@@ -13,7 +12,7 @@ export default function HomePage() {
   const { data: session, status } = useSession();
   if (status === "loading") return <LoadingOverlay></LoadingOverlay>;
   return (
-    <section className="flex items-center justify-center min-h-screen gap-5">
+    <section className="flex items-center justify-center min-h-screen gap-5 ">
       {session && (
         <div>
           <h1>Welcome, {session?.user.name}</h1>

@@ -3,14 +3,9 @@ import React from "react";
 interface LoadingOverlayProps {
   id?: string;
   className?: string;
-  children?: React.ReactNode;
 }
 
-const LoadingOverlay: React.FC<LoadingOverlayProps> = ({
-  id,
-  className,
-  children,
-}) => {
+const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ id, className }) => {
   return (
     <div className="flex items-center justify-center">
       <div
