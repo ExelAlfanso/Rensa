@@ -5,6 +5,7 @@ import Masonry from "react-masonry-css";
 import Image from "next/image";
 import "../../components/MasonryGallery.css";
 
+// const images = [];
 const images = [
   "https://picsum.photos/300/200",
   "https://picsum.photos/300/500",
@@ -54,11 +55,10 @@ const images = [
   "https://picsum.photos/300/420",
   "https://picsum.photos/300/390",
   "https://picsum.photos/300/470",
-  "https://picsum.photos/300/440",
   "https://picsum.photos/300/360",
 ];
 
-export default function MasonryGalleyPage() {
+export default function MasonryGalleryPage() {
   const breakpointColumnsObj = {
     default: 4,
     1100: 3,

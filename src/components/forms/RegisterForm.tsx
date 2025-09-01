@@ -9,6 +9,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import api from "@/lib/axios";
+
 // TODO: CONTINUE REGISTER FORM
 const RegisterForm = () => {
   const [form, setForm] = useState({
@@ -67,14 +68,14 @@ const RegisterForm = () => {
     <div>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col items-center justify-center h-full mb-5 w-xl"
+        className="flex flex-col items-center justify-center h-full gap-16 mb-5 w-xl"
       >
         <div className="flex flex-col items-center justify-center">
           <Logo />
           <h1 className="font-serif text-3xl text-black">Register</h1>
         </div>
         <fieldset className="w-full p-4 fieldset">
-          {error && <div className="text-red">{error}</div>}
+          {error && <div className="text-orange-900">{error}</div>}
           <InputField
             type="text"
             name="username"
@@ -101,7 +102,7 @@ const RegisterForm = () => {
               setForm({ ...form, confirmPassword: e.target.value })
             }
           />
-          <Button color={"primary"} type={"button"}>
+          <Button className="h-[62px] my-7" color={"primary"} type={"submit"}>
             Register
           </Button>
           {/* <div className="divider">or</div> */}

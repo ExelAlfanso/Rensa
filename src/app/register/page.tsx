@@ -9,7 +9,7 @@ export default function RegisterPage() {
       <div className="w-1/4">
         <ForestSection></ForestSection>
       </div>
-      <div className="flex items-center justify-center w-3/4 bg-gray-100">
+      <div className="flex items-center justify-center w-3/4 bg-white-500">
         <RegisterForm></RegisterForm>
       </div>
     </section>
