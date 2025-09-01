@@ -40,21 +40,6 @@ export const FilterLists: ListWithTitle[] = [
     title: "Colors",
     items: [
       { id: "all", label: "All" },
-      { id: "red", label: "Red" },
-      { id: "green", label: "Green" },
-      { id: "blue", label: "Blue" },
-      { id: "yellow", label: "Yellow" },
-      { id: "orange", label: "Orange" },
-      { id: "purple", label: "Purple" },
-      { id: "black", label: "Black" },
-      { id: "white", label: "White" },
-      { id: "other", label: "Other" },
-    ],
-  },
-  {
-    title: "Styles",
-    items: [
-      { id: "all", label: "All" },
       { id: "blackAndWhite", label: "B&W" },
       { id: "vibrant", label: "Vibrant" },
       { id: "muted", label: "Muted" },
@@ -62,6 +47,17 @@ export const FilterLists: ListWithTitle[] = [
       { id: "cool", label: "Cool" },
       { id: "filmLook", label: "Film Look" },
       { id: "pastel", label: "Pastel" },
+    ],
+  },
+  {
+    title: "Styles",
+    items: [
+      { id: "all", label: "All" },
+      { id: "cinematic", label: "Cinematic" },
+      { id: "minimalist", label: "Minimalist" },
+      { id: "vintage", label: "Vintage" },
+      { id: "modern", label: "Modern" },
+      { id: "abstract", label: "Abstract  " },
     ],
   },
 ];

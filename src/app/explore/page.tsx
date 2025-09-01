@@ -13,7 +13,11 @@ export default function ExplorePage() {
               <h3 className="text-[18px] text-white-700 font-light">
                 {list.title}
               </h3>
-              <div className="grid grid-cols-2">
+              <div
+                className={`grid ${
+                  idx % 2 === 0 ? "grid-cols-1" : "grid-cols-2"
+                }`}
+              >
                 {list.items.map((item, idx) => (
                   <div key={idx} className="mr-2 font-serif text-3xl">
                     <button className="cursor-pointer">{item.label}</button>
