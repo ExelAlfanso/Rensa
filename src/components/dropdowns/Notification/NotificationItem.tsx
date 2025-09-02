@@ -1,21 +1,32 @@
 import Link from "next/link";
-import React from "react";
 import Image from "next/image";
 import Text from "@/components/Text";
-const NotificationItem = () => {
+import React from "react";
+
+interface NotificationItemProps {
+  src: string;
+  username: string;
+  className?: string;
+}
+
+const NotificationItem: React.FC<NotificationItemProps> = ({
+  src,
+  username,
+  className,
+}) => {
   return (
-    <li className="hover:bg-white-600 rounded-2xl">
-      <Link href="#">
-        <div className="avatar w-12 h-12 inline">
+    <li>
+      <Link href="#" className={`px-5 w-full ${className} hover:bg-white-600`}>
+        <div className="avatar w-12 h-12 inline mr-3">
           <Image
-            src="/profile.jpg"
-            alt="Notification"
+            src={src || "/profile.jpg"}
+            alt="profile"
             fill
-            className="object-cover rounded-full aspect-square"
+            className="object-cover rounded-2xl aspect-square"
           />
         </div>
         <Text size="s" className="inline">
-          username saved your image
+          <span className="inline font-bold">{username}</span> saved your image
         </Text>
       </Link>
     </li>

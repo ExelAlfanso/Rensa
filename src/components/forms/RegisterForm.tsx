@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Button from "../buttons/Button";
 import InputField from "../inputfields/InputField";
 import Logo from "../icons/Logo";
-import { useLoading } from "@/context/LoadingContext";
+import { useLoading } from "@/hooks/useLoading";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import axios from "axios";

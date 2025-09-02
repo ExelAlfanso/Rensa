@@ -1,4 +1,4 @@
-import { useLoading } from "@/context/LoadingContext";
+import { useLoading } from "@/hooks/useLoading";
 import api from "@/lib/axios";
 import React, { useState } from "react";
 

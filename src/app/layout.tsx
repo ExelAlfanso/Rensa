@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Forum, Figtree } from "next/font/google";
 import "./globals.css";
 import SessionProviderWrapper from "@/wrappers/SessionProviderWrapper";
-import { LoadingProvider } from "@/context/LoadingContext";
+import { LoadingProvider } from "@/hooks/useLoading";
 
 const forum = Forum({
   subsets: ["latin"],

@@ -4,7 +4,7 @@ import React, { FormEvent, useState } from "react";
 import Button from "@/components/buttons/Button";
 import InputField from "@/components/inputfields/InputField";
 import Logo from "@/components/icons/Logo";
-import { useLoading } from "@/context/LoadingContext";
+import { useLoading } from "@/hooks/useLoading";
 import { signIn } from "next-auth/react";
 import PasswordInputField from "../inputfields/PasswordInputField";
 

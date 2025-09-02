@@ -4,22 +4,26 @@ import React from "react";
 interface NotificationButtonProps {
   id?: string;
   className?: string;
-  children?: React.ReactNode;
+  popoverTarget: string;
+  onClick?: () => void;
 }
 
 const NotificationButton: React.FC<NotificationButtonProps> = ({
   id,
   className,
-  children,
+  popoverTarget,
+  onClick,
 }) => {
   return (
-    <summary
+    <button
       id={id}
+      popoverTarget={popoverTarget}
       className={`btn bg-transparent border-0 outline-0 ring-0 cursor-pointer hover:text-gray-800 transition-colors duration-300 text-primary ${className}`}
+      style={{ anchorName: "--anchor-1" } as React.CSSProperties}
+      onClick={onClick}
     >
       <BellIcon size={32} weight="fill"></BellIcon>
-      {children}
-    </summary>
+    </button>
   );
 };
 
