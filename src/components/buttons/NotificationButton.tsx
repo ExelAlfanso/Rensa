@@ -13,13 +13,13 @@ const NotificationButton: React.FC<NotificationButtonProps> = ({
   children,
 }) => {
   return (
-    <div
+    <summary
       id={id}
-      className={`cursor-pointer hover:text-gray-800 transition-colors duration-300 ${className}`}
+      className={`btn bg-transparent border-0 outline-0 ring-0 cursor-pointer hover:text-gray-800 transition-colors duration-300 text-primary ${className}`}
     >
       <BellIcon size={32} weight="fill"></BellIcon>
       {children}
-    </div>
+    </summary>
   );
 };
 

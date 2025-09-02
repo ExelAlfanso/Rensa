@@ -11,13 +11,7 @@ export default function ExplorePage() {
   return (
     <div className="flex flex-col items-start justify-start min-h-screen bg-white-500 px-[260px]">
       <ExploreNavBar></ExploreNavBar>
-
-      <section
-        id="filter"
-        className="text-black flex flex-row justify-between w-full pt-30"
-      >
-        <FilterList></FilterList>
-      </section>
+      <FilterList></FilterList>
       <div className="border-t border-white-700 w-full my-11"></div>
       <ExploreTabs setActiveTab={setActiveTab} className="mb-10"></ExploreTabs>
       <MasonryGalleryPage activeTab={activeTab}></MasonryGalleryPage>

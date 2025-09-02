@@ -110,13 +110,10 @@ const RegisterForm = () => {
         </fieldset>
       </form>
       <div className="flex flex-col items-center justify-center gap-5">
-        <Link href="/register" className="text-gray-700 ">
-          Forgot password?
-        </Link>
         <span className="flex items-center justify-center gap-1 text-gray-700">
-          No account?
-          <Link href="/register" className="text-orange-500 ">
-            Create one
+          Have an account?
+          <Link href="/login" className="text-orange-500 ">
+            Login
           </Link>
         </span>
       </div>
