@@ -10,6 +10,11 @@
   --primary: #031602;
   --secondary: #FF9000;
   
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground); 
+
    /* White Shades from Palette */
   --white-50: #ffffff;
   --white-100: #fdfdfd;

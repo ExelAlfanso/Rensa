@@ -20,7 +20,7 @@ const Button: React.FC<ButtonProps> = ({
   type,
 }) => {
   const colorClasses: { [key in ButtonProps["color"]]: string } = {
-    primary: `btn-primary hov er:bg-black-300 focus:bg-black-400`,
+    primary: `btn-primary hover:bg-black-300 focus:bg-black-400`,
     secondary: `btn-secondary hover:bg-orange-300 focus:bg-orange-700`,
     tertiary: `btn-ghost hover:text-gray-400 hover:bg-transparent focus:text-primary`,
   };
@@ -30,7 +30,7 @@ const Button: React.FC<ButtonProps> = ({
       id={id}
       role={role}
       onClick={onClick}
-      className={`btn flex border-0 outline-0 ring-0 ${colorClasses[color]} rounded-[50px] text-[16px] font-semibold px-6 ${className}`}
+      className={`btn flex border-0 outline-0 ring-0 ${colorClasses[color]} rounded-[50px] text-[16px] font-normal px-6 ${className}`}
     >
       {children}
     </button>

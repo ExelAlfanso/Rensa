@@ -71,7 +71,7 @@ const RegisterForm = () => {
         className="flex flex-col items-center justify-center h-full gap-16 mb-5 w-xl"
       >
         <div className="flex flex-col items-center justify-center">
-          <Logo />
+          <Logo size={100} />
           <h1 className="font-serif text-3xl text-black">Register</h1>
         </div>
         <fieldset className="w-full p-4 fieldset">

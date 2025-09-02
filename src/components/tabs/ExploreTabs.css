@@ -9,7 +9,7 @@
         &:is(.tab-active, [aria-selected="true"]):not(.tab-disabled, [disabled]), &:is(input:checked), &:is(label:has(:checked)) {
             &:before {
                 color: var(--secondary);
-                scale:1;  
+                scale: 1;
                 transition: scale 0.3s ease;
             }
         }

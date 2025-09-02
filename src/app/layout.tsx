@@ -6,12 +6,14 @@ import { LoadingProvider } from "@/context/LoadingContext";
 
 const forum = Forum({
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400"],
 });
+
 const figtree = Figtree({
   subsets: ["latin"],
   weight: "400",
 });
+
 export const metadata: Metadata = {
   title: "Project Rensa",
   description: "Where every picture tells its recipe",
