@@ -6,7 +6,7 @@ import Image from "next/image";
 import "@/components/MasonryGallery.css";
 
 interface MasonryGallerySectionProps {
-  activeTab: string;
+  activeTab?: string;
 }
 // const images = [];
 const images = [

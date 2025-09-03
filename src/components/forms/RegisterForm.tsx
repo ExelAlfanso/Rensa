@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import api from "@/lib/axios";
 
-// TODO: CONTINUE REGISTER FORM
+// TODO: ON HOLD BECAUSE REPLACING LOGO AND SHIT
 const RegisterForm = () => {
   const [form, setForm] = useState({
     username: "",

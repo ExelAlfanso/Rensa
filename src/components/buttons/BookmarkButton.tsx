@@ -1,3 +1,5 @@
+"use client";
+
 import { BookmarkSimpleIcon } from "@phosphor-icons/react";
 import React from "react";
 

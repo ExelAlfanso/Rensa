@@ -1,4 +1,6 @@
-import React, { JSX } from "react";
+"use client";
+
+import React from "react";
 import NotificationButton from "../buttons/NotificationButton";
 
 interface DropdownProps {

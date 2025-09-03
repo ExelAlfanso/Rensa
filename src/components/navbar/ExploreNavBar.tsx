@@ -1,14 +1,14 @@
 import React from "react";
 import Button from "../buttons/Button";
-import SearchInputField from "../inputfields/SearchInputFIeld";
 import Logo from "../icons/Logo";
 import Heading from "../Heading";
 import ProfileButton from "@/components/buttons/ProfileIconButton";
-import NotificationButton from "../buttons/NotificationButton";
 import BookmarkButton from "../buttons/BookmarkButton";
 import CaretIcon from "../buttons/CaretButton";
 import Link from "next/link";
 import NotificationDropdown from "../dropdowns/Notification/NotificationDropdown";
+import SearchInputField from "../inputfields/SearchInputField";
+
 const ExploreNavBar = () => {
   return (
     <nav className="z-10 top-5 fixed w-346 h-18 text-black rounded-[48px] flex items-center justify-between bg-white-200 shadow-lg">
@@ -17,11 +17,7 @@ const ExploreNavBar = () => {
         <Link href="/home">
           <Heading size="s">Rensa</Heading>
         </Link>
-        <SearchInputField
-          onChange={function (e: React.ChangeEvent<HTMLInputElement>): void {
-            throw new Error("Function not implemented.");
-          }}
-        ></SearchInputField>
+        <SearchInputField></SearchInputField>
       </div>
       <div className="flex flex-row items-center justify-center gap-6 mr-6">
         <Button color={"secondary"}>Create</Button>

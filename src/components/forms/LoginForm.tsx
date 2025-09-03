@@ -8,7 +8,7 @@ import { useLoading } from "@/hooks/useLoading";
 import { signIn } from "next-auth/react";
 import PasswordInputField from "../inputfields/PasswordInputField";
 
-// TODO: CONTINUE LOGIN FORM
+// TODO: ON HOLD BECAUSE REPLACING LOGO AND SHIT
 
 const LoginForm = () => {
   const [form, setForm] = useState({ email: "", password: "" });

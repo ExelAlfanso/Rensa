@@ -4,7 +4,7 @@ import { tabDatas } from "@/app/datas/exploreDatas";
 import React from "react";
 import "./ExploreTabs.css";
 interface ExploreTabsProps {
-  setActiveTab: (tab: string) => void;
+  setActiveTab?: (tab: string) => void;
   className?: string;
 }
 
@@ -21,7 +21,7 @@ const ExploreTabs: React.FC<ExploreTabsProps> = ({
           name="my_tabs_2"
           className="tab transition-all duration-300 hover:text-primary text-primary text-[20px] "
           onClick={() => {
-            setActiveTab(tab.id);
+            setActiveTab?.(tab.id);
           }}
           defaultChecked={tab.id === "tab1"}
           aria-label={tab.label}

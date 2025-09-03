@@ -1,3 +1,4 @@
+"use client";
 import { CaretDownIcon } from "@phosphor-icons/react";
 
 import React from "react";

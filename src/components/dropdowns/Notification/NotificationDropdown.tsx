@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import NotificationButton from "../../buttons/NotificationButton";
 import Heading from "../../Heading";

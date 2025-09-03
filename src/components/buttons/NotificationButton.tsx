@@ -1,3 +1,5 @@
+"use client";
+
 import { BellIcon } from "@phosphor-icons/react";
 import React from "react";
 
