@@ -44,7 +44,7 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
       id={id}
       className={`flex flex-col gap-1.5 bg-white-200 ${className} shadow-lg p-10 rounded-3xl text-primary`}
     >
-      <div className="inline-flex items-center justify-between w-[350px]">
+      <div className="inline-flex items-center justify-between w-full">
         <span className="text-black inline-flex items-center justify-center">
           <Text size="s">24</Text>
           <BookmarkSimpleIcon weight="fill" size={28} />
@@ -70,7 +70,7 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
           <Heading size="m">{title}</Heading>
         </div>
         <ProfileBadge src={avatarUrl} alt={username} className="mb-5" />
-        <Text size="m" className="text-black-200">
+        <Text size="m" className="text-black-200 max-w-[350px]">
           {caption}
         </Text>
       </div>
