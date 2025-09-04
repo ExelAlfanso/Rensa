@@ -10,6 +10,7 @@ export default function LandingPage() {
       fetch("/api/unsplashes").then((res) => res.json()),
       fetch("/api/unsplashes").then((res) => res.json()),
       fetch("/api/unsplashes").then((res) => res.json()),
+      fetch("/api/unsplashes").then((res) => res.json()),
     ]).then((results) => {
       const urls = results
         .map((data) => data.urls && data.urls.regular)
@@ -20,66 +21,133 @@ export default function LandingPage() {
 
   return (
     <div>
-      <div className="-z-10 absolute top-0 left-0 w-screen h-screen flex justify-around items-center space-x-4 p-10">
-        <div
-          id="container-1"
-          className="absolute top-[119px] left-[227px] w-[404px] h-[450px] overflow-hidden rounded-lg bg-gray-100"
-        >
-          {imgUrls[0] && (
-            <img
-              src={imgUrls[0]}
-              alt="Random 1"
-              className="w-full h-full object-cover"
-            />
-          )}
+      <div id="hero-section">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl text-center font-bold mix-blend-color-dodge  text-[#000000]">
+          Where Every Picture
+          <br />
+          Tells Its Recipe
         </div>
-        <div
-          id="container-2"
-          className="absolute top-[618px] left-[438px] w-[564px] h-[317px] overflow-hidden rounded-lg bg-gray-100"
-        >
-          {imgUrls[1] && (
-            <img
-              src={imgUrls[1]}
-              alt="Random 2"
-              className="w-full h-full object-cover"
-            />
-          )}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl text-center font-bold mix-blend-exclusion text-white">
+          Where Every Picture
+          <br />
+          Tells Its Recipe
         </div>
-        <div
-          id="container-3"
-          className="absolute top-[221px] left-[1236px] w-[512px] h-[297px] overflow-hidden rounded-lg bg-gray-100"
-        >
-          {imgUrls[2] && (
-            <img
-              src={imgUrls[2]}
-              alt="Random 3"
-              className="w-full h-full object-cover"
-            />
-          )}
-        </div>
-        <div
-          id="container-4"
-          className="absolute top-[600px] left-[1138px] w-[302px] h-[432px] overflow-hidden rounded-lg bg-gray-100"
-        >
-          {imgUrls[3] && (
-            <img
-              src={imgUrls[3]}
-              alt="Random 3"
-              className="w-full h-full object-cover"
-            />
-          )}
+        <div className="relative w-screen h-screen -z-10">
+          <div
+            id="container-1"
+            className="absolute top-[12vh] left-[8vw] w-[28vw] h-[36vh]  rounded-lg bg-gray-100"
+          >
+            {imgUrls[0] && (
+              <img
+                src={imgUrls[0]}
+                alt="Random 1"
+                className="w-full h-full object-cover"
+              />
+            )}
+          </div>
+          <div
+            id="container-2"
+            className="absolute top-[54vh] left-[18vw] w-[16vw] h-[40vh]  rounded-lg bg-gray-100"
+          >
+            {imgUrls[1] && (
+              <img
+                src={imgUrls[1]}
+                alt="Random 2"
+                className="w-full h-full object-cover"
+              />
+            )}
+          </div>
+          <div
+            id="container-3"
+            className="absolute top-[16vh] right-[14vw] w-[32vw] h-[40vh]  rounded-lg bg-gray-100"
+          >
+            {imgUrls[2] && (
+              <img
+                src={imgUrls[2]}
+                alt="Random 3"
+                className="w-full h-full object-cover"
+              />
+            )}
+          </div>
+          <div
+            id="container-4"
+            className="absolute bottom-[6vh] right-[16vw] w-[20vw] h-[36vh]  rounded-lg bg-gray-100"
+          >
+            {imgUrls[3] && (
+              <img
+                src={imgUrls[3]}
+                alt="Random 3"
+                className="w-full h-full object-cover"
+              />
+            )}
+          </div>
         </div>
       </div>
-      <div className="relative flex justify-center items-center h-96 m-40">
-        <div className="absolute text-5xl text-center font-bold mix-blend-color-burn text-[#56AD3B]">
-          Where Every Picture
+      <div className="static flex flex-row w-screen h-screen p-40 justify-between items-center">
+        <div className="text-3xl font-semibold  text-[#031602]">
+          Get an Idea
           <br />
-          Tells Its Recipe
+          of What You Should
+          <br />
+          Shoot Tomorrow
         </div>
-        <div className="absolute text-5xl text-center font-bold mix-blend-exclusion text-white ">
-          Where Every Picture
-          <br />
-          Tells Its Recipe
+        <div className="carousel w-[50vw] h-[48vh]">
+          <div id="slide1" className="carousel-item relative w-full h-full">
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+              <a href="#slide4" className="btn btn-circle">
+                ❮
+              </a>
+              <a href="#slide2" className="btn btn-circle">
+                ❯
+              </a>
+            </div>
+          </div>
+          <div id="slide2" className="carousel-item relative w-full h-full">
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+              <a href="#slide1" className="btn btn-circle">
+                ❮
+              </a>
+              <a href="#slide3" className="btn btn-circle">
+                ❯
+              </a>
+            </div>
+          </div>
+          <div id="slide3" className="carousel-item relative w-full h-full">
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+              <a href="#slide2" className="btn btn-circle">
+                ❮
+              </a>
+              <a href="#slide4" className="btn btn-circle">
+                ❯
+              </a>
+            </div>
+          </div>
+          <div id="slide4" className="carousel-item relative w-full h-full">
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+              <a href="#slide3" className="btn btn-circle">
+                ❮
+              </a>
+              <a href="#slide1" className="btn btn-circle">
+                ❯
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>
