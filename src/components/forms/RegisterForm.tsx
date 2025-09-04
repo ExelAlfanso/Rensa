@@ -76,32 +76,34 @@ const RegisterForm = () => {
         </div>
         <fieldset className="w-full p-4 fieldset">
           {error && <div className="text-orange-900">{error}</div>}
-          <InputField
-            type="text"
-            name="username"
-            placeholder="Username"
-            onChange={(e) => setForm({ ...form, username: e.target.value })}
-          />
-          <InputField
-            type="email"
-            name="email"
-            placeholder="Email"
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-          />
-          <InputField
-            type="text"
-            name="password"
-            placeholder="Password"
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-          />
-          <InputField
-            type="text"
-            name="confirmPassword"
-            placeholder="Confirm Password"
-            onChange={(e) =>
-              setForm({ ...form, confirmPassword: e.target.value })
-            }
-          />
+          <div className="flex flex-col gap-4">
+            <InputField
+              type="text"
+              name="username"
+              placeholder="Username"
+              onChange={(e) => setForm({ ...form, username: e.target.value })}
+            />
+            <InputField
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+            />
+            <InputField
+              type="text"
+              name="password"
+              placeholder="Password"
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+            />
+            <InputField
+              type="text"
+              name="confirmPassword"
+              placeholder="Confirm Password"
+              onChange={(e) =>
+                setForm({ ...form, confirmPassword: e.target.value })
+              }
+            />
+          </div>
           <Button className="h-[62px] my-7" color={"primary"} type={"submit"}>
             Register
           </Button>

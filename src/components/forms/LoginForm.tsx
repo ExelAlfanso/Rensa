@@ -59,6 +59,7 @@ const LoginForm = () => {
             name="email"
             placeholder="Email"
             onChange={(e) => setForm({ ...form, email: e.target.value })}
+            className="mb-4"
           />
           <PasswordInputField
             name="password"
