@@ -1,8 +1,20 @@
 import { useLoading } from "@/hooks/useLoading";
 import api from "@/lib/axios";
-import React, { useState } from "react";
+import { ArrowLeftIcon, PanoramaIcon } from "@phosphor-icons/react";
+import React, { useCallback, useState } from "react";
+import Text from "../Text";
+import Button from "./Button";
+import Heading from "../Heading";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import InputField from "../inputfields/InputField";
+import { useFileUpload } from "@/hooks/useFileUpload";
+import UploadPreview from "../UploadPreview";
+import UploadForm from "../forms/UploadForm";
+import UploadDropZone from "../dropzones/UploadDropZone";
 
 interface UploadButtonProps {
+  onFileSelect?: (file: File) => void;
   userId?: string;
 }
 interface UploadFormProps {
@@ -10,81 +22,152 @@ interface UploadFormProps {
   title: string;
   caption: string;
 }
-const UploadButton: React.FC<UploadButtonProps> = ({ userId }) => {
-  const [form, setForm] = useState<UploadFormProps>({
-    file: null,
-    title: "",
-    caption: "",
-  });
-  const { loading, setLoading } = useLoading();
-  const [message, setMessage] = useState("");
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      const selected = e.target.files[0];
-      if (selected.type !== "image/jpeg") {
-        setMessage("Only JPEG files are allowed!");
-      }
-      setForm({ ...form, file: selected });
-    }
-  };
-  const handleUpload = async () => {
-    if (!form.file) return;
-    if (!form.title || !form.title.trim()) {
-      setMessage("Title is required!");
-      return;
-    }
-    setLoading(true);
+const UploadButton: React.FC<UploadButtonProps> = ({
+  onFileSelect,
+  userId,
+}) => {
+  const {
+    photo,
+    uploadedFile,
+    isUploading,
+    isDragOver,
+    message,
+    fileInputRef,
+    handleDragOver,
+    handleDragLeave,
+    handleBrowseClick,
+    handleDrop,
+    handleFileChange,
+    handleCancel,
+  } = useFileUpload(onFileSelect);
+  // const [form, setForm] = useState<UploadFormProps>({
+  //   file: null,
+  //   title: "",
+  //   caption: "",
+  // });
 
-    const reader = new FileReader();
-    reader.readAsDataURL(form.file);
-    reader.onloadend = async () => {
-      try {
-        await api.post("/photos/upload", {
-          file: reader.result,
-          userId,
-          title: form.title,
-          caption: form.caption,
-        });
-        setMessage("Upload successfully!");
-      } catch (err) {
-        console.error("Upload failed:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-  };
+  // after continue use useLoading hook
+  // const { loading, setLoading } = useLoading();
+  const router = useRouter();
+  let content;
+
+  if (uploadedFile) {
+    content = (
+      <>
+        <Text size="xxl" className="mb-6 ">
+          Upload successful!
+        </Text>
+      </>
+    );
+  } else if (isUploading) {
+    content = (
+      <>
+        <Text size="xxl" className="mb-6">
+          Uploading your file...
+        </Text>
+        <Text size="m" className="text-white-800">
+          Please wait a moment
+        </Text>
+      </>
+    );
+  } else if (message) {
+    content = (
+      <>
+        <Text size="xxl" className="mb-6 ">
+          Upload failed!
+        </Text>
+        <Text size="m" className="text-red-500 ">
+          {message}
+        </Text>
+      </>
+    );
+  } else {
+    content = (
+      <>
+        <Text size="xxl" className="mb-6">
+          Drag and drop an image, or{" "}
+          <span>
+            <Text size="xxl" className="inline underline">
+              Browse
+            </Text>
+          </span>
+        </Text>
+        <Text size="m" className="text-white-800">
+          High resolution images (jpeg)
+        </Text>
+      </>
+    );
+  }
+
   return (
-    <div className="flex flex-col items-center gap-2">
-      {message}
-      <input
-        type="file"
-        accept="image/jpeg"
-        onChange={handleFileChange}
-        className="file-input"
-      />
-      <input
-        type="text"
-        name="title"
-        onChange={(e) => setForm({ ...form, title: e.target.value })}
-        placeholder="Title"
-        className="input"
-      />
-      <input
-        type="text"
-        name="caption"
-        onChange={(e) => setForm({ ...form, caption: e.target.value })}
-        placeholder="Caption"
-        className="input"
-      />
-      <button
-        className="btn btn-primary disabled:opacity-50"
-        onClick={handleUpload}
-        disabled={loading}
-      >
-        Upload
-      </button>
+    <div className="w-full max-w-4xl gap-2 mx-auto">
+      {uploadedFile ? (
+        <div className="flex items-center justify-between mb-10">
+          <Button onClick={handleCancel} color={"tertiary"}>
+            Cancel
+          </Button>{" "}
+          <Button color={"primary"}>Continue</Button>
+        </div>
+      ) : (
+        <div className="flex items-end justify-between mb-10">
+          <button
+            onClick={() => router.back()}
+            className="text-primary cursor-pointer hover:text-gray-500 transition-colors duration-300"
+          >
+            <ArrowLeftIcon size={32}></ArrowLeftIcon>
+          </button>
+        </div>
+      )}
+      <Heading size="l" alignment="center">
+        {!uploadedFile && "Show us the scene that stayed with you."}
+      </Heading>
+      {!uploadedFile ? (
+        <UploadDropZone
+          handleBrowseClick={handleBrowseClick}
+          handleDrop={handleDrop}
+          handleDragOver={handleDragOver}
+          handleDragLeave={handleDragLeave}
+          isDragOver={isDragOver}
+          isUploading={isUploading}
+          fileInputRef={fileInputRef}
+          handleFileChange={handleFileChange}
+          content={content}
+        ></UploadDropZone>
+      ) : (
+        <div className="flex flex-row gap-5 items-center justify-center">
+          <UploadPreview photo={photo}></UploadPreview>
+          <UploadForm></UploadForm>
+        </div>
+      )}
     </div>
   );
 };
 
 export default UploadButton;
+
+// const handleUpload = async () => {
+//   if (!form.file) return;
+//   if (!form.title || !form.title.trim()) {
+//     setMessage("Title is required!");
+//     return;
+//   }
+//   // setLoading(true);
+
+//   const reader = new FileReader();
+//   reader.readAsDataURL(form.file);
+//   reader.onloadend = async () => {
+//     try {
+//       await api.post("/photos/upload", {
+//         file: reader.result,
+//         userId,
+//         title: form.title,
+//         caption: form.caption,
+//       });
+//       setMessage("Upload successfully!");
+//     } catch (err) {
+//       console.error("Upload failed:", err);
+//     } finally {
+//       // setLoading(false);
+//     }
+//   };
+// };

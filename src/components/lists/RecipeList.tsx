@@ -14,7 +14,7 @@ const RecipeList: React.FC<RecipeListProps> = ({ metadata }) => {
         <CameraIcon size={32} />
         [Camera]
       </span>
-      <div className="grid grid-cols-2 gap-2 mt-4 h-75 overflow-y-scroll">
+      <div className="grid grid-cols-2 gap-2 mt-4 h-75 overflow-y-scroll no-scrollbar">
         {metadata?.exif &&
           Object.entries(metadata.exif).map(([key, value]) => (
             <div key={key}>
