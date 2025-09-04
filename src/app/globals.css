@@ -7,10 +7,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Forum&display=swap');
 :root {
   --background: #ffffff;
-  --foreground: #171717;
   --primary: #031602;
   --secondary: #FF9000;
   
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground); 
+
    /* White Shades from Palette */
   --white-50: #ffffff;
   --white-100: #fdfdfd;
@@ -59,17 +63,17 @@
   --gray-800: #727a72;
   --gray-900: #575a58;
 
-
+  --font-figtree: 'Figtree',serif;
+  --font-forum: 'Forum',sans-serif; 
+  
+}
+@theme inline{
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
-    
-  --font-figtree: 'Figtree',serif;
-  --font-forum: 'Forum',sans-serif; 
+  --color-foreground: var(--foreground); 
 
-}
-@theme inline{
+  --color-neutral: var(--orange-500);
 
  /* White Shades */
   --color-white-50: var(--white-50);
@@ -145,8 +149,8 @@ select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
   -webkit-text-fill-color: black;
-  -webkit-box-shadow: 0 0 0px 1000px var(--color-gray-50) inset;
-  box-shadow: 0 0 0px 1000px var(--color-gray-50) inset;
+  -webkit-box-shadow: 0 0 0px 1000px var(--color-gray-400) inset;
+  box-shadow: 0 0 0px 1000px var(--color-gray-400) inset;
   transition: background-color 5000s ease-in-out 0s;
   color: white;
 }

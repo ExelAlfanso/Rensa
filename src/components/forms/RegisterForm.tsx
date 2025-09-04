@@ -4,12 +4,13 @@ import React, { useState } from "react";
 import Button from "../buttons/Button";
 import InputField from "../inputfields/InputField";
 import Logo from "../icons/Logo";
-import { useLoading } from "@/context/LoadingContext";
+import { useLoading } from "@/hooks/useLoading";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import api from "@/lib/axios";
-// TODO: CONTINUE REGISTER FORM
+
+// TODO: ON HOLD BECAUSE REPLACING LOGO AND SHIT
 const RegisterForm = () => {
   const [form, setForm] = useState({
     username: "",
@@ -67,14 +68,14 @@ const RegisterForm = () => {
     <div>
       <form
         onSubmit={handleSubmit}
-        className="flex flex-col items-center justify-center h-full mb-5 w-xl"
+        className="flex flex-col items-center justify-center h-full gap-16 mb-5 w-xl"
       >
         <div className="flex flex-col items-center justify-center">
-          <Logo />
+          <Logo size={100} />
           <h1 className="font-serif text-3xl text-black">Register</h1>
         </div>
         <fieldset className="w-full p-4 fieldset">
-          {error && <div className="text-red">{error}</div>}
+          {error && <div className="text-orange-900">{error}</div>}
           <InputField
             type="text"
             name="username"
@@ -101,7 +102,7 @@ const RegisterForm = () => {
               setForm({ ...form, confirmPassword: e.target.value })
             }
           />
-          <Button color={"primary"} type={"button"}>
+          <Button className="h-[62px] my-7" color={"primary"} type={"submit"}>
             Register
           </Button>
           {/* <div className="divider">or</div> */}
@@ -109,13 +110,10 @@ const RegisterForm = () => {
         </fieldset>
       </form>
       <div className="flex flex-col items-center justify-center gap-5">
-        <Link href="/register" className="text-gray-700 ">
-          Forgot password?
-        </Link>
         <span className="flex items-center justify-center gap-1 text-gray-700">
-          No account?
-          <Link href="/register" className="text-orange-500 ">
-            Create one
+          Have an account?
+          <Link href="/login" className="text-orange-500 ">
+            Login
           </Link>
         </span>
       </div>

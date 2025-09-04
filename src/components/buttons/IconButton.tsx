@@ -1,12 +1,15 @@
+"use client";
+
 import React from "react";
 import Button from "./Button";
-import { PlusIcon } from "@phosphor-icons/react";
 
 interface IconButtonProps {
   type?: "submit" | "button";
   iconPosition: "left" | "right";
   color?: "primary" | "secondary" | "tertiary";
   children?: React.ReactNode;
+  Icon?: React.ElementType;
+  paddingX?: number;
 }
 
 const IconButton: React.FC<IconButtonProps> = ({
@@ -14,12 +17,14 @@ const IconButton: React.FC<IconButtonProps> = ({
   color = "primary",
   children,
   iconPosition,
+  Icon,
+  paddingX = 6,
 }) => {
   return (
-    <Button type={type} color={color}>
-      {iconPosition === "left" && <PlusIcon size={18} />}
+    <Button type={type} color={color} paddingX={paddingX}>
+      {iconPosition === "left" && Icon && <Icon size={18} />}
       {children}
-      {iconPosition === "right" && <PlusIcon size={18} />}
+      {iconPosition === "right" && Icon && <Icon size={18} />}
     </Button>
   );
 };

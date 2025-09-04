@@ -2,7 +2,9 @@ import { NextResponse } from "next/server";
 import cloudinary from "@/lib/cloudinary";
 import { connectDB } from "@/lib/mongodb";
 import Photo from "@/models/Photo";
-
+//TODO: Change userID to user : {id, username, avatarUrl} so that it is easier to put in datas in photoinfocard.
+//TODO: Make how to track saved/bookmarked number to be fetched in photoinfocard.
+//TODO: Add data what camera was used
 export async function POST(req: Request) {
   try {
     const { file, userId, title, caption } = await req.json();

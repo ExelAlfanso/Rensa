@@ -3,8 +3,12 @@
 import React from "react";
 import Masonry from "react-masonry-css";
 import Image from "next/image";
-import "../../components/MasonryGallery.css";
+import "@/components/MasonryGallery.css";
 
+interface MasonryGallerySectionProps {
+  activeTab?: string;
+}
+// const images = [];
 const images = [
   "https://picsum.photos/300/200",
   "https://picsum.photos/300/500",
@@ -54,13 +58,15 @@ const images = [
   "https://picsum.photos/300/420",
   "https://picsum.photos/300/390",
   "https://picsum.photos/300/470",
-  "https://picsum.photos/300/440",
   "https://picsum.photos/300/360",
 ];
 
-export default function MasonryGalleyPage() {
+const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
+  activeTab,
+}) => {
   const breakpointColumnsObj = {
-    default: 4,
+    default: 5,
+    1600: 4,
     1100: 3,
     700: 2,
     500: 1,
@@ -74,7 +80,7 @@ export default function MasonryGalleyPage() {
         columnClassName="my-masonry-grid_column"
       >
         {images.map((src, idx) => (
-          <div key={idx} className="mb-6">
+          <div key={idx}>
             <div className="relative overflow-hidden cursor-pointer rounded-2xl group">
               <Image
                 src={src}
@@ -91,4 +97,6 @@ export default function MasonryGalleyPage() {
       </Masonry>
     </div>
   );
-}
+};
+
+export default MasonryGallerySection;

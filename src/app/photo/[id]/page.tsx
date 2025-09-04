@@ -4,6 +4,10 @@ import mongoose from "mongoose";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { PhotoDocument } from "@/models/Photo";
+import MasonryGalleryPage from "@/sections/MasonryGallerySection";
+import ExploreNavBar from "@/components/navbar/ExploreNavBar";
+import Heading from "@/components/Heading";
+import PhotoInfoCard from "@/components/cards/PhotoInfoCard";
 
 export default async function PhotoPage({
   params,
@@ -15,13 +19,33 @@ export default async function PhotoPage({
   if (!mongoose.Types.ObjectId.isValid(id)) {
     notFound();
   }
-  // TODO: complete photo page
   const photo = await Photo.findById(id).lean<PhotoDocument>();
+
   return (
-    <div className="relative w-full max-w-3xl h-[500px]">
-      <Image src={photo?.url ?? ""} fill alt={photo?.title ?? "Photo"}></Image>
-      <h1>{photo?.title}</h1>
-      <p>{photo?.caption}</p>
+    <div className="bg-white-500">
+      <div className="flex flex-row items-center justify-center gap-[67px] pt-35 ">
+        <div className="flex items-center justify-center max-w-3xl h-[500px]">
+          <Image
+            src={photo?.url ?? ""}
+            alt={photo?.title ?? "Photo"}
+            width={photo?.metadata?.width}
+            height={photo?.metadata?.height}
+            className="rounded-3xl"
+          ></Image>
+        </div>
+        <PhotoInfoCard
+          title={photo?.title}
+          caption={photo?.caption}
+          metadata={photo?.metadata}
+        />
+      </div>
+      <div className="flex flex-col items-start justify-start min-h-screen bg-white-500 px-[260px]">
+        <ExploreNavBar></ExploreNavBar>
+        <Heading className="text-primary" size="s">
+          We thought you will like this
+        </Heading>
+        <MasonryGalleryPage></MasonryGalleryPage>
+      </div>
     </div>
   );
 }
