@@ -1,65 +1,67 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Masonry from "react-masonry-css";
 import Image from "next/image";
 import "@/components/MasonryGallery.css";
+import { ImageWithSkeleton } from "@/components/ImageWithSkeleton";
+import { useInView } from "react-intersection-observer";
 
 interface MasonryGallerySectionProps {
   activeTab?: string;
 }
 // const images = [];
-const images = [
-  "https://picsum.photos/300/200",
-  "https://picsum.photos/300/500",
-  "https://picsum.photos/300/350",
-  "https://picsum.photos/300/450",
-  "https://picsum.photos/300/420",
-  "https://picsum.photos/300/380",
-  "https://picsum.photos/300/360",
-  "https://picsum.photos/300/410",
-  "https://picsum.photos/300/390",
-  "https://picsum.photos/300/430",
-  "https://picsum.photos/300/340",
-  "https://picsum.photos/300/470",
-  "https://picsum.photos/300/400",
-  "https://picsum.photos/300/450",
-  "https://picsum.photos/300/420",
-  "https://picsum.photos/300/390",
-  "https://picsum.photos/300/360",
-  "https://picsum.photos/300/480",
-  "https://picsum.photos/300/440",
-  "https://picsum.photos/300/410",
-  "https://picsum.photos/300/370",
-  "https://picsum.photos/300/430",
-  "https://picsum.photos/300/350",
-  "https://picsum.photos/300/460",
-  "https://picsum.photos/300/380",
-  "https://picsum.photos/300/420",
-  "https://picsum.photos/300/390",
-  "https://picsum.photos/300/470",
-  "https://picsum.photos/300/440",
-  "https://picsum.photos/300/360",
-  "https://picsum.photos/300/410",
-  "https://picsum.photos/300/430",
-  "https://picsum.photos/300/370",
-  "https://picsum.photos/300/450",
-  "https://picsum.photos/300/390",
-  "https://picsum.photos/300/420",
-  "https://picsum.photos/300/360",
-  "https://picsum.photos/300/480",
-  "https://picsum.photos/300/440",
-  "https://picsum.photos/300/410",
-  "https://picsum.photos/300/370",
-  "https://picsum.photos/300/430",
-  "https://picsum.photos/300/350",
-  "https://picsum.photos/300/460",
-  "https://picsum.photos/300/380",
-  "https://picsum.photos/300/420",
-  "https://picsum.photos/300/390",
-  "https://picsum.photos/300/470",
-  "https://picsum.photos/300/360",
-];
+// const images = [
+//   "https://picsum.photos/300/200",
+//   "https://picsum.photos/300/500",
+//   "https://picsum.photos/300/350",
+//   "https://picsum.photos/300/450",
+//   "https://picsum.photos/300/420",
+//   "https://picsum.photos/300/380",
+//   "https://picsum.photos/300/360",
+//   "https://picsum.photos/300/410",
+//   "https://picsum.photos/300/390",
+//   "https://picsum.photos/300/430",
+//   "https://picsum.photos/300/340",
+//   "https://picsum.photos/300/470",
+//   "https://picsum.photos/300/400",
+//   "https://picsum.photos/300/450",
+//   "https://picsum.photos/300/420",
+//   "https://picsum.photos/300/390",
+//   "https://picsum.photos/300/360",
+//   "https://picsum.photos/300/480",
+//   "https://picsum.photos/300/440",
+//   "https://picsum.photos/300/410",
+//   "https://picsum.photos/300/370",
+//   "https://picsum.photos/300/430",
+//   "https://picsum.photos/300/350",
+//   "https://picsum.photos/300/460",
+//   "https://picsum.photos/300/380",
+//   "https://picsum.photos/300/420",
+//   "https://picsum.photos/300/390",
+//   "https://picsum.photos/300/470",
+//   "https://picsum.photos/300/440",
+//   "https://picsum.photos/300/360",
+//   "https://picsum.photos/300/410",
+//   "https://picsum.photos/300/430",
+//   "https://picsum.photos/300/370",
+//   "https://picsum.photos/300/450",
+//   "https://picsum.photos/300/390",
+//   "https://picsum.photos/300/420",
+//   "https://picsum.photos/300/360",
+//   "https://picsum.photos/300/480",
+//   "https://picsum.photos/300/440",
+//   "https://picsum.photos/300/410",
+//   "https://picsum.photos/300/370",
+//   "https://picsum.photos/300/430",
+//   "https://picsum.photos/300/350",
+//   "https://picsum.photos/300/460",
+//   "https://picsum.photos/300/380",
+//   "https://picsum.photos/300/420",
+//   "https://picsum.photos/300/390",
+//   "https://picsum.photos/300/470",
+//   "https://picsum.photos/300/360",
+// ];
 
 const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
   activeTab,
@@ -71,6 +73,39 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
     700: 2,
     500: 1,
   };
+  const [images, setImages] = useState<string[]>([]);
+  const [page, setPage] = useState(1);
+  const { ref, inView } = useInView({ threshold: 1 });
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const loadMore = async () => {
+      if (inView && !loading) {
+        setLoading(true);
+        setPage((prev) => prev + 1);
+        setLoading(false);
+      }
+    };
+    loadMore();
+  }, [inView, loading]);
+
+  const fetchImages = async (page: number) => {
+    const newImages = Array.from({ length: 10 }, () => {
+      const h = 300 + Math.floor(Math.random() * 200);
+      return `https://picsum.photos/200/${h}`;
+    });
+    setImages((prev) => [...prev, ...newImages]);
+  };
+
+  useEffect(() => {
+    fetchImages(page);
+  }, [page]);
+
+  useEffect(() => {
+    if (inView) {
+      setPage((prev) => prev + 1);
+    }
+  }, [inView]);
 
   return (
     <div className="flex items-center justify-center">
@@ -82,19 +117,20 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
         {images.map((src, idx) => (
           <div key={idx}>
             <div className="relative overflow-hidden cursor-pointer rounded-2xl group">
-              <Image
-                src={src}
-                alt={`Image ${idx}`}
-                width={300}
-                height={400}
-                loading="lazy"
-                className="w-full h-auto transition-transform duration-300 transform group-hover:scale-105"
-              />
+              <ImageWithSkeleton
+                image={{
+                  src: src,
+                  alt: `Image ${idx}`,
+                  width: 250,
+                  height: 350,
+                }}
+              ></ImageWithSkeleton>
               <div className="absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40"></div>
             </div>
           </div>
         ))}
       </Masonry>
+      <div ref={ref} className="h-10"></div>
     </div>
   );
 };

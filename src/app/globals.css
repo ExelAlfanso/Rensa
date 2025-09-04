@@ -155,3 +155,16 @@ select:-webkit-autofill:focus {
   color: white;
 }
 
+
+@layer utilities {
+  .no-scrollbar {
+    /* Firefox */
+    scrollbar-width: none;
+    /* IE, Edge */
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}

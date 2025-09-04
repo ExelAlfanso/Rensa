@@ -1,10 +1,12 @@
 "use client";
 import React from "react";
+import Text from "../Text";
 interface InputFieldProps {
   type: string;
   placeholder?: string;
   name?: string;
-  size?: "m" | "l";
+  label?: string;
+  size?: "m" | "l" | "xl" | "xxl";
   className?: string;
   disabled?: boolean;
   iconPosition?: "left" | "right";
@@ -17,6 +19,7 @@ const InputField: React.FC<InputFieldProps> = ({
   placeholder,
   size = "l",
   name,
+  label,
   className,
   disabled,
   Icon,
@@ -26,9 +29,18 @@ const InputField: React.FC<InputFieldProps> = ({
   const sizeClasses = {
     m: "h-12 py-3",
     l: "h-16 py-4",
+    xl: "h-20 py-5",
+    xxl: "h-24 py-6",
   };
   return (
     <>
+      {label && (
+        <label className={`mb-1 text-left `}>
+          <Text size="s" className="text-gray-600 ">
+            {label}
+          </Text>
+        </label>
+      )}
       {!Icon && (
         <input
           type={type}
