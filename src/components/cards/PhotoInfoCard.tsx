@@ -81,7 +81,7 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
         <Heading size="m" className="mb-5">
           Comments
         </Heading>
-        <div className="overflow-y-scroll h-35">
+        <div className="overflow-y-scroll no-scrollbar h-35">
           <Comment>Nice looking picture mate!</Comment>
           <Comment>Nice looking picture mate!</Comment>
           <Comment>Nice looking picture mate!</Comment>
