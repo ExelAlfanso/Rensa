@@ -20,10 +20,10 @@ export default function LandingPage() {
 
   return (
     <div>
-      <div className="-z-10 absolute top-0 left-0 w-full h-full flex justify-around items-center space-x-4 p-10">
+      <div className="-z-10 absolute top-0 left-0 w-screen h-screen flex justify-around items-center space-x-4 p-10">
         <div
           id="container-1"
-          className="w-[300px] h-[400px] overflow-hidden rounded-lg bg-gray-100"
+          className="absolute top-[119px] left-[227px] w-[404px] h-[450px] overflow-hidden rounded-lg bg-gray-100"
         >
           {imgUrls[0] && (
             <img
@@ -35,7 +35,7 @@ export default function LandingPage() {
         </div>
         <div
           id="container-2"
-          className="w-[404px] h-[450px] overflow-hidden rounded-lg bg-gray-100"
+          className="absolute top-[618px] left-[438px] w-[564px] h-[317px] overflow-hidden rounded-lg bg-gray-100"
         >
           {imgUrls[1] && (
             <img
@@ -47,7 +47,7 @@ export default function LandingPage() {
         </div>
         <div
           id="container-3"
-          className="w-[350px] h-[500px] overflow-hidden rounded-lg bg-gray-100"
+          className="absolute top-[221px] left-[1236px] w-[512px] h-[297px] overflow-hidden rounded-lg bg-gray-100"
         >
           {imgUrls[2] && (
             <img
@@ -59,7 +59,7 @@ export default function LandingPage() {
         </div>
         <div
           id="container-4"
-          className="w-[350px] h-[500px] overflow-hidden rounded-lg bg-gray-100"
+          className="absolute top-[600px] left-[1138px] w-[302px] h-[432px] overflow-hidden rounded-lg bg-gray-100"
         >
           {imgUrls[3] && (
             <img
