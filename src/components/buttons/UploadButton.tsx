@@ -1,13 +1,10 @@
-import { useLoading } from "@/hooks/useLoading";
 import api from "@/lib/axios";
-import { ArrowLeftIcon, PanoramaIcon } from "@phosphor-icons/react";
-import React, { useCallback, useState } from "react";
+import { ArrowLeftIcon } from "@phosphor-icons/react";
+import React from "react";
 import Text from "../Text";
 import Button from "./Button";
 import Heading from "../Heading";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import InputField from "../inputfields/InputField";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import UploadPreview from "../UploadPreview";
 import UploadForm from "../forms/UploadForm";
@@ -16,11 +13,6 @@ import UploadDropZone from "../dropzones/UploadDropZone";
 interface UploadButtonProps {
   onFileSelect?: (file: File) => void;
   userId?: string;
-}
-interface UploadFormProps {
-  file: File | null;
-  title: string;
-  caption: string;
 }
 const UploadButton: React.FC<UploadButtonProps> = ({
   onFileSelect,

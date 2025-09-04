@@ -2,7 +2,7 @@
 import { useState, useCallback, useRef } from "react";
 
 export function useFileUpload(onFileSelect?: (file: File) => void) {
-  const [photo, setPhoto] = useState<string>("");
+  const [photo, setPhoto] = useState("");
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
@@ -21,16 +21,6 @@ export function useFileUpload(onFileSelect?: (file: File) => void) {
   const handleBrowseClick = () => {
     fileInputRef.current?.click();
   };
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragOver(false);
-    const files = e.dataTransfer.files;
-
-    if (files && files.length > 0) {
-      handleFileSelect(files[0]);
-    }
-  }, []);
-
   const handleFileSelect = useCallback(
     (file: File) => {
       const isJPG =
@@ -51,6 +41,9 @@ export function useFileUpload(onFileSelect?: (file: File) => void) {
       setMessage("");
       setIsUploading(true);
 
+      const previewFile = URL.createObjectURL(file);
+      setPhoto(previewFile);
+
       setTimeout(() => {
         setUploadedFile(file);
         setIsUploading(false);
@@ -59,12 +52,23 @@ export function useFileUpload(onFileSelect?: (file: File) => void) {
     },
     [onFileSelect]
   );
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault();
+      setIsDragOver(false);
+      const files = e.dataTransfer.files;
+
+      if (files && files.length > 0) {
+        handleFileSelect(files[0]);
+      }
+    },
+    [handleFileSelect]
+  );
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       handleFileSelect(file);
-      const previewFile = URL.createObjectURL(file);
-      setPhoto(previewFile);
     }
   };
 
