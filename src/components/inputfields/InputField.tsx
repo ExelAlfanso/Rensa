@@ -30,13 +30,13 @@ const InputField: React.FC<InputFieldProps> = ({
     m: "h-12 py-3",
     l: "h-16 py-4",
     xl: "h-20 py-5",
-    xxl: "h-24 py-6",
+    xxl: "h-24 pt-6 pb-20",
   };
   return (
     <>
       {label && (
         <label className={`mb-1 text-left `}>
-          <Text size="s" className="text-gray-600 ">
+          <Text size="s" className="text-gray-700 ">
             {label}
           </Text>
         </label>
@@ -46,7 +46,7 @@ const InputField: React.FC<InputFieldProps> = ({
           type={type}
           name={name}
           disabled={disabled}
-          className={`input bg-gray-200 transition-colors text-[16px] duration-300 w-full text-black focus:outline-0 focus:bg-white-500 disabled:text-gray-300 disabled:border-gray-200 disabled:bg-white-500 focus:border-gray-800 rounded-3xl placeholder:text-primary pl-6 pr-4 ${sizeClasses[size]} ${className}`}
+          className={`input bg-gray-200 transition-colors text-[16px] duration-300 w-full text-black ring:0 focus:outline-0 focus:bg-white-500 disabled:text-gray-300 disabled:border-gray-200 disabled:bg-white-500 focus:border-gray-800 rounded-3xl placeholder:text-primary pl-6 pr-4 ${sizeClasses[size]} ${className}`}
           placeholder={placeholder}
           onChange={onChange}
         />

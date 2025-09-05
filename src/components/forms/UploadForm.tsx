@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import InputField from "../inputfields/InputField";
-
+import InputDropdown from "../inputfields/InputDropdown";
+import { cameraOptions } from "@/app/datas/uploadFormDatas";
 const UploadForm = () => {
+  const [form, setForm] = useState({
+    title: "",
+    description: "",
+    tags: [],
+    metadata: {},
+  });
+  const [isDetecting, setIsDetecting] = useState(false);
   return (
-    <div className="w-200 rounded-3xl shadow-lg p-10 bg-white-200 text-primary mt-10">
+    <div className="p-10 mt-10 shadow-lg w-200 rounded-3xl bg-white-200 text-primary">
       <InputField
         size="m"
         type={"text"}
@@ -31,7 +39,14 @@ const UploadForm = () => {
           throw new Error("Function not implemented.");
         }}
       ></InputField>
-      <div className="border-t border-white-700 w-full my-2"></div>
+      <div className="w-full my-2 border-t border-white-700"></div>
+      <div>
+        <InputDropdown
+          label="Camera brand"
+          values={cameraOptions}
+          placeholder="Select camera"
+        ></InputDropdown>
+      </div>
     </div>
   );
 };

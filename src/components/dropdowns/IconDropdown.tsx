@@ -1,15 +1,17 @@
 "use client";
 
 import React from "react";
-import NotificationButton from "../buttons/NotificationButton";
 
-interface DropdownProps {
+interface IconDropdownProps {
   id?: string;
   className?: string;
   children?: React.ReactNode;
-  Tag?: React.ElementType | string;
+  Tag?: React.ElementType;
 }
-const Dropdown: React.FC<DropdownProps> = ({ children, Tag = undefined }) => {
+const IconDropdown: React.FC<IconDropdownProps> = ({
+  children,
+  Tag = undefined,
+}) => {
   return (
     <div>
       {Tag && <Tag popoverTarget="popover-1" />}
@@ -17,7 +19,7 @@ const Dropdown: React.FC<DropdownProps> = ({ children, Tag = undefined }) => {
         popover="auto"
         id="popover-1"
         style={{ positionAnchor: "--anchor-1" } as React.CSSProperties}
-        className="menu dropdown dropdown-center bg-white-200 rounded-3xl z-1 w-66 p-0 shadow-sm inline-flex items-center justify-center"
+        className="inline-flex items-center justify-center p-0 shadow-sm menu dropdown dropdown-center bg-white-200 rounded-3xl z-1 w-66"
       >
         {children}
       </ul>
@@ -25,4 +27,4 @@ const Dropdown: React.FC<DropdownProps> = ({ children, Tag = undefined }) => {
   );
 };
 
-export default Dropdown;
+export default IconDropdown;

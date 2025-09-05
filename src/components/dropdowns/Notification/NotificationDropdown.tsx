@@ -5,12 +5,12 @@ import NotificationButton from "../../buttons/NotificationButton";
 import Heading from "../../Heading";
 import NotificationItem from "./NotificationItem";
 import { notificationDatas } from "@/app/datas/notificationDatas";
-import Dropdown from "../Dropdown";
+import IconDropdown from "../IconDropdown";
 
 const NotificationDropdown = () => {
   return (
     <div>
-      <Dropdown Tag={NotificationButton}>
+      <IconDropdown Tag={NotificationButton}>
         <Heading alignment="center" size="m" className="py-6">
           Notifications
         </Heading>
@@ -24,7 +24,7 @@ const NotificationDropdown = () => {
             }
           />
         ))}
-      </Dropdown>
+      </IconDropdown>
     </div>
   );
 };

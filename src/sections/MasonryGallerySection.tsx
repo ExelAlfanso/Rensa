@@ -2,10 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import Masonry from "react-masonry-css";
-import Image from "next/image";
 import "@/components/MasonryGallery.css";
 import { ImageWithSkeleton } from "@/components/ImageWithSkeleton";
 import { useInView } from "react-intersection-observer";
+import axios from "axios";
+
+//TODO: replace fetch images from unsplash api
 
 interface MasonryGallerySectionProps {
   activeTab?: string;
@@ -73,7 +75,7 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
     700: 2,
     500: 1,
   };
-  const [images, setImages] = useState<string[]>([]);
+  const [photos, setPhotos] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const { ref, inView } = useInView({ threshold: 1 });
   const [loading, setLoading] = useState(false);
@@ -94,8 +96,19 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
       const h = 300 + Math.floor(Math.random() * 200);
       return `https://picsum.photos/200/${h}`;
     });
-    setImages((prev) => [...prev, ...newImages]);
+    setPhotos((prev) => [...prev, ...newImages]);
   };
+
+  // const fetchImages = async (page: number) => {
+  //   try {
+  //     const res = await axios.get("/api/unsplashes");
+  //     const urls = res.data.map((data: any) => data.urls && data.urls.regular);
+  //     setPhotos((prev) => [...prev, ...urls]);
+  //     console.log(res);
+  //   } catch (err) {
+  //     console.error("Error fetching images:", err);
+  //   }
+  // };
 
   useEffect(() => {
     fetchImages(page);
@@ -114,7 +127,7 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
         className="my-masonry-grid"
         columnClassName="my-masonry-grid_column"
       >
-        {images.map((src, idx) => (
+        {photos.map((src, idx) => (
           <div key={idx}>
             <div className="relative overflow-hidden cursor-pointer rounded-2xl group">
               <ImageWithSkeleton
