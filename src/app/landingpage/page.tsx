@@ -1,23 +1,47 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
 export default function LandingPage() {
   const [imgUrls, setImgUrls] = useState<string[]>([]);
 
   useEffect(() => {
-    Promise.all([
-      fetch("/api/unsplashes").then((res) => res.json()),
-      fetch("/api/unsplashes").then((res) => res.json()),
-      fetch("/api/unsplashes").then((res) => res.json()),
-      fetch("/api/unsplashes").then((res) => res.json()),
-      fetch("/api/unsplashes").then((res) => res.json()),
-    ]).then((results) => {
+    Promise.all(
+      Array(8).fill(null)
+      // .map(() => fetch("/api/unsplashes").then((res) => res.json()))
+    ).then((results) => {
       const urls = results
         .map((data) => data.urls && data.urls.regular)
         .filter(Boolean);
       setImgUrls(urls);
     });
   }, []);
+
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  const card1Y = useTransform(scrollYProgress, [0, 0.625], ["100vh", "0vh"]);
+  const smoothCard1Y = useSpring(card1Y, { stiffness: 100, damping: 20 });
+
+  const card2Y = useTransform(scrollYProgress, [0, 0.75], ["120vh", "-20vh"]);
+  const smoothCard2Y = useSpring(card2Y, { stiffness: 100, damping: 20 });
+
+  const card3Y = useTransform(scrollYProgress, [0, 0.8], ["80vh", "-40vh"]);
+  const smoothCard3Y = useSpring(card3Y, { stiffness: 100, damping: 20 });
+
+  const card4Y = useTransform(scrollYProgress, [0, 0.85], ["140vh", "-60vh"]);
+  const smoothCard4Y = useSpring(card4Y, { stiffness: 100, damping: 20 });
+
+  const textY = useTransform(scrollYProgress, [0, 1], ["0vh", "0vh"]);
+  const textOpacity = useTransform(scrollYProgress, [0.5, 1], [0, 1]);
+  const smoothTextY = useSpring(textY, { stiffness: 100, damping: 20 });
+  const smoothTextOpacity = useSpring(textOpacity, {
+    stiffness: 100,
+    damping: 20,
+  });
 
   return (
     <div>
@@ -96,7 +120,12 @@ export default function LandingPage() {
             Shoot Tomorrow
           </div>
           <div className="font size-2 w-[28vw]">
-            <p> Stuck on what to capture next? Explore fresh perspectives from the community – each photo comes with a detailed recipe, so you can recreate the vibe or twist it your own way.</p>
+            <p>
+              {" "}
+              Stuck on what to capture next? Explore fresh perspectives from the
+              community – each photo comes with a detailed recipe, so you can
+              recreate the vibe or twist it your own way.
+            </p>
           </div>
         </div>
 
@@ -189,10 +218,86 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-      <div
-        id="cta"
-        className="w-screen h-[40vh] bg-[#031602] flex flex-col justify-center items-center text-white text-3xl font-semibold"
-      ></div>
+      <div className="h-[50vh]">
+        <section
+          ref={sectionRef}
+          className="relative z-0 h-[400vh] bg-white text-center text-black"
+        >
+          <div className="sticky left-0 top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden">
+            {/* Gambar 1 */}
+            <motion.div
+              className="absolute top-[20vh] left-[8vw] w-[28vw] h-[36vh] rounded-lg bg-gray-100 overflow-hidden"
+              style={{ y: smoothCard1Y }}
+            >
+              {imgUrls[0] && (
+                <img
+                  src={imgUrls[0]}
+                  alt="Random 1"
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </motion.div>
+
+            {/* Gambar 2 */}
+            <motion.div
+              className="absolute top-[54vh] left-[18vw] w-[16vw] h-[40vh] rounded-lg bg-gray-100 overflow-hidden"
+              style={{ y: smoothCard2Y }}
+            >
+              {imgUrls[1] && (
+                <img
+                  src={imgUrls[1]}
+                  alt="Random 2"
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </motion.div>
+
+            {/* Gambar 3 */}
+            <motion.div
+              className="absolute top-[16vh] right-[14vw] w-[32vw] h-[40vh] rounded-lg bg-gray-100 overflow-hidden"
+              style={{ y: smoothCard3Y }}
+            >
+              {imgUrls[2] && (
+                <img
+                  src={imgUrls[2]}
+                  alt="Random 3"
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </motion.div>
+
+            {/* Gambar 4 */}
+            <motion.div
+              className="absolute bottom-[6vh] right-[16vw] w-[20vw] h-[36vh] rounded-lg bg-gray-100 overflow-hidden"
+              style={{ y: smoothCard4Y }}
+            >
+              {imgUrls[3] && (
+                <img
+                  src={imgUrls[3]}
+                  alt="Random 4"
+                  className="w-full h-full object-cover"
+                />
+              )}
+            </motion.div>
+
+            {/* Text CTA */}
+            <motion.div
+              className="absolute top-[50vh] left-1/2 -translate-x-1/2 z-20 text-center px-6"
+              style={{ y: smoothTextY, opacity: smoothTextOpacity }}
+            >
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                Every Picture Holds a Secret.
+              </h1>
+              <p className="text-lg md:text-xl leading-relaxed font-medium">
+                Behind every frame lies a quiet formula — the shutter's breath,
+                the lens's sigh, the light's gentle fall.{" "}
+                <span className="font-semibold">Rensa</span> lets you see it
+                all, so tomorrow, your own story can be told the same way.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
