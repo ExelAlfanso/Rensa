@@ -83,14 +83,23 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-      <div id="idea-content"className="static flex flex-row w-screen h-screen p-40 justify-between items-center">
-        <div className="text-3xl font-semibold  text-[#031602] pb-[24vh]">
-          Get an Idea
-          <br />
-          of What You Should
-          <br />
-          Shoot Tomorrow
+      <div
+        id="idea-content"
+        className="static flex flex-row w-screen h-screen p-40 justify-between items-center"
+      >
+        <div className="flex flex-col gap-0 pb-[28vh]">
+          <div className="text-3xl font-semibold  text-[#031602] pb-[4vh]">
+            Get an Idea
+            <br />
+            of What You Should
+            <br />
+            Shoot Tomorrow
+          </div>
+          <div className="font size-2 w-[28vw]">
+            <p> Stuck on what to capture next? Explore fresh perspectives from the community – each photo comes with a detailed recipe, so you can recreate the vibe or twist it your own way.</p>
+          </div>
         </div>
+
         <div className="carousel w-[40vw] h-[76vh]">
           {/* Slide 1 */}
           <div id="slide1" className="carousel-item relative w-[40vw] h-[52vh]">
@@ -180,9 +189,10 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-      <div id="cta" className="w-screen h-[40vh] bg-[#031602] flex flex-col justify-center items-center text-white text-3xl font-semibold">
-
-      </div>
+      <div
+        id="cta"
+        className="w-screen h-[40vh] bg-[#031602] flex flex-col justify-center items-center text-white text-3xl font-semibold"
+      ></div>
     </div>
   );
 }
