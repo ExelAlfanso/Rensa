@@ -83,21 +83,30 @@ export default function LandingPage() {
           </div>
         </div>
       </div>
-      <div className="static flex flex-row w-screen h-screen p-40 justify-between items-center">
-        <div className="text-3xl font-semibold  text-[#031602]">
+      <div id="idea-content"className="static flex flex-row w-screen h-screen p-40 justify-between items-center">
+        <div className="text-3xl font-semibold  text-[#031602] pb-[24vh]">
           Get an Idea
           <br />
           of What You Should
           <br />
           Shoot Tomorrow
         </div>
-        <div className="carousel w-[50vw] h-[48vh]">
-          <div id="slide1" className="carousel-item relative w-full h-full">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+        <div className="carousel w-[40vw] h-[76vh]">
+          {/* Slide 1 */}
+          <div id="slide1" className="carousel-item relative w-[40vw] h-[52vh]">
+            {/* Image wrapper */}
+            <div className="absolute inset-0 overflow-hidden">
+              <img
+                src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            {/* Content */}
+            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-[40vh] bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+              <p className="p-4">This is Slide 1 content</p>
+            </div>
+            {/* Controls */}
+            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
               <a href="#slide4" className="btn btn-circle">
                 ❮
               </a>
@@ -106,12 +115,19 @@ export default function LandingPage() {
               </a>
             </div>
           </div>
-          <div id="slide2" className="carousel-item relative w-full h-full">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+
+          {/* Slide 2 */}
+          <div id="slide2" className="carousel-item relative w-[40vw] h-[52vh]">
+            <div className="absolute inset-0 overflow-hidden">
+              <img
+                src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-[40vh] bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+              <p className="p-4">This is Slide 2 content</p>
+            </div>
+            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
               <a href="#slide1" className="btn btn-circle">
                 ❮
               </a>
@@ -120,12 +136,19 @@ export default function LandingPage() {
               </a>
             </div>
           </div>
-          <div id="slide3" className="carousel-item relative w-full h-full">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+
+          {/* Slide 3 */}
+          <div id="slide3" className="carousel-item relative w-[40vw] h-[52vh]">
+            <div className="absolute inset-0 overflow-hidden">
+              <img
+                src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-[40vh] bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+              <p className="p-4">This is Slide 3 content</p>
+            </div>
+            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
               <a href="#slide2" className="btn btn-circle">
                 ❮
               </a>
@@ -134,12 +157,19 @@ export default function LandingPage() {
               </a>
             </div>
           </div>
-          <div id="slide4" className="carousel-item relative w-full h-full">
-            <img
-              src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 transform justify-between">
+
+          {/* Slide 4 */}
+          <div id="slide4" className="carousel-item relative w-[40vw] h-[52vh]">
+            <div className="absolute inset-0 overflow-hidden">
+              <img
+                src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
+                className="w-full h-full object-cover"
+              />
+            </div>
+            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-[40vh] bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+              <p className="p-4">This is Slide 4 content</p>
+            </div>
+            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
               <a href="#slide3" className="btn btn-circle">
                 ❮
               </a>
@@ -149,6 +179,9 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
+      </div>
+      <div id="cta" className="w-screen h-[40vh] bg-[#031602] flex flex-col justify-center items-center text-white text-3xl font-semibold">
+
       </div>
     </div>
   );
