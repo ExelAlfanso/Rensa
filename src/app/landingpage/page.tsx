@@ -8,7 +8,7 @@ export default function LandingPage() {
   useEffect(() => {
     Promise.all(
       Array(8).fill(null)
-      // .map(() => fetch("/api/unsplashes").then((res) => res.json()))
+      .map(() => fetch("/api/unsplashes").then((res) => res.json()))
     ).then((results) => {
       const urls = results
         .map((data) => data.urls && data.urls.regular)
@@ -23,20 +23,20 @@ export default function LandingPage() {
     offset: ["start end", "end start"],
   });
 
-  const card1Y = useTransform(scrollYProgress, [0, 0.625], ["100vh", "0vh"]);
+  const card1Y = useTransform(scrollYProgress, [0, 0.4], ["100vh", "0vh"]);
   const smoothCard1Y = useSpring(card1Y, { stiffness: 100, damping: 20 });
 
-  const card2Y = useTransform(scrollYProgress, [0, 0.75], ["120vh", "-20vh"]);
+  const card2Y = useTransform(scrollYProgress, [0, 0.62], ["120vh", "-20vh"]);
   const smoothCard2Y = useSpring(card2Y, { stiffness: 100, damping: 20 });
 
-  const card3Y = useTransform(scrollYProgress, [0, 0.8], ["80vh", "-40vh"]);
+  const card3Y = useTransform(scrollYProgress, [0, 0.75], ["80vh", "-40vh"]);
   const smoothCard3Y = useSpring(card3Y, { stiffness: 100, damping: 20 });
 
-  const card4Y = useTransform(scrollYProgress, [0, 0.85], ["140vh", "-60vh"]);
+  const card4Y = useTransform(scrollYProgress, [0, 0.9], ["140vh", "-60vh"]);
   const smoothCard4Y = useSpring(card4Y, { stiffness: 100, damping: 20 });
 
   const textY = useTransform(scrollYProgress, [0, 1], ["0vh", "0vh"]);
-  const textOpacity = useTransform(scrollYProgress, [0.5, 1], [0, 1]);
+  const textOpacity = useTransform(scrollYProgress, [0.75,0.8], [0, 1]);
   const smoothTextY = useSpring(textY, { stiffness: 100, damping: 20 });
   const smoothTextOpacity = useSpring(textOpacity, {
     stiffness: 100,
@@ -226,7 +226,7 @@ export default function LandingPage() {
           <div className="sticky left-0 top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden">
             {/* Gambar 1 */}
             <motion.div
-              className="absolute top-[20vh] left-[8vw] w-[28vw] h-[36vh] rounded-lg bg-gray-100 overflow-hidden"
+              className="absolute top-[12vh] left-[8vw] w-[28vw] h-[36vh] rounded-lg bg-gray-100 overflow-hidden"
               style={{ y: smoothCard1Y }}
             >
               {imgUrls[0] && (
@@ -240,7 +240,7 @@ export default function LandingPage() {
 
             {/* Gambar 2 */}
             <motion.div
-              className="absolute top-[54vh] left-[18vw] w-[16vw] h-[40vh] rounded-lg bg-gray-100 overflow-hidden"
+              className="absolute top-[72vh] left-[4vw] w-[16vw] h-[32vh] rounded-lg bg-gray-100 overflow-hidden"
               style={{ y: smoothCard2Y }}
             >
               {imgUrls[1] && (
@@ -254,7 +254,7 @@ export default function LandingPage() {
 
             {/* Gambar 3 */}
             <motion.div
-              className="absolute top-[16vh] right-[14vw] w-[32vw] h-[40vh] rounded-lg bg-gray-100 overflow-hidden"
+              className="absolute top-[32vh] right-[14vw] w-[32vw] h-[40vh] rounded-lg bg-gray-100 overflow-hidden"
               style={{ y: smoothCard3Y }}
             >
               {imgUrls[2] && (
@@ -268,7 +268,7 @@ export default function LandingPage() {
 
             {/* Gambar 4 */}
             <motion.div
-              className="absolute bottom-[6vh] right-[16vw] w-[20vw] h-[36vh] rounded-lg bg-gray-100 overflow-hidden"
+              className="absolute top-[92vh] right-[8vw] w-[20vw] h-[36vh] rounded-lg bg-gray-100 overflow-hidden"
               style={{ y: smoothCard4Y }}
             >
               {imgUrls[3] && (
@@ -282,7 +282,7 @@ export default function LandingPage() {
 
             {/* Text CTA */}
             <motion.div
-              className="absolute top-[50vh] left-1/2 -translate-x-1/2 z-20 text-center px-6"
+              className="absolute top-[40vh] left-1/2 -translate-x-1/2 z-20 text-center px-6"
               style={{ y: smoothTextY, opacity: smoothTextOpacity }}
             >
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
