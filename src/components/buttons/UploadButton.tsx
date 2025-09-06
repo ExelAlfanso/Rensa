@@ -1,6 +1,6 @@
 import api from "@/lib/axios";
 import { ArrowLeftIcon } from "@phosphor-icons/react";
-import React from "react";
+import React, { useState } from "react";
 import Text from "../Text";
 import Button from "./Button";
 import Heading from "../Heading";
@@ -9,15 +9,13 @@ import { useFileUpload } from "@/hooks/useFileUpload";
 import UploadPreview from "../UploadPreview";
 import UploadForm from "../forms/UploadForm";
 import UploadDropZone from "../dropzones/UploadDropZone";
+import { useSession } from "next-auth/react";
+import { useLoading } from "@/hooks/useLoading";
 
 interface UploadButtonProps {
   onFileSelect?: (file: File) => void;
-  userId?: string;
 }
-const UploadButton: React.FC<UploadButtonProps> = ({
-  onFileSelect,
-  userId,
-}) => {
+const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
   const {
     photo,
     uploadedFile,
@@ -32,14 +30,44 @@ const UploadButton: React.FC<UploadButtonProps> = ({
     handleFileChange,
     handleCancel,
   } = useFileUpload(onFileSelect);
-  // const [form, setForm] = useState<UploadFormProps>({
-  //   file: null,
-  //   title: "",
-  //   caption: "",
-  // });
+  const { data: session } = useSession();
+  const { setLoading } = useLoading();
+  const [form, setForm] = useState({
+    file: uploadedFile,
+    title: "",
+    description: "",
+    tags: [],
+    metadata: {},
+  });
 
-  // after continue use useLoading hook
-  // const { loading, setLoading } = useLoading();
+  const handleUpload = async () => {
+    if (!form.file) return;
+    if (!form.title || !form.title.trim()) {
+      // setMessage("Title is required!");
+      return;
+    }
+    setLoading(true);
+
+    const reader = new FileReader();
+    reader.readAsDataURL(form.file);
+    reader.onloadend = async () => {
+      try {
+        await api.post("/photos/upload", {
+          file: reader.result,
+          userId: session?.user.id,
+          title: form.title,
+          description: form.description,
+        });
+      } catch (err) {
+        console.error("Upload failed:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+  };
+  const handleChange = (field: string, value: string | string[]) => {
+    setForm((prev) => ({ ...prev, [field]: value }));
+  };
   const router = useRouter();
   let content;
 
@@ -98,7 +126,9 @@ const UploadButton: React.FC<UploadButtonProps> = ({
           <Button onClick={handleCancel} color={"tertiary"}>
             Cancel
           </Button>{" "}
-          <Button color={"primary"}>Continue</Button>
+          <Button onClick={handleUpload} color={"primary"}>
+            Upload
+          </Button>
         </div>
       ) : (
         <div className="flex items-end justify-between mb-10">
@@ -128,7 +158,11 @@ const UploadButton: React.FC<UploadButtonProps> = ({
       ) : (
         <div className="flex flex-row gap-5 items-center justify-center">
           <UploadPreview photo={photo}></UploadPreview>
-          <UploadForm></UploadForm>
+          <UploadForm
+            file={uploadedFile}
+            photo={photo}
+            onChange={handleChange}
+          ></UploadForm>
         </div>
       )}
     </div>
@@ -136,30 +170,3 @@ const UploadButton: React.FC<UploadButtonProps> = ({
 };
 
 export default UploadButton;
-
-// const handleUpload = async () => {
-//   if (!form.file) return;
-//   if (!form.title || !form.title.trim()) {
-//     setMessage("Title is required!");
-//     return;
-//   }
-//   // setLoading(true);
-
-//   const reader = new FileReader();
-//   reader.readAsDataURL(form.file);
-//   reader.onloadend = async () => {
-//     try {
-//       await api.post("/photos/upload", {
-//         file: reader.result,
-//         userId,
-//         title: form.title,
-//         caption: form.caption,
-//       });
-//       setMessage("Upload successfully!");
-//     } catch (err) {
-//       console.error("Upload failed:", err);
-//     } finally {
-//       // setLoading(false);
-//     }
-//   };
-// };

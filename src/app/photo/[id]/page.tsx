@@ -35,7 +35,7 @@ export default async function PhotoPage({
         </div>
         <PhotoInfoCard
           title={photo?.title}
-          caption={photo?.caption}
+          description={photo?.description}
           metadata={photo?.metadata}
         />
       </div>

@@ -23,7 +23,7 @@ interface PhotoInfoCardProps {
   className?: string;
   children?: React.ReactNode;
   title?: string;
-  caption?: string;
+  description?: string;
   avatarUrl?: string;
   username?: string;
   metadata?: PhotoMetadata;
@@ -34,7 +34,7 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
   className,
   children,
   title,
-  caption,
+  description,
   username,
   avatarUrl,
   metadata,
@@ -71,7 +71,7 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
         </div>
         <ProfileBadge src={avatarUrl} alt={username} className="mb-5" />
         <Text size="m" className="text-black-200 max-w-[350px]">
-          {caption}
+          {description}
         </Text>
       </div>
       <div>

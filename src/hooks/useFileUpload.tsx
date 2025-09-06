@@ -28,9 +28,9 @@ export function useFileUpload(onFileSelect?: (file: File) => void) {
         file.type === "image/jpg" ||
         file.name.toLowerCase().endsWith(".jpg") ||
         file.name.toLowerCase().endsWith(".jpeg");
-      const isLt5MB = file.size / 1024 / 1024 < 5; // size in MB
+      const isLt5MB = file.size / 1024 / 1024 < 20; // size in MB
       if (!isLt5MB) {
-        setMessage("Image must be smaller than 5MB!");
+        setMessage("Image must be smaller than 20MB!");
         return;
       }
       if (!isJPG) {

@@ -7,7 +7,7 @@ import Photo from "@/models/Photo";
 //TODO: Add data what camera was used
 export async function POST(req: Request) {
   try {
-    const { file, userId, title, caption } = await req.json();
+    const { file, userId, title, description } = await req.json();
 
     await connectDB();
 
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
       userId,
       url: secure_url,
       title,
-      caption,
+      description,
       metadata: {
         width,
         height,
