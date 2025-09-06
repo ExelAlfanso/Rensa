@@ -4,7 +4,7 @@ interface HeadingProps {
   id?: string;
   className?: string;
   children?: React.ReactNode;
-  size?: "s" | "m" | "l" | "xl" | "xxl";
+  size?: "s" | "m" | "l" | "xl" | "xxl" | "custom1";
   alignment?: "left" | "center" | "right";
 }
 
@@ -21,6 +21,7 @@ const Heading: React.FC<HeadingProps> = ({
     l: "text-[38px]",
     xl: "text-[47px]",
     xxl: "text-[59px]",
+    custom1: "text-[96px]",
   };
   const alignmentClasses = {
     left: "text-left",

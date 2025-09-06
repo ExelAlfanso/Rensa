@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
-import unsplash from "@/lib/unsplash";
+import { createApi } from "unsplash-js";
+import nodeFetch from "node-fetch";
+
+const unsplash = createApi({
+  accessKey: "RwSKZVSfO_nRwsq1_LcR8DzOs81fUsvTMCONPI3SHTY",
+  fetch: nodeFetch as unknown as typeof fetch,
+});
 
 export async function GET() {
   try {
