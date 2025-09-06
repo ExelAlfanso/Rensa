@@ -119,14 +119,16 @@ export default function LandingPage() {
         className="static flex flex-row w-screen h-screen p-40 justify-between items-center"
       >
         <div className="flex flex-col gap-0 pb-[28vh]">
-          <div className="text-3xl font-figtree font-medium text-black-500 pb-[4vh]">
-            Get an Idea
+          <div className="text-4xl font-figtree font-medium text-black-500 pb-[4vh]">
+            Get an <span className="font-forum">Idea</span>
             <br />
-            of What You Should
+            <span className="ml-[16px]">
+            of What You Should </span>
             <br />
-            Shoot Tomorrow
+            <span className="font-forum">Shoot </span>
+            Tomorrow
           </div>
-          <div className="font-figtree font-light text-black-300 w-[28vw]">
+          <div className="font-figtree font-light text-[1rem] text-black-300 w-[30vw]">
             <p>
               {" "}
               Stuck on what to capture next? Explore fresh perspectives from the
@@ -233,7 +235,7 @@ export default function LandingPage() {
           <div className="sticky left-0 top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden">
             {/* Gambar 1 */}
             <motion.div
-              className="absolute top-[12vh] left-[8vw] w-[28vw] h-[36vh] rounded-lg bg-gray-100 overflow-hidden"
+              className="absolute top-[4vh] left-[8vw] w-[28vw] h-[36vh] rounded-lg bg-gray-100 overflow-hidden"
               style={{ y: smoothCard1Y }}
             >
               {imgUrls[0] && (
@@ -250,9 +252,9 @@ export default function LandingPage() {
               className="absolute top-[72vh] left-[4vw] w-[16vw] h-[32vh] rounded-lg bg-gray-100 overflow-hidden"
               style={{ y: smoothCard2Y }}
             >
-              {imgUrls[1] && (
+              {imgUrls[4] && (
                 <img
-                  src={imgUrls[1]}
+                  src={imgUrls[4]}
                   alt="Random 2"
                   className="w-full h-full object-cover"
                 />
@@ -264,9 +266,9 @@ export default function LandingPage() {
               className="absolute top-[32vh] right-[14vw] w-[32vw] h-[40vh] rounded-lg bg-gray-100 overflow-hidden"
               style={{ y: smoothCard3Y }}
             >
-              {imgUrls[2] && (
+              {imgUrls[5] && (
                 <img
-                  src={imgUrls[2]}
+                  src={imgUrls[5]}
                   alt="Random 3"
                   className="w-full h-full object-cover"
                 />
@@ -275,12 +277,12 @@ export default function LandingPage() {
 
             {/* Gambar 4 */}
             <motion.div
-              className="absolute top-[92vh] right-[8vw] w-[20vw] h-[36vh] rounded-lg bg-gray-100 overflow-hidden"
+              className="absolute top-[92vh] right-[6vw] w-[20vw] h-[36vh] rounded-lg bg-gray-100 overflow-hidden"
               style={{ y: smoothCard4Y }}
             >
-              {imgUrls[3] && (
+              {imgUrls[6] && (
                 <img
-                  src={imgUrls[3]}
+                  src={imgUrls[6]}
                   alt="Random 4"
                   className="w-full h-full object-cover"
                 />
@@ -289,13 +291,13 @@ export default function LandingPage() {
 
             {/* Text CTA */}
             <motion.div
-              className="absolute top-[40vh] left-1/2 -translate-x-1/2 z-20 text-center px-6"
+              className="absolute top-[35vh] left-1/2 -translate-x-1/2 z-20 text-center px-6"
               style={{ y: smoothTextY, opacity: smoothTextOpacity }}
             >
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-figtree font-medium mb-4 text-black-500">
                 Every Picture Holds a Secret.
               </h1>
-              <p className="text-lg md:text-xl leading-relaxed font-medium">
+              <p className="text-lg md:text-xl leading-relaxed font-light">
                 Behind every frame lies a quiet formula — the shutter's breath,
                 the lens's sigh, the light's gentle fall.{" "}
                 <span className="font-semibold">Rensa</span> lets you see it
