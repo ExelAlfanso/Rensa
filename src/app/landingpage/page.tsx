@@ -7,8 +7,9 @@ export default function LandingPage() {
 
   useEffect(() => {
     Promise.all(
-      Array(8).fill(null)
-      .map(() => fetch("/api/unsplashes").then((res) => res.json()))
+      Array(8)
+        .fill(null)
+        .map(() => fetch("/api/unsplashes").then((res) => res.json()))
     ).then((results) => {
       const urls = results
         .map((data) => data.urls && data.urls.regular)
@@ -36,7 +37,7 @@ export default function LandingPage() {
   const smoothCard4Y = useSpring(card4Y, { stiffness: 100, damping: 20 });
 
   const textY = useTransform(scrollYProgress, [0, 1], ["0vh", "0vh"]);
-  const textOpacity = useTransform(scrollYProgress, [0.75,0.8], [0, 1]);
+  const textOpacity = useTransform(scrollYProgress, [0.75, 0.8], [0, 1]);
   const smoothTextY = useSpring(textY, { stiffness: 100, damping: 20 });
   const smoothTextOpacity = useSpring(textOpacity, {
     stiffness: 100,
@@ -46,16 +47,22 @@ export default function LandingPage() {
   return (
     <div>
       <div id="hero-section">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl text-center font-bold mix-blend-color-dodge  text-[#000000]">
-          Where Every Picture
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl text-center font-figtree italic mix-blend-color-dodge text-[#56AD3B]">
+          Where Every{" "}
+          <span className="font-forum not-italic text-[56px] inline">Picture</span>
           <br />
-          Tells Its Recipe
+          Tells Its{" "}
+          <span className="font-forum not-italic text-[56px]">Recipe</span>
         </div>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl text-center font-bold mix-blend-exclusion text-white">
-          Where Every Picture
+
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl text-center font-figtree italic mix-blend-exclusion text-white">
+          Where Every{" "}
+          <span className="font-forum not-italic text-[56px]">Picture</span>
           <br />
-          Tells Its Recipe
+          Tells Its{" "}
+          <span className="font-forum not-italic text-[56px]">Recipe</span>
         </div>
+
         <div className="relative w-screen h-screen -z-10">
           <div
             id="container-1"
@@ -112,14 +119,14 @@ export default function LandingPage() {
         className="static flex flex-row w-screen h-screen p-40 justify-between items-center"
       >
         <div className="flex flex-col gap-0 pb-[28vh]">
-          <div className="text-3xl font-semibold  text-[#031602] pb-[4vh]">
+          <div className="text-3xl font-figtree font-medium text-black-500 pb-[4vh]">
             Get an Idea
             <br />
             of What You Should
             <br />
             Shoot Tomorrow
           </div>
-          <div className="font size-2 w-[28vw]">
+          <div className="font-figtree font-light text-black-300 w-[28vw]">
             <p>
               {" "}
               Stuck on what to capture next? Explore fresh perspectives from the

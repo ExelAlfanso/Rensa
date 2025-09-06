@@ -6,12 +6,14 @@ import { LoadingProvider } from "@/hooks/useLoading";
 
 const forum = Forum({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: "400",
+  variable: "--font-forum",
 });
 
 const figtree = Figtree({
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "500", "700"], // ambil beberapa weight
+  variable: "--font-figtree",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`antialiased ${forum.className} ${figtree.className} `}>
+      <body className={`antialiased ${forum.variable} ${figtree.variable}`}>
         <SessionProviderWrapper>
           <LoadingProvider>{children}</LoadingProvider>
         </SessionProviderWrapper>
