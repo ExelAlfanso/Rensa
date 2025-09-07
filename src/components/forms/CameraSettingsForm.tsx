@@ -14,7 +14,7 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
   onChange,
 }) => {
   return (
-    <div className="space-y-4">
+    <div className="w-full">
       {Object.entries(settings).map(([key, value]) => {
         if (key === "brand") return null; // skip brand since it's dropdown
 

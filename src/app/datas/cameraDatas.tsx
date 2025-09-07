@@ -5,6 +5,7 @@ export type Strength = "Off" | "Weak" | "Strong";
 export type WBMode =
   | "Auto"
   | "Custom"
+  | "Manual"
   | "Kelvin"
   | "Daylight"
   | "Shade"
