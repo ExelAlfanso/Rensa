@@ -70,7 +70,7 @@
   --font-forum: 'Forum',sans-serif; 
   
 }
-@theme inline{
+@theme light{
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-background: var(--background);
@@ -131,8 +131,8 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   
-  --font-sans-serif: var(--font-figtree);
-  --font-serif: var(--font-forum); 
+  --font-figtree: var(--font-figtree);
+  --font-forum: var(--font-forum); 
 }
 
 @media (prefers-color-scheme: dark) {
@@ -168,14 +168,6 @@ select:-webkit-autofill:focus {
   }
 
   .no-scrollbar::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+    display: none; 
   }
-}
-
-.font-forum {
-  font-family: var(--font-forum);
-}
-
-.font-figtree {
-  font-family: var(--font-figtree);
 }

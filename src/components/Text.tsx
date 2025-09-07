@@ -21,10 +21,7 @@ const Text: React.FC<TextProps> = ({
     xxl: "text-[24px]",
   };
   return (
-    <div
-      id={id}
-      className={`font-sans-serif ${className} ${sizeClasses[size]}`}
-    >
+    <div id={id} className={`font-figtree ${className} ${sizeClasses[size]}`}>
       {children}
     </div>
   );
