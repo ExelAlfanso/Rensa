@@ -120,7 +120,7 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
   }
 
   return (
-    <div className="w-full max-w-4xl gap-2 mx-auto">
+    <div className="w-full gap-2 px-65">
       {uploadedFile ? (
         <div className="flex items-center justify-between mb-10">
           <Button onClick={handleCancel} color={"tertiary"}>
@@ -156,7 +156,7 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
           content={content}
         ></UploadDropZone>
       ) : (
-        <div className="flex flex-row gap-5 items-center justify-center">
+        <div className="flex flex-row items-center justify-center">
           <UploadPreview photo={photo}></UploadPreview>
           <UploadForm
             file={uploadedFile}

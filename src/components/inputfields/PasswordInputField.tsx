@@ -22,7 +22,7 @@ const PasswordInputField: React.FC<PasswordInputFieldProps> = ({
     setType(type === "password" ? "text" : "password");
   };
   return (
-    <div className="relative flex items-center">
+    <div className="relative">
       <InputField
         type={type}
         onChange={onChange}

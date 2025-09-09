@@ -6,6 +6,7 @@ interface InputDropdownProps {
   placeholder?: string;
   values?: string[];
   label?: string;
+  initialValue?: string | number | object;
   onChange?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -13,11 +14,12 @@ const InputDropdown: React.FC<InputDropdownProps> = ({
   values,
   label,
   placeholder,
+  initialValue,
   onChange,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useOutsideClick<HTMLDivElement>(() => setIsOpen(false));
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = useState<string>((initialValue as string) || "");
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.currentTarget;
     setValue(target.innerText);

@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 // import GoogleLoginButton from "@/components/GoogleLoginButton";
 import React, { FormEvent, useState } from "react";

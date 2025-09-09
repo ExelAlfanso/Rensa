@@ -1,5 +1,3 @@
-"use client";
-
 import ForestSection from "@/sections/ForestSection";
 import LoginForm from "@/components/forms/LoginForm";
 export default function Login() {

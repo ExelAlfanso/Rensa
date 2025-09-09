@@ -16,45 +16,46 @@ export type WBMode =
 
 // ================= Fujifilm =================
 export interface FujifilmSettings {
-  brand: "Fujifilm";
-  filmSimulation: "Provia" | "Velvia" | "Classic Chrome" | "Acros" | string;
-  grainEffect?:
+  Brand: "Fujifilm";
+  FilmMode: "Provia" | "Velvia" | "Classic Chrome" | "Acros" | string;
+  GrainEffect?:
     | "Off"
     | "Weak-Small"
     | "Weak-Large"
     | "Strong-Small"
     | "Strong-Large";
-  colorChromeEffect?: "Off" | "Strong" | "Weak";
-  colorChromeFXBlue?: "Off" | "Strong" | "Weak";
-  whiteBalance?: WBMode;
-  wbShift?: { redBlue: number; yellowMagenta: number };
-  dynamicRange?: "DR100" | "DR200" | "DR400" | "Auto";
-  highlightTone?: Range<-2 | 4>;
-  shadowTone?: Range<-2 | 4>;
-  color?: Range<-4 | 4>;
-  sharpness?: Range<-4 | 4>;
-  noiseReduction?: Range<-4 | 4>;
-  clarity?: Range<-5 | 5>;
-  iso?: number | "Auto";
+  ColorChromeEffect?: "Off" | "Strong" | "Weak";
+  ColorChromeFXBlue?: "Off" | "Strong" | "Weak";
+  WhiteBalance?: WBMode;
+  WbShift?: { RedBlue: number; YellowMagenta: number };
+  DynamicRange?: "DR100" | "DR200" | "DR400" | "Auto";
+  HighlightTone?: Range<-2 | 4>;
+  ShadowTone?: Range<-2 | 4>;
+  Color?: Range<-4 | 4>;
+  Sharpness?: Range<-4 | 4>;
+  NoiseReduction?: Range<-4 | 4>;
+  Clarity?: Range<-5 | 5>;
+  ISO?: number | "Auto";
 }
 
 // ================= Sony =================
 export interface SonySettings {
-  brand: "Sony";
-  creativeLook?: "ST" | "PT" | "VV" | "FL" | string;
-  contrast?: Range<-9 | 9>;
-  highlights?: Range<-9 | 9>;
-  shadows?: Range<-9 | 9>;
-  fade?: Range<0 | 9>;
-  saturation?: Range<-9 | 9>;
-  sharpness?: Range<0 | 9>;
-  clarity?: Range<0 | 9>;
+  Brand: "Sony";
+  CreativeLook?: "ST" | "PT" | "VV" | "FL" | string;
+  Contrast?: Range<-9 | 9>;
+  Highlights?: Range<-9 | 9>;
+  Shadows?: Range<-9 | 9>;
+  Fade?: Range<0 | 9>;
+  Saturation?: Range<-9 | 9>;
+  Sharpness?: Range<0 | 9>;
+  Clarity?: Range<0 | 9>;
+  ISO?: number | "Auto";
 }
 
 // ================= Canon =================
 export interface CanonSettings {
-  brand: "Canon";
-  pictureStyle?:
+  Brand: "Canon";
+  PictureStyle?:
     | "Auto"
     | "Standard"
     | "Portrait"
@@ -63,22 +64,19 @@ export interface CanonSettings {
     | "Neutral"
     | "Faithful"
     | "Monochrome";
-  sharpness?: {
-    strength: number;
-    fineness: number;
-    threshold: number;
-  };
-  contrast?: number;
-  saturation?: number;
-  colorTone?: number;
-  filterEffect?: "Yellow" | "Red" | "Green";
-  toningEffect?: "Sepia" | "Blue" | "Green";
+  Sharpness?: { Strength: number; Fineness: number; Threshold: number };
+  Contrast?: number;
+  Saturation?: number;
+  ColorTone?: number;
+  FilterEffect?: "Yellow" | "Red" | "Green";
+  ToningEffect?: "Sepia" | "Blue" | "Green";
+  ISO?: number | "Auto";
 }
 
 // ================= Nikon =================
 export interface NikonSettings {
-  brand: "Nikon";
-  pictureControl?:
+  Brand: "Nikon";
+  PictureControl?:
     | "Standard"
     | "Neutral"
     | "Vivid"
@@ -87,22 +85,23 @@ export interface NikonSettings {
     | "Landscape"
     | "Flat"
     | string;
-  quickSharp?: number;
-  sharpening?: number;
-  midRangeSharpening?: number;
-  clarity?: number;
-  contrast?: number;
-  brightness?: number;
-  saturation?: number;
-  hue?: number;
-  filterEffects?: "Yellow" | "Orange" | "Red" | "Green";
-  toning?: string;
+  QuickSharp?: number;
+  Sharpening?: number;
+  MidRangeSharpening?: number;
+  Clarity?: number;
+  Contrast?: number;
+  Brightness?: number;
+  Saturation?: number;
+  Hue?: number;
+  FilterEffects?: "Yellow" | "Orange" | "Red" | "Green";
+  Toning?: string;
+  ISO?: number | "Auto";
 }
 
 // ================= Lumix =================
 export interface LumixSettings {
-  brand: "Lumix";
-  photoStyle?:
+  Brand: "Lumix";
+  PhotoStyle?:
     | "Standard"
     | "Vivid"
     | "Natural"
@@ -111,94 +110,97 @@ export interface LumixSettings {
     | "Cinelike D2"
     | "Cinelike V2"
     | "L. Monochrome S";
-  contrast?: number;
-  highlight?: number;
-  shadow?: number;
-  saturation?: number;
-  hue?: number;
-  filterEffect?: "Yellow" | "Orange" | "Red" | "Green";
-  grainEffect?: "Off" | "Low" | "Standard" | "High";
-  colorNoiseReduction?: OnOff;
-  sharpness?: number;
-  noiseReduction?: Range<-5 | 5>;
-  clarity?: number;
+  Contrast?: number;
+  Highlight?: number;
+  Shadow?: number;
+  Saturation?: number;
+  Hue?: number;
+  FilterEffect?: "Yellow" | "Orange" | "Red" | "Green";
+  GrainEffect?: "Off" | "Low" | "Standard" | "High";
+  ColorNoiseReduction?: OnOff;
+  Sharpness?: number;
+  NoiseReduction?: Range<-5 | 5>;
+  Clarity?: number;
+  ISO?: number | "Auto";
 }
 
 // ================= Olympus =================
 export interface OlympusSettings {
-  brand: "Olympus";
-  pictureMode?:
+  Brand: "Olympus";
+  PictureMode?:
     | "i-Enhance"
     | "Vivid"
     | "Natural"
     | "Muted"
     | "Portrait"
     | "Monochrome";
-  gradation?: "Auto" | "Normal" | "High Key" | "Low Key";
-  contrast?: number;
-  sharpness?: number;
-  saturation?: number;
-  colorFilter?: "Neutral" | "Yellow" | "Orange" | "Red" | "Green";
-  pictureTone?: "Neutral" | "Sepia" | "Blue" | "Purple" | "Green";
-  highlightShadowControl?: { highlight: number; shadow: number };
-  colorCreator?: { hue: number; saturation: number };
+  Gradation?: "Auto" | "Normal" | "High Key" | "Low Key";
+  Contrast?: number;
+  Sharpness?: number;
+  Saturation?: number;
+  ColorFilter?: "Neutral" | "Yellow" | "Orange" | "Red" | "Green";
+  PictureTone?: "Neutral" | "Sepia" | "Blue" | "Purple" | "Green";
+  HighlightShadowControl?: { Highlight: number; Shadow: number };
+  ColorCreator?: { Hue: number; Saturation: number };
+  ISO?: number | "Auto";
 }
 
 // ================= Ricoh =================
 export interface RicohSettings {
-  brand: "Ricoh";
-  imageControl?:
+  Brand: "Ricoh";
+  ImageControl?:
     | "Standard"
     | "Vivid"
     | "Positive Film"
     | "Bleach Bypass"
     | "Retro"
     | "High-Contrast B&W";
-  saturation?: number;
-  hue?: number;
-  highLowKeyAdjust?: number;
-  contrast?: number;
-  contrastHighlight?: number;
-  contrastShadow?: number;
-  sharpness?: number;
-  shading?: number;
-  clarity?: number;
-  toning?: string;
-  filterEffect?: string;
-  grainEffect?: "Off" | "Weak" | "Medium" | "Strong";
+  Saturation?: number;
+  Hue?: number;
+  HighLowKeyAdjust?: number;
+  Contrast?: number;
+  ContrastHighlight?: number;
+  ContrastShadow?: number;
+  Sharpness?: number;
+  Shading?: number;
+  Clarity?: number;
+  Toning?: string;
+  FilterEffect?: string;
+  GrainEffect?: "Off" | "Weak" | "Medium" | "Strong";
+  ISO?: number | "Auto";
 }
 
 // ================= Hasselblad =================
 export interface HasselbladSettings {
-  brand: "Hasselblad";
-  imageProfile?: "HNCS";
-  contrast?: number;
-  sharpness?: number;
-  whiteBalance?: WBMode;
-  iso?: number | "Auto";
+  Brand: "Hasselblad";
+  ImageProfile?: "HNCS";
+  Contrast?: number;
+  Sharpness?: number;
+  WhiteBalance?: WBMode;
+  ISO?: number | "Auto";
 }
 
 // ================= Leica =================
 export interface LeicaSettings {
-  brand: "Leica";
-  filmStyle?:
+  Brand: "Leica";
+  FilmStyle?:
     | "Standard"
     | "Vivid"
     | "Natural"
     | "Monochrome"
     | "Monochrome High Contrast";
-  contrast?: number;
-  saturation?: number;
-  sharpness?: number;
-  toning?: "Sepia" | "Blue" | "Selenium";
-  whiteBalance?: WBMode;
-  iso?: number | "Auto";
+  Contrast?: number;
+  Saturation?: number;
+  Sharpness?: number;
+  Toning?: "Sepia" | "Blue" | "Selenium";
+  WhiteBalance?: WBMode;
+  ISO?: number | "Auto";
 }
 
 // ================= Pentax =================
 export interface PentaxSettings {
-  brand: "Pentax";
-  customImage?:
+  Brand: "Pentax";
+  CustomImage?:
     | "Bright"
     | "Natural"
     | "Portrait"
@@ -211,18 +213,19 @@ export interface PentaxSettings {
     | "Reversal Film"
     | "Monochrome"
     | "Cross Processing";
-  saturation?: number;
-  hue?: number;
-  highLowKey?: number;
-  contrast?: number;
-  highlightContrast?: number;
-  shadowContrast?: number;
-  sharpness?: number;
-  fineSharpness?: number;
-  clarity?: number;
-  toning?: string;
-  filterEffect?: string;
-  grainEffect?: string;
+  Saturation?: number;
+  Hue?: number;
+  HighLowKey?: number;
+  Contrast?: number;
+  HighlightContrast?: number;
+  ShadowContrast?: number;
+  Sharpness?: number;
+  FineSharpness?: number;
+  Clarity?: number;
+  Toning?: string;
+  FilterEffect?: string;
+  GrainEffect?: string;
+  ISO?: number | "Auto";
 }
 
 // ================= Union =================
@@ -238,150 +241,156 @@ export type CameraSettings =
   | LeicaSettings
   | PentaxSettings;
 
-// default values for each brand
-
+// ================= Default Values =================
 export const defaultFujifilm: FujifilmSettings = {
-  brand: "Fujifilm",
-  filmSimulation: "Provia",
-  grainEffect: "Off",
-  colorChromeEffect: "Off",
-  colorChromeFXBlue: "Off",
-  whiteBalance: "Auto",
-  wbShift: { redBlue: 0, yellowMagenta: 0 },
-  dynamicRange: "DR100",
-  highlightTone: 0,
-  shadowTone: 0,
-  color: 0,
-  sharpness: 0,
-  noiseReduction: 0,
-  clarity: 0,
-  iso: "Auto",
+  Brand: "Fujifilm",
+  FilmMode: "Provia",
+  GrainEffect: "Off",
+  ColorChromeEffect: "Off",
+  ColorChromeFXBlue: "Off",
+  WhiteBalance: "Auto",
+  WbShift: { RedBlue: 0, YellowMagenta: 0 },
+  DynamicRange: "DR100",
+  HighlightTone: 0,
+  ShadowTone: 0,
+  Color: 0,
+  Sharpness: 0,
+  NoiseReduction: 0,
+  Clarity: 0,
+  ISO: "Auto",
 };
 
 export const defaultSony: SonySettings = {
-  brand: "Sony",
-  creativeLook: "ST",
-  contrast: 0,
-  highlights: 0,
-  shadows: 0,
-  fade: 0,
-  saturation: 0,
-  sharpness: 0,
-  clarity: 0,
+  Brand: "Sony",
+  CreativeLook: "ST",
+  Contrast: 0,
+  Highlights: 0,
+  Shadows: 0,
+  Fade: 0,
+  Saturation: 0,
+  Sharpness: 0,
+  Clarity: 0,
+  ISO: "Auto",
 };
 
 export const defaultCanon: CanonSettings = {
-  brand: "Canon",
-  pictureStyle: "Auto",
-  sharpness: { strength: 0, fineness: 0, threshold: 0 },
-  contrast: 0,
-  saturation: 0,
-  colorTone: 0,
-  filterEffect: "Yellow",
-  toningEffect: "Sepia",
+  Brand: "Canon",
+  PictureStyle: "Auto",
+  Sharpness: { Strength: 0, Fineness: 0, Threshold: 0 },
+  Contrast: 0,
+  Saturation: 0,
+  ColorTone: 0,
+  FilterEffect: "Yellow",
+  ToningEffect: "Sepia",
+  ISO: "Auto",
 };
 
 export const defaultNikon: NikonSettings = {
-  brand: "Nikon",
-  pictureControl: "Standard",
-  quickSharp: 0,
-  sharpening: 0,
-  midRangeSharpening: 0,
-  clarity: 0,
-  contrast: 0,
-  brightness: 0,
-  saturation: 0,
-  hue: 0,
-  filterEffects: "Yellow",
-  toning: "",
+  Brand: "Nikon",
+  PictureControl: "Standard",
+  QuickSharp: 0,
+  Sharpening: 0,
+  MidRangeSharpening: 0,
+  Clarity: 0,
+  Contrast: 0,
+  Brightness: 0,
+  Saturation: 0,
+  Hue: 0,
+  FilterEffects: "Yellow",
+  Toning: "",
+  ISO: "Auto",
 };
 
 export const defaultLumix: LumixSettings = {
-  brand: "Lumix",
-  photoStyle: "Standard",
-  contrast: 0,
-  highlight: 0,
-  shadow: 0,
-  saturation: 0,
-  hue: 0,
-  filterEffect: "Yellow",
-  grainEffect: "Off",
-  colorNoiseReduction: "Off",
-  sharpness: 0,
-  noiseReduction: 0,
-  clarity: 0,
+  Brand: "Lumix",
+  PhotoStyle: "Standard",
+  Contrast: 0,
+  Highlight: 0,
+  Shadow: 0,
+  Saturation: 0,
+  Hue: 0,
+  FilterEffect: "Yellow",
+  GrainEffect: "Off",
+  ColorNoiseReduction: "Off",
+  Sharpness: 0,
+  NoiseReduction: 0,
+  Clarity: 0,
+  ISO: "Auto",
 };
 
 export const defaultOlympus: OlympusSettings = {
-  brand: "Olympus",
-  pictureMode: "Natural",
-  gradation: "Normal",
-  contrast: 0,
-  sharpness: 0,
-  saturation: 0,
-  colorFilter: "Neutral",
-  pictureTone: "Neutral",
-  highlightShadowControl: { highlight: 0, shadow: 0 },
-  colorCreator: { hue: 0, saturation: 0 },
+  Brand: "Olympus",
+  PictureMode: "Natural",
+  Gradation: "Normal",
+  Contrast: 0,
+  Sharpness: 0,
+  Saturation: 0,
+  ColorFilter: "Neutral",
+  PictureTone: "Neutral",
+  HighlightShadowControl: { Highlight: 0, Shadow: 0 },
+  ColorCreator: { Hue: 0, Saturation: 0 },
+  ISO: "Auto",
 };
 
 export const defaultRicoh: RicohSettings = {
-  brand: "Ricoh",
-  imageControl: "Standard",
-  saturation: 0,
-  hue: 0,
-  highLowKeyAdjust: 0,
-  contrast: 0,
-  contrastHighlight: 0,
-  contrastShadow: 0,
-  sharpness: 0,
-  shading: 0,
-  clarity: 0,
-  toning: "",
-  filterEffect: "",
-  grainEffect: "Off",
+  Brand: "Ricoh",
+  ImageControl: "Standard",
+  Saturation: 0,
+  Hue: 0,
+  HighLowKeyAdjust: 0,
+  Contrast: 0,
+  ContrastHighlight: 0,
+  ContrastShadow: 0,
+  Sharpness: 0,
+  Shading: 0,
+  Clarity: 0,
+  Toning: "",
+  FilterEffect: "",
+  GrainEffect: "Off",
+  ISO: "Auto",
 };
 
 export const defaultHasselblad: HasselbladSettings = {
-  brand: "Hasselblad",
-  imageProfile: "HNCS",
-  contrast: 0,
-  sharpness: 0,
-  whiteBalance: "Auto",
-  iso: "Auto",
+  Brand: "Hasselblad",
+  ImageProfile: "HNCS",
+  Contrast: 0,
+  Sharpness: 0,
+  WhiteBalance: "Auto",
+  ISO: "Auto",
 };
 
 export const defaultLeica: LeicaSettings = {
-  brand: "Leica",
-  filmStyle: "Standard",
-  contrast: 0,
-  saturation: 0,
-  sharpness: 0,
-  toning: "Sepia",
-  whiteBalance: "Auto",
-  iso: "Auto",
+  Brand: "Leica",
+  FilmStyle: "Standard",
+  Contrast: 0,
+  Saturation: 0,
+  Sharpness: 0,
+  Toning: "Sepia",
+  WhiteBalance: "Auto",
+  ISO: "Auto",
 };
 
 export const defaultPentax: PentaxSettings = {
-  brand: "Pentax",
-  customImage: "Bright",
-  saturation: 0,
-  hue: 0,
-  highLowKey: 0,
-  contrast: 0,
-  highlightContrast: 0,
-  shadowContrast: 0,
-  sharpness: 0,
-  fineSharpness: 0,
-  clarity: 0,
-  toning: "",
-  filterEffect: "",
-  grainEffect: "Off",
+  Brand: "Pentax",
+  CustomImage: "Bright",
+  Saturation: 0,
+  Hue: 0,
+  HighLowKey: 0,
+  Contrast: 0,
+  HighlightContrast: 0,
+  ShadowContrast: 0,
+  Sharpness: 0,
+  FineSharpness: 0,
+  Clarity: 0,
+  Toning: "",
+  FilterEffect: "",
+  GrainEffect: "Off",
+  ISO: "Auto",
 };
 
-// Union default values in a lookup
+// Union default values lookup
 export const defaultCameraSettings: Record<
-  CameraSettings["brand"],
+  CameraSettings["Brand"],
   CameraSettings
 > = {
   Fujifilm: defaultFujifilm,

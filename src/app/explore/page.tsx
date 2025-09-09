@@ -1,20 +1,10 @@
-"use client";
-
-import ExploreTabs from "@/components/tabs/ExploreTabs";
-import { useState } from "react";
-import FilterList from "../../components/lists/FilterList";
-import MasonryGalleryPage from "@/sections/MasonryGallerySection";
 import ExploreNavBar from "@/components/navbar/ExploreNavBar";
+import FilterSection from "@/sections/FilterSection";
 export default function ExplorePage() {
-  const [activeTab, setActiveTab] = useState("tab1");
-
   return (
     <div className="flex flex-col items-start justify-start min-h-screen bg-white-500 px-[260px]">
       <ExploreNavBar></ExploreNavBar>
-      <FilterList></FilterList>
-      <div className="border-t border-white-700 w-full my-11"></div>
-      <ExploreTabs setActiveTab={setActiveTab} className="mb-10"></ExploreTabs>
-      <MasonryGalleryPage activeTab={activeTab}></MasonryGalleryPage>
+      <FilterSection></FilterSection>
     </div>
   );
 }
