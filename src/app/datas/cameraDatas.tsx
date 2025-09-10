@@ -1,3 +1,5 @@
+// TODO: probably make dashboard for adding and removing presets, also make it possible to add custom presets
+
 // helpers
 export type Range<N extends number> = number; // just for readability
 export type OnOff = "On" | "Off";

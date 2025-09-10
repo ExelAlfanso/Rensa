@@ -1,6 +1,8 @@
 "use client";
 import React from "react";
 import Text from "../Text";
+import "./InputField.css";
+
 interface InputFieldProps {
   type: string;
   placeholder?: string;

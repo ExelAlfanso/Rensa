@@ -1,69 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Masonry from "react-masonry-css";
 import "@/components/MasonryGallery.css";
 import { ImageWithSkeleton } from "@/components/ImageWithSkeleton";
 import { useInView } from "react-intersection-observer";
-import axios from "axios";
-
-//TODO: replace fetch images from unsplash api
 
 interface MasonryGallerySectionProps {
   activeTab?: string;
 }
-// const images = [];
-// const images = [
-//   "https://picsum.photos/300/200",
-//   "https://picsum.photos/300/500",
-//   "https://picsum.photos/300/350",
-//   "https://picsum.photos/300/450",
-//   "https://picsum.photos/300/420",
-//   "https://picsum.photos/300/380",
-//   "https://picsum.photos/300/360",
-//   "https://picsum.photos/300/410",
-//   "https://picsum.photos/300/390",
-//   "https://picsum.photos/300/430",
-//   "https://picsum.photos/300/340",
-//   "https://picsum.photos/300/470",
-//   "https://picsum.photos/300/400",
-//   "https://picsum.photos/300/450",
-//   "https://picsum.photos/300/420",
-//   "https://picsum.photos/300/390",
-//   "https://picsum.photos/300/360",
-//   "https://picsum.photos/300/480",
-//   "https://picsum.photos/300/440",
-//   "https://picsum.photos/300/410",
-//   "https://picsum.photos/300/370",
-//   "https://picsum.photos/300/430",
-//   "https://picsum.photos/300/350",
-//   "https://picsum.photos/300/460",
-//   "https://picsum.photos/300/380",
-//   "https://picsum.photos/300/420",
-//   "https://picsum.photos/300/390",
-//   "https://picsum.photos/300/470",
-//   "https://picsum.photos/300/440",
-//   "https://picsum.photos/300/360",
-//   "https://picsum.photos/300/410",
-//   "https://picsum.photos/300/430",
-//   "https://picsum.photos/300/370",
-//   "https://picsum.photos/300/450",
-//   "https://picsum.photos/300/390",
-//   "https://picsum.photos/300/420",
-//   "https://picsum.photos/300/360",
-//   "https://picsum.photos/300/480",
-//   "https://picsum.photos/300/440",
-//   "https://picsum.photos/300/410",
-//   "https://picsum.photos/300/370",
-//   "https://picsum.photos/300/430",
-//   "https://picsum.photos/300/350",
-//   "https://picsum.photos/300/460",
-//   "https://picsum.photos/300/380",
-//   "https://picsum.photos/300/420",
-//   "https://picsum.photos/300/390",
-//   "https://picsum.photos/300/470",
-//   "https://picsum.photos/300/360",
-// ];
 
 const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
   activeTab,
@@ -75,53 +20,45 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
     700: 2,
     500: 1,
   };
+
   const [photos, setPhotos] = useState<string[]>([]);
   const [page, setPage] = useState(1);
   const { ref, inView } = useInView({ threshold: 1 });
+  const [batchCount, setBatchCount] = useState(0);
+  const [loadedCount, setLoadedCount] = useState(0);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const loadMore = async () => {
-      if (inView && !loading) {
-        setLoading(true);
-        setPage((prev) => prev + 1);
-        setLoading(false);
-      }
-    };
-    loadMore();
-  }, [inView, loading]);
-
-  const fetchImages = async (page: number) => {
+  const fetchImages = useCallback(async (page: number) => {
+    setLoading(true);
+    // Simulate API fetch
     const newImages = Array.from({ length: 10 }, () => {
       const h = 300 + Math.floor(Math.random() * 200);
-      return `https://picsum.photos/200/${h}`;
+      return `https://picsum.photos/200/${h}?random=${Math.random()}`;
     });
     setPhotos((prev) => [...prev, ...newImages]);
-  };
+    setBatchCount(newImages.length);
+    setLoadedCount(0);
+  }, []);
 
-  // const fetchImages = async (page: number) => {
-  //   try {
-  //     const res = await axios.get("/api/unsplashes");
-  //     const urls = res.data.map((data: any) => data.urls && data.urls.regular);
-  //     setPhotos((prev) => [...prev, ...urls]);
-  //     console.log(res);
-  //   } catch (err) {
-  //     console.error("Error fetching images:", err);
-  //   }
-  // };
-
+  // Fetch initial images & when page changes
   useEffect(() => {
     fetchImages(page);
-  }, [page]);
+  }, [page, fetchImages]);
 
+  const handleImageLoad = () => {
+    setLoadedCount((prev) => prev + 1);
+  };
+
+  // Reset loading when images have been added
   useEffect(() => {
-    if (inView) {
+    if (loadedCount === batchCount && batchCount > 0 && inView && !loading) {
+      setLoading(false);
       setPage((prev) => prev + 1);
     }
-  }, [inView]);
+  }, [loadedCount, batchCount, inView, loading]);
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex flex-col items-center justify-center">
       <Masonry
         breakpointCols={breakpointColumnsObj}
         className="my-masonry-grid"
@@ -137,13 +74,22 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
                   width: 250,
                   height: 350,
                 }}
-              ></ImageWithSkeleton>
+                onLoad={handleImageLoad}
+              />
               <div className="absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40"></div>
             </div>
           </div>
         ))}
       </Masonry>
-      <div ref={ref} className="h-10"></div>
+
+      <div
+        ref={ref}
+        className="w-10 h-10 py-20 flex justify-center items-center"
+      >
+        {loading && (
+          <div className="loading loading-spinner loading-xl text-black"></div>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import InputField from "../inputfields/InputField";
 import InputDropdown from "../inputfields/InputDropdown";
 import { CameraSettings } from "@/app/datas/cameraDatas";
@@ -14,9 +14,6 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
   settings,
   onChange,
 }) => {
-  useEffect(() => {
-    console.log(settings);
-  });
   return (
     <div className="grid w-full grid-cols-1 gap-5">
       {Object.entries(settings).map(([key, value]) => {

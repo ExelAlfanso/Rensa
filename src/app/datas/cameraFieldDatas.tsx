@@ -7,7 +7,7 @@ export const cameraFieldOptions: {
   [B in CameraSettings["Brand"]]?: Record<string, string[]>;
 } = {
   Fujifilm: {
-    FilmMode: ["Provia", "Velvia", "Classic Chrome", "Acros"],
+    FilmMode: ["Provia", "Velvia", "Classic Chrome", "Acros", "Astia"],
     GrainEffect: [
       "Off",
       "Weak-Small",
@@ -29,7 +29,7 @@ export const cameraFieldOptions: {
       "Fluorescent",
       "Flash",
     ],
-    DynamicRange: ["DR100", "DR200", "DR400", "Auto"],
+    DynamicRange: ["DR100", "DR200", "DR400", "Auto", "Standard"],
     ISO: iso,
   },
 

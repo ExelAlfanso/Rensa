@@ -1,5 +1,9 @@
-export function detectValue(key: object, value: string): string {
-  const lowerValue = value.toLowerCase();
-
-  return "";
+export function detectValueinString(keys: string[], str: string) {
+  for (const key of keys) {
+    const regex = new RegExp(`\\b${key}\\b`, "i");
+    if (regex.test(str)) {
+      return key;
+    }
+  }
+  return null;
 }

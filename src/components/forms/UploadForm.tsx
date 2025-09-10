@@ -5,6 +5,8 @@ import CameraSettingsForm from "./CameraSettingsForm";
 import InputDropdown from "../inputfields/InputDropdown";
 import api from "@/lib/axios";
 import { formatLabelFirstLetter } from "@/utils/LabelFormatter";
+import { detectValueinString } from "@/utils/ValueDetections";
+import { cameraFieldOptions } from "@/app/datas/cameraFieldDatas";
 
 interface UploadFormProps {
   file: File;
@@ -17,7 +19,6 @@ const UploadForm: React.FC<UploadFormProps> = ({ onChange, photo, file }) => {
   const [settings, setSettings] = useState<CameraSettings>(
     defaultCameraSettings["Fujifilm"]
   );
-  const [metadata, setMetadata] = useState({});
   const [selectedCamera, setSelectedCamera] =
     useState<CameraSettings["Brand"]>("Fujifilm");
   const handleDetectMetadata = async () => {
@@ -26,14 +27,13 @@ const UploadForm: React.FC<UploadFormProps> = ({ onChange, photo, file }) => {
       const formData = new FormData();
       formData.append("file", file);
       const res = await api.post(
-        "http://localhost:3001/api/exifread",
+        "https://exifreader.onrender.com/api/exifread",
 
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      // console.log("Metadata detected:", res?.data.metadata);
       if (res?.data.metadata.Make) {
         const brand = formatLabelFirstLetter(
           res.data.metadata.Make
@@ -41,17 +41,24 @@ const UploadForm: React.FC<UploadFormProps> = ({ onChange, photo, file }) => {
         if (brand in defaultCameraSettings) {
           setSelectedCamera(brand);
           setSettings(defaultCameraSettings[brand]);
-          // console.log(`Camera brand set to ${brand}`);
         }
       }
       for (const [key, value] of Object.entries(res?.data.metadata)) {
         if (key in settings) {
           onChange(key, value as string);
           handleSettingsChange(key, value as string | number | object);
-          // console.log(`Setting ${key} to ${value}`);
+          console.log("Auto-detected", key, ":", value);
+          if (typeof value === "string") {
+            const detectedValue = detectValueinString(
+              cameraFieldOptions[selectedCamera]?.[key] || [],
+              value
+            );
+            if (detectedValue) {
+              handleSettingsChange(key, detectedValue);
+            }
+          }
         }
       }
-      // console.log(settings);
     } catch (err) {
       console.error("Metadata detection failed:", err);
     } finally {
@@ -63,7 +70,7 @@ const UploadForm: React.FC<UploadFormProps> = ({ onChange, photo, file }) => {
     if (photo) {
       handleDetectMetadata();
     }
-  }, []);
+  }, [photo]);
 
   const handleCameraChange = (brand: CameraSettings["Brand"]) => {
     setSettings(defaultCameraSettings[brand]);
