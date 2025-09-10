@@ -31,7 +31,7 @@ const Heading: React.FC<HeadingProps> = ({
   return (
     <div
       id={id}
-      className={`font-serif ${className} ${sizeClasses[size]} ${alignmentClasses[alignment]}`}
+      className={`font-forum ${className} ${sizeClasses[size]} ${alignmentClasses[alignment]}`}
     >
       {children}
     </div>

@@ -8,13 +8,15 @@ interface UploadPreviewProps {
 const UploadPreview: React.FC<UploadPreviewProps> = ({ photo }) => {
   return (
     <div>
-      <Heading size="l">What it is about?</Heading>
+      <Heading size="l" alignment="left">
+        What it is about?
+      </Heading>
       <Image
         src={photo}
         alt={"image"}
-        width={400}
-        height={300}
-        className="rounded-3xl"
+        width={1200}
+        height={900}
+        className="max-w-3/4 h-auto rounded-3xl"
       ></Image>
     </div>
   );

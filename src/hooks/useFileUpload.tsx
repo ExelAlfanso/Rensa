@@ -2,7 +2,7 @@
 import { useState, useCallback, useRef } from "react";
 
 export function useFileUpload(onFileSelect?: (file: File) => void) {
-  const [photo, setPhoto] = useState<string>("");
+  const [photo, setPhoto] = useState("");
   const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [isDragOver, setIsDragOver] = useState(false);
@@ -21,16 +21,6 @@ export function useFileUpload(onFileSelect?: (file: File) => void) {
   const handleBrowseClick = () => {
     fileInputRef.current?.click();
   };
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragOver(false);
-    const files = e.dataTransfer.files;
-
-    if (files && files.length > 0) {
-      handleFileSelect(files[0]);
-    }
-  }, []);
-
   const handleFileSelect = useCallback(
     (file: File) => {
       const isJPG =
@@ -38,9 +28,9 @@ export function useFileUpload(onFileSelect?: (file: File) => void) {
         file.type === "image/jpg" ||
         file.name.toLowerCase().endsWith(".jpg") ||
         file.name.toLowerCase().endsWith(".jpeg");
-      const isLt5MB = file.size / 1024 / 1024 < 5; // size in MB
+      const isLt5MB = file.size / 1024 / 1024 < 20; // size in MB
       if (!isLt5MB) {
-        setMessage("Image must be smaller than 5MB!");
+        setMessage("Image must be smaller than 20MB!");
         return;
       }
       if (!isJPG) {
@@ -51,6 +41,9 @@ export function useFileUpload(onFileSelect?: (file: File) => void) {
       setMessage("");
       setIsUploading(true);
 
+      const previewFile = URL.createObjectURL(file);
+      setPhoto(previewFile);
+
       setTimeout(() => {
         setUploadedFile(file);
         setIsUploading(false);
@@ -59,12 +52,23 @@ export function useFileUpload(onFileSelect?: (file: File) => void) {
     },
     [onFileSelect]
   );
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault();
+      setIsDragOver(false);
+      const files = e.dataTransfer.files;
+
+      if (files && files.length > 0) {
+        handleFileSelect(files[0]);
+      }
+    },
+    [handleFileSelect]
+  );
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       handleFileSelect(file);
-      const previewFile = URL.createObjectURL(file);
-      setPhoto(previewFile);
     }
   };
 

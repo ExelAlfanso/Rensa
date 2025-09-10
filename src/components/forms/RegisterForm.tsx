@@ -72,7 +72,7 @@ const RegisterForm = () => {
       >
         <div className="flex flex-col items-center justify-center">
           <Logo size={100} />
-          <h1 className="font-serif text-3xl text-black">Register</h1>
+          <h1 className="font-forum text-3xl text-black">Register</h1>
         </div>
         <fieldset className="w-full p-4 fieldset">
           {error && <div className="text-orange-900">{error}</div>}

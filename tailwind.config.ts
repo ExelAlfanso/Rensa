@@ -8,6 +8,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primary: "var(--primary)",
+        secondary: "var(--secondary)",
         black: {
           50: "var(--black-50)",
           100: "var(--black-100)",
@@ -19,6 +21,29 @@ module.exports = {
           700: "var(--black-700)",
           800: "var(--black-800)",
           900: "var(--black-900)",
+        },
+        gray: {
+          50: "var(--gray-50)",
+          100: "var(--gray-100)",
+          200: "var(--gray-200)",
+          300: "var(--gray-300)",
+          400: "var(--gray-400)",
+          500: "var(--gray-500)",
+          600: "var(--gray-600)",
+          700: "var(--gray-700)",
+          800: "var(--gray-800)",
+          900: "var(--gray-900)",
+        },
+        white: {
+          100: "var(--white-100)",
+          200: "var(--white-200)",
+          300: "var(--white-300)",
+          400: "var(--white-400)",
+          500: "var(--white-500)",
+          600: "var(--white-600)",
+          700: "var(--white-700)",
+          800: "var(--white-800)",
+          900: "var(--white-900)",
         },
       },
       fontFamily: {

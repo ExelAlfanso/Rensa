@@ -3,7 +3,7 @@ import Image from "next/image";
 import Heading from "@/components/Heading";
 const ForestSection = () => {
   return (
-    <div className="relative h-full font-serif text-3xl text-white">
+    <div className="relative h-full font-forum text-3xl text-white">
       <Image
         src={"/forest.jpg"}
         priority

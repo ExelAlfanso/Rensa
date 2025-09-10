@@ -1,14 +1,23 @@
 import Image, { ImageProps } from "next/image";
-import { useState } from "react";
+import React, { useState } from "react";
 
-export const ImageWithSkeleton = (props: {
+interface ImageWithSkeletonProps {
   image: Omit<ImageProps, "width" | "height"> & {
     width: number;
     height: number;
   };
+  onLoad?: () => void;
+}
+
+export const ImageWithSkeleton: React.FC<ImageWithSkeletonProps> = ({
+  image,
+  onLoad,
 }) => {
   const [loaded, setLoaded] = useState<boolean>(false);
-
+  const handleLoad = () => {
+    setLoaded(true);
+    if (onLoad) onLoad();
+  };
   return (
     <div className="relative w-full h-auto transition-transform duration-300 transform group-hover:scale-105">
       {!loaded && (
@@ -16,7 +25,7 @@ export const ImageWithSkeleton = (props: {
           <div className="skeleton bg-[#D5D5D5] animate-none w-full h-full"></div>
         </div>
       )}
-      <Image {...props.image} loading="lazy" onLoad={() => setLoaded(true)} />
+      <Image {...image} alt="pic" loading="lazy" onLoad={handleLoad} />
     </div>
   );
 };

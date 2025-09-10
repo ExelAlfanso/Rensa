@@ -17,7 +17,7 @@ const FilterList = () => {
                 }`}
               >
                 {list.items.map((item, idx) => (
-                  <div key={idx} className="mr-5 font-serif text-3xl">
+                  <div key={idx} className="mr-5 font-forum text-3xl">
                     <button
                       className={`cursor-pointer hover:text-gray-700 transition-colors duration-300 ${
                         list.column === 1 ? "" : "mr-10"

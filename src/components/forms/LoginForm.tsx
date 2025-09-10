@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 // import GoogleLoginButton from "@/components/GoogleLoginButton";
 import React, { FormEvent, useState } from "react";
@@ -50,7 +51,7 @@ const LoginForm = () => {
       >
         <div className="flex flex-col items-center justify-center">
           <Logo size={100} />
-          <h1 className="font-serif text-3xl text-black">Login</h1>
+          <h1 className="font-forum text-3xl text-black">Login</h1>
         </div>
         <fieldset className="w-full p-4 fieldset">
           {error && <div className=" text-orange-950">{error}</div>}

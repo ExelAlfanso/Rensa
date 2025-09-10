@@ -18,7 +18,8 @@ export interface PhotoDocument extends Document {
   url: string;
   likes: Types.ObjectId;
   title: string;
-  caption: string;
+  description: string;
+  tags: string[];
   metadata: PhotoMetadata;
 }
 
@@ -40,7 +41,7 @@ const PhotoSchema = new Schema<PhotoDocument>(
       required: true,
     },
     title: { type: String, required: true },
-    caption: { type: String, default: "" },
+    description: { type: String, default: "" },
     metadata: {
       width: Number,
       height: Number,
@@ -49,6 +50,7 @@ const PhotoSchema = new Schema<PhotoDocument>(
       exif: { type: Schema.Types.Mixed },
       uploadedAt: Date,
     },
+    tags: [{ type: String }],
   },
   {
     timestamps: true,
