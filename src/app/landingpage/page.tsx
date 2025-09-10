@@ -49,7 +49,9 @@ export default function LandingPage() {
       <div id="hero-section">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl text-center font-figtree italic mix-blend-color-dodge text-[#56AD3B]">
           Where Every{" "}
-          <span className="font-forum not-italic text-[56px] inline">Picture</span>
+          <span className="font-forum not-italic text-[56px] inline">
+            Picture
+          </span>
           <br />
           Tells Its{" "}
           <span className="font-forum not-italic text-[56px]">Recipe</span>
@@ -122,8 +124,7 @@ export default function LandingPage() {
           <div className="text-4xl font-figtree font-medium text-black-500 pb-[4vh]">
             Get an <span className="font-forum">Idea</span>
             <br />
-            <span className="ml-[16px]">
-            of What You Should </span>
+            <span className="ml-[16px]">of What You Should </span>
             <br />
             <span className="font-forum">Shoot </span>
             Tomorrow
@@ -149,8 +150,36 @@ export default function LandingPage() {
               />
             </div>
             {/* Content */}
-            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-[40vh] bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
-              <p className="p-4">This is Slide 1 content</p>
+            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+              <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
+                Bloom in Time
+                <div className="pl-2">
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Film Simulation
+                    <div className="text-sm font-thin mt-1 text-black ">Astia</div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Dynamic Range
+                    <div className="text-sm font-thin mt-1 text-black">
+                      DR400
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Highlight
+                    <div className="text-sm font-thin mt-1 text-black">+2</div>
+                  </div>
+                  <div className="text-black-200 text-xs font-light mt-2">
+                    White Balance
+                    <div className="text-sm font-thin mt-1 text-black">
+                      0 Red & -3 Blue
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Noise Reduction
+                    <div className="text-sm font-thin mt-1 text-black">-2</div>
+                  </div>
+                </div>
+              </div>
             </div>
             {/* Controls */}
             <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
@@ -171,8 +200,36 @@ export default function LandingPage() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-[40vh] bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
-              <p className="p-4">This is Slide 2 content</p>
+            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+              <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
+                Bloom in Time
+                <div className="pl-2">
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Film Simulation
+                    <div className="text-sm font-thin mt-1 ">Astia</div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Dynamic Range
+                    <div className="text-sm font-thin mt-1 text-black">
+                      DR400
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Highlight
+                    <div className="text-sm font-thin mt-1 text-black">+2</div>
+                  </div>
+                  <div className="text-black-200 text-xs font-light mt-2">
+                    White Balance
+                    <div className="text-sm font-thin mt-1 text-black">
+                      0 Red & -3 Blue
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Noise Reduction
+                    <div className="text-sm font-thin mt-1 text-black">-2</div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
               <a href="#slide1" className="btn btn-circle">
@@ -192,8 +249,36 @@ export default function LandingPage() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-[40vh] bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
-              <p className="p-4">This is Slide 3 content</p>
+            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+              <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
+                Bloom in Time
+                <div className="pl-2">
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Film Simulation
+                    <div className="text-sm font-thin mt-1 ">Astia</div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Dynamic Range
+                    <div className="text-sm font-thin mt-1 text-black">
+                      DR400
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Highlight
+                    <div className="text-sm font-thin mt-1 text-black">+2</div>
+                  </div>
+                  <div className="text-black-200 text-xs font-light mt-2">
+                    White Balance
+                    <div className="text-sm font-thin mt-1 text-black">
+                      0 Red & -3 Blue
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Noise Reduction
+                    <div className="text-sm font-thin mt-1 text-black">-2</div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
               <a href="#slide2" className="btn btn-circle">
@@ -213,8 +298,36 @@ export default function LandingPage() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-[40vh] bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
-              <p className="p-4">This is Slide 4 content</p>
+            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+              <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
+                Bloom in Time
+                <div className="pl-2">
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Film Simulation
+                    <div className="text-sm font-thin mt-1 ">Astia</div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Dynamic Range
+                    <div className="text-sm font-thin mt-1 text-black">
+                      DR400
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Highlight
+                    <div className="text-sm font-thin mt-1 text-black">+2</div>
+                  </div>
+                  <div className="text-black-200 text-xs font-light mt-2">
+                    White Balance
+                    <div className="text-sm font-thin mt-1 text-black">
+                      0 Red & -3 Blue
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Noise Reduction
+                    <div className="text-sm font-thin mt-1 text-black">-2</div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
               <a href="#slide3" className="btn btn-circle">
@@ -297,7 +410,7 @@ export default function LandingPage() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-figtree font-medium mb-4 text-black-500">
                 Every Picture Holds a Secret.
               </h1>
-              <p className="text-lg md:text-xl leading-relaxed font-light">
+              <p className="text-lg md:text-xl leading-relaxed font-figtree font-light text-black-300x  ">
                 Behind every frame lies a quiet formula — the shutter's breath,
                 the lens's sigh, the light's gentle fall.{" "}
                 <span className="font-semibold">Rensa</span> lets you see it
