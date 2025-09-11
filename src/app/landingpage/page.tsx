@@ -1,6 +1,9 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import Button from "@/components/buttons/Button";
+import IconButton from "@/components/buttons/IconButton";
+import { ArrowArcRightIcon, CaretRightIcon } from "@phosphor-icons/react";
 
 export default function LandingPage() {
   const [imgUrls, setImgUrls] = useState<string[]>([]);
@@ -417,8 +420,7 @@ export default function LandingPage() {
               className="absolute top-[35vh] left-1/2 -translate-x-1/2 z-20 text-center px-6"
               style={{ y: smoothTextY, opacity: smoothTextOpacity }}
             >
-              
-              <h1 className="text-4xl sm:text-3xl md:text-5xl lg:text-6xl font-figtree font-medium mb-4 text-black-500">
+              <h1 className="text-4xl sm:text-3xl md:text-5xl lg:text-6xl font-figtree font-medium mb-4 text-black-500 w-fit">
                 Every Picture Holds a Secret.
               </h1>
               <p className="text-lg md:text-xl leading-relaxed font-figtree font-light text-black-300x  ">
@@ -427,6 +429,20 @@ export default function LandingPage() {
                 <span className="font-semibold">Rensa</span> lets you see it
                 all, so tomorrow, your own story can be told the same way.
               </p>
+              <div className="mt-4 flex justify-center items-center">
+                <IconButton
+                  iconPosition="left"
+                  Icon={ArrowArcRightIcon}
+                  paddingX={16}
+                  color="primary"
+                  type="button"
+                >
+                  Explore Now
+                </IconButton>
+                {/* <Button color="primary" className="mt-8" paddingX={8}>
+                  Explore Now
+                </Button> */}
+              </div>
             </motion.div>
           </div>
         </section>
