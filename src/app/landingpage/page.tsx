@@ -156,7 +156,9 @@ export default function LandingPage() {
                 <div className="pl-2">
                   <div className="text-xs font-light mt-2 text-black-200">
                     Film Simulation
-                    <div className="text-sm font-thin mt-1 text-black ">Astia</div>
+                    <div className="text-sm font-thin mt-1 text-black ">
+                      Astia
+                    </div>
                   </div>
                   <div className="text-xs font-light mt-2 text-black-200">
                     Dynamic Range
@@ -202,31 +204,31 @@ export default function LandingPage() {
             </div>
             <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
               <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
-                Bloom in Time
+                Sunset Reverie
                 <div className="pl-2">
                   <div className="text-xs font-light mt-2 text-black-200">
-                    Film Simulation
-                    <div className="text-sm font-thin mt-1 ">Astia</div>
-                  </div>
-                  <div className="text-xs font-light mt-2 text-black-200">
-                    Dynamic Range
+                    Creative Style
                     <div className="text-sm font-thin mt-1 text-black">
-                      DR400
+                      Portrait
                     </div>
                   </div>
                   <div className="text-xs font-light mt-2 text-black-200">
-                    Highlight
-                    <div className="text-sm font-thin mt-1 text-black">+2</div>
+                    Dynamic Range Optimizer
+                    <div className="text-sm font-thin mt-1 text-black">Lv5</div>
                   </div>
-                  <div className="text-black-200 text-xs font-light mt-2">
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Contrast
+                    <div className="text-sm font-thin mt-1 text-black">+1</div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
                     White Balance
                     <div className="text-sm font-thin mt-1 text-black">
-                      0 Red & -3 Blue
+                      Daylight, +2 Amber
                     </div>
                   </div>
                   <div className="text-xs font-light mt-2 text-black-200">
                     Noise Reduction
-                    <div className="text-sm font-thin mt-1 text-black">-2</div>
+                    <div className="text-sm font-thin mt-1 text-black">Low</div>
                   </div>
                 </div>
               </div>
@@ -251,31 +253,35 @@ export default function LandingPage() {
             </div>
             <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
               <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
-                Bloom in Time
+                Crimson Echo
                 <div className="pl-2">
                   <div className="text-xs font-light mt-2 text-black-200">
-                    Film Simulation
-                    <div className="text-sm font-thin mt-1 ">Astia</div>
-                  </div>
-                  <div className="text-xs font-light mt-2 text-black-200">
-                    Dynamic Range
+                    Picture Style
                     <div className="text-sm font-thin mt-1 text-black">
-                      DR400
+                      Faithful
                     </div>
                   </div>
                   <div className="text-xs font-light mt-2 text-black-200">
-                    Highlight
-                    <div className="text-sm font-thin mt-1 text-black">+2</div>
+                    Auto Lighting Optimizer
+                    <div className="text-sm font-thin mt-1 text-black">
+                      Standard
+                    </div>
                   </div>
-                  <div className="text-black-200 text-xs font-light mt-2">
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Sharpness
+                    <div className="text-sm font-thin mt-1 text-black">+3</div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
                     White Balance
                     <div className="text-sm font-thin mt-1 text-black">
-                      0 Red & -3 Blue
+                      Shade, -1 Blue
                     </div>
                   </div>
                   <div className="text-xs font-light mt-2 text-black-200">
-                    Noise Reduction
-                    <div className="text-sm font-thin mt-1 text-black">-2</div>
+                    High ISO Speed NR
+                    <div className="text-sm font-thin mt-1 text-black">
+                      Standard
+                    </div>
                   </div>
                 </div>
               </div>
@@ -300,31 +306,35 @@ export default function LandingPage() {
             </div>
             <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
               <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
-                Bloom in Time
+                Golden Frame
                 <div className="pl-2">
                   <div className="text-xs font-light mt-2 text-black-200">
-                    Film Simulation
-                    <div className="text-sm font-thin mt-1 ">Astia</div>
-                  </div>
-                  <div className="text-xs font-light mt-2 text-black-200">
-                    Dynamic Range
+                    Picture Control
                     <div className="text-sm font-thin mt-1 text-black">
-                      DR400
+                      Neutral
                     </div>
                   </div>
                   <div className="text-xs font-light mt-2 text-black-200">
-                    Highlight
-                    <div className="text-sm font-thin mt-1 text-black">+2</div>
+                    Active D-Lighting
+                    <div className="text-sm font-thin mt-1 text-black">
+                      High
+                    </div>
                   </div>
-                  <div className="text-black-200 text-xs font-light mt-2">
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Contrast
+                    <div className="text-sm font-thin mt-1 text-black">-1</div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
                     White Balance
                     <div className="text-sm font-thin mt-1 text-black">
-                      0 Red & -3 Blue
+                      Auto, Warm Bias
                     </div>
                   </div>
                   <div className="text-xs font-light mt-2 text-black-200">
-                    Noise Reduction
-                    <div className="text-sm font-thin mt-1 text-black">-2</div>
+                    High ISO NR
+                    <div className="text-sm font-thin mt-1 text-black">
+                      Normal
+                    </div>
                   </div>
                 </div>
               </div>
@@ -407,7 +417,8 @@ export default function LandingPage() {
               className="absolute top-[35vh] left-1/2 -translate-x-1/2 z-20 text-center px-6"
               style={{ y: smoothTextY, opacity: smoothTextOpacity }}
             >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-figtree font-medium mb-4 text-black-500">
+              
+              <h1 className="text-4xl sm:text-3xl md:text-5xl lg:text-6xl font-figtree font-medium mb-4 text-black-500">
                 Every Picture Holds a Secret.
               </h1>
               <p className="text-lg md:text-xl leading-relaxed font-figtree font-light text-black-300x  ">
