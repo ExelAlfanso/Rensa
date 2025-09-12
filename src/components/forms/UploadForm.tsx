@@ -12,9 +12,15 @@ interface UploadFormProps {
   file: File;
   photo: string;
   onChange: (field: string, value: string | string[]) => void;
+  handleExifChange: (field: string, value: number | object | string) => void;
 }
 
-const UploadForm: React.FC<UploadFormProps> = ({ onChange, photo, file }) => {
+const UploadForm: React.FC<UploadFormProps> = ({
+  onChange,
+  photo,
+  file,
+  handleExifChange,
+}) => {
   const [isDetecting, setIsDetecting] = useState(false);
   const [settings, setSettings] = useState<CameraSettings>(
     defaultCameraSettings["Fujifilm"]
@@ -45,8 +51,7 @@ const UploadForm: React.FC<UploadFormProps> = ({ onChange, photo, file }) => {
       }
       for (const [key, value] of Object.entries(res?.data.metadata)) {
         if (key in settings) {
-          onChange(key, value as string);
-          handleSettingsChange(key, value as string | number | object);
+          handleExifChange(key, value as string | string[] | number | object);
           console.log("Auto-detected", key, ":", value);
           if (typeof value === "string") {
             const detectedValue = detectValueinString(
@@ -54,7 +59,7 @@ const UploadForm: React.FC<UploadFormProps> = ({ onChange, photo, file }) => {
               value
             );
             if (detectedValue) {
-              handleSettingsChange(key, detectedValue);
+              handleExifChange(key, detectedValue);
             }
           }
         }
@@ -72,16 +77,6 @@ const UploadForm: React.FC<UploadFormProps> = ({ onChange, photo, file }) => {
     }
   }, [photo]);
 
-  const handleCameraChange = (brand: CameraSettings["Brand"]) => {
-    setSettings(defaultCameraSettings[brand]);
-  };
-
-  const handleSettingsChange = (
-    field: string,
-    value: number | object | string
-  ) => {
-    setSettings((prev) => ({ ...prev, [field]: value }));
-  };
   return (
     <div className="flex flex-col gap-5 p-10 mt-10 overflow-y-scroll shadow-lg w-250 h-175 no-scrollbar rounded-3xl bg-white-200 text-primary">
       <InputField
@@ -115,15 +110,16 @@ const UploadForm: React.FC<UploadFormProps> = ({ onChange, photo, file }) => {
               label="Camera Brand"
               placeholder={selectedCamera}
               values={Object.keys(defaultCameraSettings)}
-              onChange={(e) =>
-                handleCameraChange(
+              onChange={(e) => {
+                handleExifChange(
+                  e.currentTarget.innerText,
                   e.currentTarget.innerText as CameraSettings["Brand"]
-                )
-              }
+                );
+              }}
             />
             <CameraSettingsForm
               settings={settings}
-              onChange={handleSettingsChange}
+              handleExifChange={handleExifChange}
             ></CameraSettingsForm>
           </>
         )}

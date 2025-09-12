@@ -1,16 +1,19 @@
+"use client";
+
 import api from "@/lib/axios";
 import { ArrowLeftIcon } from "@phosphor-icons/react";
 import React, { useState } from "react";
-import Text from "../Text";
-import Button from "./Button";
-import Heading from "../Heading";
+import Text from "../components/Text";
+import Button from "../components/buttons/Button";
+import Heading from "../components/Heading";
 import { useRouter } from "next/navigation";
 import { useFileUpload } from "@/hooks/useFileUpload";
-import UploadPreview from "../UploadPreview";
-import UploadForm from "../forms/UploadForm";
-import UploadDropZone from "../dropzones/UploadDropZone";
+import UploadPreview from "../components/UploadPreview";
+import UploadForm from "../components/forms/UploadForm";
+import UploadDropZone from "../components/dropzones/UploadDropZone";
 import { useSession } from "next-auth/react";
 import { useLoading } from "@/hooks/useLoading";
+import { CameraSettings, defaultCameraSettings } from "@/app/datas/cameraDatas";
 
 interface UploadButtonProps {
   onFileSelect?: (file: File) => void;
@@ -32,13 +35,32 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
   } = useFileUpload(onFileSelect);
   const { data: session } = useSession();
   const { setLoading } = useLoading();
+  const [exif, setExif] = useState<CameraSettings>(
+    defaultCameraSettings["Fujifilm"]
+  );
   const [form, setForm] = useState({
     file: uploadedFile,
     title: "",
     description: "",
     tags: [],
-    metadata: {},
+    exif: exif,
   });
+  const handleExifChange = (
+    field: string,
+    value: number | object | string | CameraSettings["Brand"]
+  ) => {
+    if (
+      typeof value === "string" &&
+      Object.prototype.hasOwnProperty.call(defaultCameraSettings, value)
+    ) {
+      setExif(
+        defaultCameraSettings[value as keyof typeof defaultCameraSettings]
+      );
+    } else {
+      setExif((prev) => ({ ...prev, [field]: value }));
+    }
+    setForm((prev) => ({ ...prev, exif: { ...exif, [field]: value } }));
+  };
 
   const handleUpload = async () => {
     if (!form.file) return;
@@ -67,6 +89,7 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
   };
   const handleChange = (field: string, value: string | string[]) => {
     setForm((prev) => ({ ...prev, [field]: value }));
+    console.log(form);
   };
   const router = useRouter();
   let content;
@@ -162,6 +185,7 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
             file={uploadedFile}
             photo={photo}
             onChange={handleChange}
+            handleExifChange={handleExifChange}
           ></UploadForm>
         </div>
       )}

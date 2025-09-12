@@ -7,6 +7,7 @@ import LoadingOverlay from "@/components/LoadingOverlay";
 import Button from "@/components/buttons/Button";
 import InputField from "@/components/inputfields/InputField";
 import IconButton from "@/components/buttons/IconButton";
+import { CaretDownIcon } from "@phosphor-icons/react";
 
 export default function HomePage() {
   const { data: session, status } = useSession();
@@ -36,7 +37,7 @@ export default function HomePage() {
         <Button color={"tertiary"}>Text Button</Button>
       </div>
       <div className="flex flex-col gap-5">
-        <IconButton color={"primary"} iconPosition="left">
+        <IconButton color={"primary"} iconPosition="left" Icon={CaretDownIcon}>
           Text Button
         </IconButton>
         <IconButton color={"secondary"} iconPosition="left">
