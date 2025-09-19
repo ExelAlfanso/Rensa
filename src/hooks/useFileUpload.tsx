@@ -37,7 +37,8 @@ export function useFileUpload(onFileSelect?: (file: File) => void) {
         setMessage("Only JPG/JPEG files are allowed.");
         return;
       }
-      setUploadedFile(null);
+      // setUploadedFile(null);
+      setUploadedFile(file);
       setMessage("");
       setIsUploading(true);
 
@@ -45,10 +46,11 @@ export function useFileUpload(onFileSelect?: (file: File) => void) {
       setPhoto(previewFile);
 
       setTimeout(() => {
-        setUploadedFile(file);
         setIsUploading(false);
         onFileSelect?.(file);
+        // console.log("File selected:", file.name);
       }, 800);
+      // console.log("Selected file:", uploadedFile);
     },
     [onFileSelect]
   );

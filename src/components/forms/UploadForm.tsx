@@ -1,25 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { KeyboardEventHandler, useEffect, useState } from "react";
 import InputField from "../inputfields/InputField";
 import { CameraSettings, defaultCameraSettings } from "@/app/datas/cameraDatas";
 import CameraSettingsForm from "./CameraSettingsForm";
 import InputDropdown from "../inputfields/InputDropdown";
 import api from "@/lib/axios";
 import { formatLabelFirstLetter } from "@/utils/LabelFormatter";
-import { detectValueinString } from "@/utils/ValueDetections";
+import { detectValueinString, extractNumberFromString } from "@/utils/ValueDetections";
 import { cameraFieldOptions } from "@/app/datas/cameraFieldDatas";
+import TagsInputField from "../inputfields/TagsInputField";
 
 interface UploadFormProps {
   file: File;
   photo: string;
   onChange: (field: string, value: string | string[]) => void;
-  handleExifChange: (field: string, value: number | object | string) => void;
+  handleExifChange: (field: string, value: number | object | string | CameraSettings) => void;
+  handleTags: (value: string | string[]) => void;
+  tags: string[];
+
 }
 
 const UploadForm: React.FC<UploadFormProps> = ({
   onChange,
   photo,
   file,
+  tags,
   handleExifChange,
+  handleTags,
 }) => {
   const [isDetecting, setIsDetecting] = useState(false);
   const [settings, setSettings] = useState<CameraSettings>(
@@ -47,21 +53,32 @@ const UploadForm: React.FC<UploadFormProps> = ({
         if (brand in defaultCameraSettings) {
           setSelectedCamera(brand);
           setSettings(defaultCameraSettings[brand]);
+          handleExifChange("Brand", brand);
         }
       }
       for (const [key, value] of Object.entries(res?.data.metadata)) {
-        if (key in settings) {
-          handleExifChange(key, value as string | string[] | number | object);
-          console.log("Auto-detected", key, ":", value);
-          if (typeof value === "string") {
-            const detectedValue = detectValueinString(
-              cameraFieldOptions[selectedCamera]?.[key] || [],
-              value
-            );
-            if (detectedValue) {
+        if(key in settings){
+          // console.log(key,value);
+          handleExifChange(key, value as string | number | object);
+          if(typeof value === "string"){
+            const detectedValue = detectValueinString(cameraFieldOptions[selectedCamera]?.[key] || [],value);  
+            if(detectedValue){
               handleExifChange(key, detectedValue);
+              setSettings((prev) => ({ ...prev, [key]: detectedValue }));
+            }
+            else{
+              const extractedNumber =  extractNumberFromString(value);
+              console.log("Extracted " + extractedNumber + " from: " + value);
+              if(extractedNumber !== null){
+                handleExifChange(key, extractedNumber);
+                setSettings((prev) => ({ ...prev, [key]: extractedNumber }));
+              }
             }
           }
+          else{
+            setSettings((prev) => ({ ...prev, [key]: value }));
+          }
+          console.log(key,value);
         }
       }
     } catch (err) {
@@ -93,13 +110,12 @@ const UploadForm: React.FC<UploadFormProps> = ({
         placeholder="Add a description"
         onChange={(e) => onChange("description", e.target.value)}
       ></InputField>
-      <InputField
-        type={"text"}
-        label="Tags"
-        size="m"
-        placeholder="Add tags"
-        onChange={(e) => {}}
-      ></InputField>
+      <TagsInputField
+        label={"Tags"}
+        tags={tags}
+        placeholder={"Enter Tags"}
+        handleTags={handleTags}
+      ></TagsInputField>
       <div className="w-full my-2 border-t border-white-700"></div>
       <div className="flex flex-col items-center justify-center">
         {isDetecting ? (
@@ -111,14 +127,15 @@ const UploadForm: React.FC<UploadFormProps> = ({
               placeholder={selectedCamera}
               values={Object.keys(defaultCameraSettings)}
               onChange={(e) => {
-                handleExifChange(
-                  e.currentTarget.innerText,
-                  e.currentTarget.innerText as CameraSettings["Brand"]
-                );
+                const brand = e.currentTarget.innerText as CameraSettings["Brand"];
+                setSelectedCamera(brand);
+                setSettings(defaultCameraSettings[brand]);
+                handleExifChange("Brand", brand); // 👈 update parent state
               }}
             />
             <CameraSettingsForm
               settings={settings}
+              handleSettings={setSettings}
               handleExifChange={handleExifChange}
             ></CameraSettingsForm>
           </>

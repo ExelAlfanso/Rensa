@@ -6,7 +6,7 @@ import { PhotoMetadata } from "@/models/Photo";
 interface RecipeListProps {
   metadata?: PhotoMetadata;
 }
-
+//TODO: STRUGGLES HERE BECAUSE 
 const RecipeList: React.FC<RecipeListProps> = ({ metadata }) => {
   return (
     <div>

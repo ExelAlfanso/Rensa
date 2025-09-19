@@ -7,36 +7,46 @@ import Photo from "@/models/Photo";
 //TODO: Add data what camera was used
 export async function POST(req: Request) {
   try {
-    const { file, userId, title, description } = await req.json();
+    const formData = await req.formData();
+
+    const file = formData.get("file") as File;
+    const userId = formData.get("userId") as string;
+    const title = formData.get("title") as string;
+    const description = formData.get("description") as string;
+    const exif = JSON.parse(formData.get("exif") as string);
+    const tags = JSON.parse(formData.get("tags") as string);
+
+    if (!file) {
+      return NextResponse.json({ success: false, error: "No file provided" }, { status: 400 });
+    }
+
+    // Convert File -> Buffer -> Base64 for Cloudinary
+    const arrayBuffer = await file.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    const base64File = `data:${file.type};base64,${buffer.toString("base64")}`;
 
     await connectDB();
 
-    const uploadRes = await cloudinary.uploader.upload(file, {
+    const uploadRes = await cloudinary.uploader.upload(base64File, {
       folder: `user_uploads/${userId}`,
       resource_type: "image",
       image_metadata: true,
     });
-    const {
-      secure_url,
-      width,
-      height,
-      format,
-      image_metadata,
-      bytes,
-      created_at,
-    } = uploadRes;
+
+    const { secure_url, width, height, format, bytes, created_at } = uploadRes;
 
     const photo = await Photo.create({
       userId,
       url: secure_url,
       title,
       description,
+      tags,
       metadata: {
         width,
         height,
         format,
         size: bytes,
-        exif: image_metadata,
+        exif: exif,
         uploadedAt: created_at,
       },
     });

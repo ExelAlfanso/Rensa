@@ -2,7 +2,7 @@
 
 import api from "@/lib/axios";
 import { ArrowLeftIcon } from "@phosphor-icons/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Text from "../components/Text";
 import Button from "../components/buttons/Button";
 import Heading from "../components/Heading";
@@ -38,58 +38,103 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
   const [exif, setExif] = useState<CameraSettings>(
     defaultCameraSettings["Fujifilm"]
   );
-  const [form, setForm] = useState({
-    file: uploadedFile,
+  const [error,setError] = useState<string>("");  
+  const [tags, setTags] = useState<string[]>([]);
+  const [form, setForm] = useState<{
+    // file: File | null;
+    title: string;
+    description: string;
+    tags: string[];
+    exif: CameraSettings;
+  }>({
     title: "",
     description: "",
     tags: [],
     exif: exif,
   });
+  useEffect(()=>{
+    console.log(form);
+  },[form]);
   const handleExifChange = (
     field: string,
     value: number | object | string | CameraSettings["Brand"]
   ) => {
-    if (
-      typeof value === "string" &&
-      Object.prototype.hasOwnProperty.call(defaultCameraSettings, value)
-    ) {
-      setExif(
-        defaultCameraSettings[value as keyof typeof defaultCameraSettings]
-      );
+    if(field === "Brand"){
+      const newExif = defaultCameraSettings[value as CameraSettings["Brand"]];
+      setExif(newExif);
+      setForm((prev)=> ({...prev, exif: newExif}));
+    }
+    else{
+      setExif((prev) => ({...prev, [field] : value}))
+      setForm((prev)=> ({...prev, exif: {...prev.exif, [field]:value}}));
+    }
+  };
+  const handleTagsChange = (value: string | string[]) => {
+    if (typeof value === "string") {
+      if (!value.trim() || tags.includes(value.trim())) return;
+      setTags((prev) => [...prev, value.trim()]);
+      setForm((prev) => ({ ...prev, tags: [...prev.tags, value.trim()] }));
     } else {
-      setExif((prev) => ({ ...prev, [field]: value }));
+      setTags([...value]);
+      setForm((prev) => ({ ...prev, tags: [...value] }));
     }
-    setForm((prev) => ({ ...prev, exif: { ...exif, [field]: value } }));
   };
-
+  const handleCancelButton = () =>{
+    handleCancel();
+    setForm({
+    // file: uploadedFile,
+    title: "",
+    description: "",
+    tags: [],
+    exif: exif,
+  });
+  }
   const handleUpload = async () => {
-    if (!form.file) return;
-    if (!form.title || !form.title.trim()) {
-      // setMessage("Title is required!");
-      return;
-    }
-    setLoading(true);
+  if (!form.title.trim()) {
+    setError("Title is required!");
+    return;
+  }
+  if (!form.description.trim()) {
+    setError("Description is required!");
+    return;
+  }
+  if (!form.tags || form.tags.length === 0) {
+    setError("At least one tag is required!");
+    return;
+  }
 
-    const reader = new FileReader();
-    reader.readAsDataURL(form.file);
-    reader.onloadend = async () => {
-      try {
-        await api.post("/photos/upload", {
-          file: reader.result,
-          userId: session?.user.id,
-          title: form.title,
-          description: form.description,
-        });
-      } catch (err) {
-        console.error("Upload failed:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-  };
+  if (!photo) {
+    setError("No photo selected!");
+    return;
+  }
+
+  const formData = new FormData();
+  if (uploadedFile) {
+    formData.append("file", uploadedFile); // must be a File/Blob
+  }
+  formData.append("userId", session?.user.id || "");
+  formData.append("title", form.title);
+  formData.append("description", form.description);
+  formData.append("tags", JSON.stringify(form.tags));
+  formData.append("exif", JSON.stringify(form.exif));
+
+  setLoading(true);
+  try {
+    await api.post("/photos/upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  } catch (err) {
+    console.error("Upload failed:", err);
+  } finally {
+    setLoading(false);
+  }
+};
+
   const handleChange = (field: string, value: string | string[]) => {
     setForm((prev) => ({ ...prev, [field]: value }));
-    console.log(form);
+    setError("");
   };
   const router = useRouter();
   let content;
@@ -146,9 +191,9 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
     <div className="w-full gap-2 px-65">
       {uploadedFile ? (
         <div className="flex items-center justify-between mb-10">
-          <Button onClick={handleCancel} color={"tertiary"}>
+          <Button onClick={handleCancelButton} color={"tertiary"}>
             Cancel
-          </Button>{" "}
+          </Button>
           <Button onClick={handleUpload} color={"primary"}>
             Upload
           </Button>
@@ -157,7 +202,7 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
         <div className="flex items-end justify-between mb-10">
           <button
             onClick={() => router.back()}
-            className="text-primary cursor-pointer hover:text-gray-500 transition-colors duration-300"
+            className="transition-colors duration-300 cursor-pointer text-primary hover:text-gray-500"
           >
             <ArrowLeftIcon size={32}></ArrowLeftIcon>
           </button>
@@ -179,14 +224,19 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
           content={content}
         ></UploadDropZone>
       ) : (
-        <div className="flex flex-row items-center justify-center">
-          <UploadPreview photo={photo}></UploadPreview>
-          <UploadForm
-            file={uploadedFile}
-            photo={photo}
-            onChange={handleChange}
-            handleExifChange={handleExifChange}
-          ></UploadForm>
+        <div>
+          {error && <Text className="text-center mb-2 text-red-500">{error}</Text>}
+          <div className="flex flex-row items-center justify-center">
+            <UploadPreview photo={photo}></UploadPreview>
+            <UploadForm
+              file={uploadedFile}
+              photo={photo}
+              onChange={handleChange}
+              tags={form.tags}
+              handleExifChange={handleExifChange}
+              handleTags={handleTagsChange}
+            ></UploadForm>
+          </div>
         </div>
       )}
     </div>

@@ -15,6 +15,7 @@ interface InputFieldProps {
   Icon?: React.ElementType;
   value?: string | number | object;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -29,6 +30,7 @@ const InputField: React.FC<InputFieldProps> = ({
   value,
   iconPosition = "right",
   onChange,
+  onKeyDown,
 }) => {
   const sizeClasses = {
     m: "h-12 py-3",
@@ -54,6 +56,7 @@ const InputField: React.FC<InputFieldProps> = ({
           className={`input bg-gray-200 transition-colors text-[16px] duration-300 w-full text-black ring:0 focus:outline-0 focus:bg-white-500 disabled:text-gray-300 disabled:border-gray-200 disabled:bg-white-500 focus:border-gray-800 rounded-3xl placeholder:text-primary pl-6 pr-4 ${sizeClasses[size]} ${className}`}
           placeholder={placeholder}
           onChange={onChange}
+          onKeyDown={onKeyDown}
         />
       )}
       {Icon && (

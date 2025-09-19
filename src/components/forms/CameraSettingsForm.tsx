@@ -7,12 +7,15 @@ import { cameraFieldOptions } from "@/app/datas/cameraFieldDatas";
 import { formatLabel } from "@/utils/LabelFormatter";
 interface CameraSettingsFormProps {
   settings: CameraSettings;
+  handleSettings: (settings: CameraSettings) => void; 
   handleExifChange: (field: string, value: number | object | string) => void;
+
 }
 
 const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
   settings,
   handleExifChange,
+  handleSettings,
 }) => {
   return (
     <div className="grid w-full grid-cols-1 gap-5">
@@ -32,7 +35,7 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
               initialValue={settings[key as keyof CameraSettings] as string}
               placeholder={`Select ${key}`}
               values={options}
-              onChange={(e) => handleExifChange(key, e.currentTarget.innerText)}
+              onChange={(e) => {handleExifChange(key, e.currentTarget.innerText); handleSettings({...settings, [key]: e.currentTarget.innerText});}}
             />
           );
         }
@@ -46,7 +49,9 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
               label={key}
               value={settings[key as keyof CameraSettings] as number}
               placeholder={`Enter ${key}`}
-              onChange={(e) => handleExifChange(key, Number(e.target.value))}
+              onChange={(e) => {handleExifChange(key, Number(e.target.value));
+              handleSettings({...settings, [key]: Number(e.target.value)});
+              }}  
             />
           );
         }
@@ -63,11 +68,15 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
                   label={subKey}
                   placeholder={`Enter ${subKey}`}
                   value={subVal as number}
-                  onChange={(e) =>
-                    handleExifChange(key, {
+                  onChange={(e) =>{ handleExifChange(key, {
                       ...value,
                       [subKey]: Number(e.target.value),
-                    })
+                    });
+                    handleSettings({...settings, [key]: {
+                      ...value,
+                      [subKey]: Number(e.target.value),
+                    }});
+                  }
                   }
                 />
               ))}

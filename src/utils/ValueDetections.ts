@@ -7,3 +7,8 @@ export function detectValueinString(keys: string[], str: string) {
   }
   return null;
 }
+
+export function extractNumberFromString(str: string) {
+  const match = str.match(/-?\d+(\.\d+)?/);
+  return match ? parseFloat(match[0]) : null;
+}
