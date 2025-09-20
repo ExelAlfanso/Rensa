@@ -7,10 +7,12 @@ interface LoadingOverlayProps {
 
 const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ id, className }) => {
   return (
-    <div className="flex items-center justify-center bg-white-200">
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-white/70 ${className}`}
+    >
       <div
         id={id}
-        className={`loading loading-spinner loading-xl h-screen ${className}`}
+        className="loading loading-spinner loading-xl text-primary"
       ></div>
     </div>
   );

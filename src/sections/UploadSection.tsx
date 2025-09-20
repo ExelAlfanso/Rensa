@@ -38,7 +38,7 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
   const [exif, setExif] = useState<CameraSettings>(
     defaultCameraSettings["Fujifilm"]
   );
-  const [error,setError] = useState<string>("");  
+  const [error, setError] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]);
   const [form, setForm] = useState<{
     // file: File | null;
@@ -52,21 +52,20 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
     tags: [],
     exif: exif,
   });
-  useEffect(()=>{
+  useEffect(() => {
     console.log(form);
-  },[form]);
+  }, [form]);
   const handleExifChange = (
     field: string,
     value: number | object | string | CameraSettings["Brand"]
   ) => {
-    if(field === "Brand"){
+    if (field === "Brand") {
       const newExif = defaultCameraSettings[value as CameraSettings["Brand"]];
       setExif(newExif);
-      setForm((prev)=> ({...prev, exif: newExif}));
-    }
-    else{
-      setExif((prev) => ({...prev, [field] : value}))
-      setForm((prev)=> ({...prev, exif: {...prev.exif, [field]:value}}));
+      setForm((prev) => ({ ...prev, exif: newExif }));
+    } else {
+      setExif((prev) => ({ ...prev, [field]: value }));
+      setForm((prev) => ({ ...prev, exif: { ...prev.exif, [field]: value } }));
     }
   };
   const handleTagsChange = (value: string | string[]) => {
@@ -79,58 +78,59 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
       setForm((prev) => ({ ...prev, tags: [...value] }));
     }
   };
-  const handleCancelButton = () =>{
+  const handleCancelButton = () => {
     handleCancel();
     setForm({
-    // file: uploadedFile,
-    title: "",
-    description: "",
-    tags: [],
-    exif: exif,
-  });
-  }
-  const handleUpload = async () => {
-  if (!form.title.trim()) {
-    setError("Title is required!");
-    return;
-  }
-  if (!form.description.trim()) {
-    setError("Description is required!");
-    return;
-  }
-  if (!form.tags || form.tags.length === 0) {
-    setError("At least one tag is required!");
-    return;
-  }
-
-  if (!photo) {
-    setError("No photo selected!");
-    return;
-  }
-
-  const formData = new FormData();
-  if (uploadedFile) {
-    formData.append("file", uploadedFile); // must be a File/Blob
-  }
-  formData.append("userId", session?.user.id || "");
-  formData.append("title", form.title);
-  formData.append("description", form.description);
-  formData.append("tags", JSON.stringify(form.tags));
-  formData.append("exif", JSON.stringify(form.exif));
-
-  setLoading(true);
-  try {
-    await api.post("/photos/upload", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      // file: uploadedFile,
+      title: "",
+      description: "",
+      tags: [],
+      exif: exif,
     });
-  } catch (err) {
-    console.error("Upload failed:", err);
-  } finally {
-    setLoading(false);
-  }
-};
+  };
+  const handleUpload = async () => {
+    setError("");
+    if (!form.title.trim()) {
+      setError("Title is required!");
+      return;
+    }
+    if (!form.description.trim()) {
+      setError("Description is required!");
+      return;
+    }
+    if (!form.tags || form.tags.length === 0) {
+      setError("At least one tag is required!");
+      return;
+    }
+
+    if (!photo) {
+      setError("No photo selected!");
+      return;
+    }
+
+    const formData = new FormData();
+    if (uploadedFile) {
+      formData.append("file", uploadedFile); // must be a File/Blob
+    }
+    formData.append("userId", session?.user.id || "");
+    formData.append("title", form.title);
+    formData.append("description", form.description);
+    formData.append("tags", JSON.stringify(form.tags));
+    formData.append("exif", JSON.stringify(form.exif));
+
+    setLoading(true);
+    try {
+      await api.post("/photos/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+    } catch (err) {
+      console.error("Upload failed:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (field: string, value: string | string[]) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -225,7 +225,9 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
         ></UploadDropZone>
       ) : (
         <div>
-          {error && <Text className="text-center mb-2 text-red-500">{error}</Text>}
+          {error && (
+            <Text className="text-center mb-2 text-red-500">{error}</Text>
+          )}
           <div className="flex flex-row items-center justify-center">
             <UploadPreview photo={photo}></UploadPreview>
             <UploadForm

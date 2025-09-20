@@ -37,6 +37,7 @@ export default async function PhotoPage({
           title={photo?.title}
           description={photo?.description}
           metadata={photo?.metadata}
+          userId={photo?.userId.toString() || ""}
         />
       </div>
       <div className="flex flex-col items-start justify-start min-h-screen bg-white-500 px-[260px]">

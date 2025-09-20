@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../buttons/Button";
 import Heading from "../Heading";
 import Text from "../Text";
@@ -18,14 +18,14 @@ import { PhotoMetadata } from "@/models/Photo";
 import RecipeList from "../lists/RecipeList";
 import ProfileBadge from "../badges/ProfileBadge";
 import CommentInputField from "../inputfields/CommentInputField";
+import api from "@/lib/axios";
 interface PhotoInfoCardProps {
   id?: string;
   className?: string;
   children?: React.ReactNode;
   title?: string;
   description?: string;
-  avatarUrl?: string;
-  username?: string;
+  userId: string;
   metadata?: PhotoMetadata;
 }
 //TODO: Finish PhotoInfoCard
@@ -35,10 +35,27 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
   children,
   title,
   description,
-  username,
-  avatarUrl,
   metadata,
+  userId,
 }) => {
+  const [username, setUsername] = React.useState("Loading...");
+  const [avatarUrl, setAvatarUrl] = React.useState("/profile.jpg");
+
+  useEffect(() => {
+    fetchProfileData(userId);
+  }, [userId]);
+
+  const fetchProfileData = async (userId: string) => {
+    try {
+      const response = await api.get(`/users/${userId}`);
+      if (response) {
+        setUsername(response.data.username);
+        setAvatarUrl(response.data.avatarUrl);
+      }
+    } catch (err) {
+      console.error("Error fetching profile data:", err);
+    }
+  };
   return (
     <div
       id={id}
@@ -69,7 +86,12 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
           </Text>
           <Heading size="m">{title}</Heading>
         </div>
-        <ProfileBadge src={avatarUrl} alt={username} className="mb-5" />
+        <ProfileBadge
+          avatarUrl={avatarUrl}
+          username={username}
+          alt={username}
+          className="mb-5"
+        />
         <Text size="m" className="text-black-200 max-w-[350px]">
           {description}
         </Text>
