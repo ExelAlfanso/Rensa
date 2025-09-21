@@ -3,7 +3,7 @@ import FilterSection from "@/sections/FilterSection";
 export default function ExplorePage() {
   return (
     <div className="flex flex-col items-center min-h-screen bg-white-500 px-[260px]">
-      <ExploreNavBar></ExploreNavBar>
+      {/* <ExploreNavBar></ExploreNavBar> */}
       <FilterSection></FilterSection>
     </div>
   );

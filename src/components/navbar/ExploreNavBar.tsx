@@ -11,10 +11,12 @@ import NotificationDropdown from "../dropdowns/Notification/NotificationDropdown
 import SearchInputField from "../inputfields/SearchInputField";
 import { useRouter } from "next/navigation";
 
+//TODO: Make the navbar responsive
+
 const ExploreNavBar = () => {
   const router = useRouter();
   return (
-    <nav className="z-20 top-5 fixed w-343 h-18 text-black rounded-[48px] flex items-center justify-between bg-white-200 shadow-lg">
+    <nav className="z-20 left-1/2 top-5 -translate-x-1/2 fixed lg:w-[50%] xl:w-343 h-18 text-black rounded-[48px] flex items-center justify-between bg-white-200 shadow-lg">
       <div className="flex flex-row items-center gap-4 ml-6">
         <Logo size={32}></Logo>
         <Link href="/home">

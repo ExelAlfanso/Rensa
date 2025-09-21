@@ -28,7 +28,10 @@ interface PhotoInfoCardProps {
   userId: string;
   metadata?: PhotoMetadata;
 }
-//TODO: Finish PhotoInfoCard
+//TODO: Comment feature
+//TODO: Save feature
+//TODO: Bookmark feature
+
 const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
   id,
   className,

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 interface IconDropdownProps {
   id?: string;
@@ -8,18 +8,24 @@ interface IconDropdownProps {
   children?: React.ReactNode;
   Tag?: React.ElementType;
 }
+
 const IconDropdown: React.FC<IconDropdownProps> = ({
   children,
   Tag = undefined,
 }) => {
+  const [open, setOpen] = useState(false);
+
   return (
-    <div>
-      {Tag && <Tag popoverTarget="popover-1" />}
+    <div className="relative">
+      {Tag && <Tag onClick={() => setOpen((prev) => !prev)} />}
       <ul
-        popover="auto"
-        id="popover-1"
-        style={{ positionAnchor: "--anchor-1" } as React.CSSProperties}
-        className="inline-flex items-center justify-center p-0 shadow-sm menu dropdown dropdown-center bg-white-200 rounded-3xl z-1 w-66"
+        className={`absolute -left-23 menu dropdown top-10 mt-2 w-66 flex flex-col items-center rounded-3xl bg-white-200 p-0 shadow-lg transform transition-all duration-200 ease-out origin-top
+          ${
+            open
+              ? "opacity-100 scale-100 translate-y-0"
+              : "opacity-0 scale-95 -translate-y-2 pointer-events-none"
+          }
+        `}
       >
         {children}
       </ul>

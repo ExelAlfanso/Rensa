@@ -128,6 +128,7 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
     } catch (err) {
       console.error("Upload failed:", err);
     } finally {
+      router.push("/explore");
       setLoading(false);
     }
   };

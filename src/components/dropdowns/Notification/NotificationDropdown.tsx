@@ -9,7 +9,7 @@ import IconDropdown from "../IconDropdown";
 
 const NotificationDropdown = () => {
   return (
-    <div>
+    <div className="relative z-50">
       <IconDropdown Tag={NotificationButton}>
         <Heading alignment="center" size="m" className="py-6">
           Notifications

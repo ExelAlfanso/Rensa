@@ -41,7 +41,7 @@ export default async function PhotoPage({
         />
       </div>
       <div className="flex flex-col items-start justify-start min-h-screen bg-white-500 px-[260px]">
-        <ExploreNavBar></ExploreNavBar>
+        {/* <ExploreNavBar></ExploreNavBar> */}
         <Heading className="text-primary" size="s">
           We thought you will like this
         </Heading>
