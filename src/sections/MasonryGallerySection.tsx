@@ -30,7 +30,6 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
 
   const fetchImages = useCallback(async (page: number) => {
     setLoading(true);
-    // Simulate API fetch
     const newImages = Array.from({ length: 10 }, () => {
       const h = 300 + Math.floor(Math.random() * 200);
       return `https://picsum.photos/200/${h}?random=${Math.random()}`;
@@ -40,7 +39,6 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
     setLoadedCount(0);
   }, []);
 
-  // Fetch initial images & when page changes
   useEffect(() => {
     fetchImages(page);
   }, [page, fetchImages]);
@@ -49,13 +47,15 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
     setLoadedCount((prev) => prev + 1);
   };
 
-  // Reset loading when images have been added
   useEffect(() => {
-    if (loadedCount === batchCount && batchCount > 0 && inView && !loading) {
-      setLoading(false);
+    // Once all images in the batch are loaded AND sentinel is in view → fetch next page
+    if (loadedCount === batchCount && batchCount > 0 && inView) {
       setPage((prev) => prev + 1);
     }
-  }, [loadedCount, batchCount, inView, loading]);
+    if (loadedCount === batchCount && batchCount > 0) {
+      setLoading(false); // all loaded, hide spinner
+    }
+  }, [loadedCount, batchCount, inView]);
 
   return (
     <div className="flex flex-col items-center justify-center">
@@ -84,10 +84,10 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
 
       <div
         ref={ref}
-        className="w-10 h-10 py-20 flex justify-center items-center"
+        className="flex items-center justify-center w-10 h-10 py-20"
       >
         {loading && (
-          <div className="loading loading-spinner loading-xl text-black"></div>
+          <div className="text-black loading loading-spinner loading-xl"></div>
         )}
       </div>
     </div>

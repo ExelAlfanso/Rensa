@@ -1,4 +1,3 @@
-import ExploreNavBar from "@/components/navbar/ExploreNavBar";
 import FilterSection from "@/sections/FilterSection";
 export default function ExplorePage() {
   return (

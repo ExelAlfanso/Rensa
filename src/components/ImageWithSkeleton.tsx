@@ -25,7 +25,13 @@ export const ImageWithSkeleton: React.FC<ImageWithSkeletonProps> = ({
           <div className="skeleton bg-[#D5D5D5] animate-none w-full h-full"></div>
         </div>
       )}
-      <Image {...image} alt="pic" loading="lazy" onLoad={handleLoad} />
+      <Image
+        {...image}
+        alt="pic"
+        loading="lazy"
+        style={{ height: "auto", width: image.width }}
+        onLoad={handleLoad}
+      />
     </div>
   );
 };
