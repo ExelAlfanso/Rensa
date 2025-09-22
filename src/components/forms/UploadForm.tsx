@@ -5,7 +5,10 @@ import CameraSettingsForm from "./CameraSettingsForm";
 import InputDropdown from "../inputfields/InputDropdown";
 import api from "@/lib/axios";
 import { formatLabelFirstLetter } from "@/utils/LabelFormatter";
-import { detectValueinString, extractNumberFromString } from "@/utils/ValueDetections";
+import {
+  detectValueinString,
+  extractNumberFromString,
+} from "@/utils/ValueDetections";
 import { cameraFieldOptions } from "@/app/datas/cameraFieldDatas";
 import TagsInputField from "../inputfields/TagsInputField";
 
@@ -13,10 +16,12 @@ interface UploadFormProps {
   file: File;
   photo: string;
   onChange: (field: string, value: string | string[]) => void;
-  handleExifChange: (field: string, value: number | object | string | CameraSettings) => void;
+  handleExifChange: (
+    field: string,
+    value: number | object | string | CameraSettings
+  ) => void;
   handleTags: (value: string | string[]) => void;
   tags: string[];
-
 }
 
 const UploadForm: React.FC<UploadFormProps> = ({
@@ -46,6 +51,7 @@ const UploadForm: React.FC<UploadFormProps> = ({
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
+      console.log("metadata res:", res?.data.metadata);
       if (res?.data.metadata.Make) {
         const brand = formatLabelFirstLetter(
           res.data.metadata.Make
@@ -57,28 +63,29 @@ const UploadForm: React.FC<UploadFormProps> = ({
         }
       }
       for (const [key, value] of Object.entries(res?.data.metadata)) {
-        if(key in settings){
+        if (key in settings) {
           // console.log(key,value);
           handleExifChange(key, value as string | number | object);
-          if(typeof value === "string"){
-            const detectedValue = detectValueinString(cameraFieldOptions[selectedCamera]?.[key] || [],value);  
-            if(detectedValue){
+          if (typeof value === "string") {
+            const detectedValue = detectValueinString(
+              cameraFieldOptions[selectedCamera]?.[key] || [],
+              value
+            );
+            if (detectedValue) {
               handleExifChange(key, detectedValue);
               setSettings((prev) => ({ ...prev, [key]: detectedValue }));
-            }
-            else{
-              const extractedNumber =  extractNumberFromString(value);
+            } else {
+              const extractedNumber = extractNumberFromString(value);
               console.log("Extracted " + extractedNumber + " from: " + value);
-              if(extractedNumber !== null){
+              if (extractedNumber !== null) {
                 handleExifChange(key, extractedNumber);
                 setSettings((prev) => ({ ...prev, [key]: extractedNumber }));
               }
             }
-          }
-          else{
+          } else {
             setSettings((prev) => ({ ...prev, [key]: value }));
           }
-          console.log(key,value);
+          console.log(key, value);
         }
       }
     } catch (err) {
@@ -127,7 +134,8 @@ const UploadForm: React.FC<UploadFormProps> = ({
               placeholder={selectedCamera}
               values={Object.keys(defaultCameraSettings)}
               onChange={(e) => {
-                const brand = e.currentTarget.innerText as CameraSettings["Brand"];
+                const brand = e.currentTarget
+                  .innerText as CameraSettings["Brand"];
                 setSelectedCamera(brand);
                 setSettings(defaultCameraSettings[brand]);
                 handleExifChange("Brand", brand); // 👈 update parent state
