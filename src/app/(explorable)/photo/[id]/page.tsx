@@ -24,7 +24,7 @@ export default async function PhotoPage({
   return (
     <div className="bg-white-500">
       <div className="flex flex-row items-center justify-center gap-[67px] pt-35 ">
-        <div className="flex items-center justify-center max-w-3xl h-[500px]">
+        <div className="flex items-center justify-center max-w-4xl h-[500px]">
           <Image
             src={photo?.url ?? ""}
             alt={photo?.title ?? "Photo"}
