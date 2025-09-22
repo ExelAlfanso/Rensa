@@ -14,7 +14,9 @@ interface InputFieldProps {
   iconPosition?: "left" | "right";
   Icon?: React.ElementType;
   value?: string | number | object;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
@@ -47,7 +49,7 @@ const InputField: React.FC<InputFieldProps> = ({
           </Text>
         </label>
       )}
-      {!Icon && (
+      {!Icon && type !== "textarea" && (
         <input
           type={type}
           name={name}
@@ -59,6 +61,19 @@ const InputField: React.FC<InputFieldProps> = ({
           onKeyDown={onKeyDown}
         />
       )}
+
+      {type === "textarea" && (
+        <textarea
+          name={name}
+          disabled={disabled}
+          value={value as string | number | undefined}
+          className={`input bg-gray-200 transition-colors text-[16px] duration-300 w-full text-black focus:outline-0 focus:bg-white-500 disabled:text-gray-300 disabled:border-gray-200 disabled:bg-white-500 focus:border-gray-800 rounded-3xl placeholder:text-primary pl-6 pr-4 ${sizeClasses[size]} ${className}`}
+          placeholder={placeholder}
+          onChange={onChange}
+          rows={6} // set rows or make it auto-resize
+        />
+      )}
+
       {Icon && (
         <div className="relative flex items-center">
           <input

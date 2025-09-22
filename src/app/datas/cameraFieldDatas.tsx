@@ -1,12 +1,22 @@
 // app/datas/cameraFieldOptions.ts
 import { CameraSettings } from "./cameraDatas";
-
+import {
+  canonCameraModels,
+  fujifilmCameraModels,
+  hasselbladCameraModels,
+  leicaCameraModels,
+  nikonCameraModels,
+  olympusCameraModels,
+  pentaxCameraModels,
+  sonyCameraModels,
+} from "./cameraModelDatas";
 // Lookup of dropdown options per brand + field
 const iso = ["Auto", "100", "200", "400", "800", "1600", "3200", "6400"];
 export const cameraFieldOptions: {
   [B in CameraSettings["Brand"]]?: Record<string, string[]>;
 } = {
   Fujifilm: {
+    CameraModel: [...fujifilmCameraModels],
     FilmMode: ["Provia", "Velvia", "Classic Chrome", "Acros", "Astia"],
     GrainEffect: [
       "Off",
@@ -34,11 +44,13 @@ export const cameraFieldOptions: {
   },
 
   Sony: {
+    CameraModel: [...sonyCameraModels],
     CreativeLook: ["ST", "PT", "VV", "FL"],
     ISO: iso,
   },
 
   Canon: {
+    CameraModel: [...canonCameraModels],
     PictureStyle: [
       "Auto",
       "Standard",
@@ -55,6 +67,7 @@ export const cameraFieldOptions: {
   },
 
   Nikon: {
+    CameraModel: [...nikonCameraModels],
     PictureControl: [
       "Standard",
       "Neutral",
@@ -86,6 +99,7 @@ export const cameraFieldOptions: {
   },
 
   Olympus: {
+    CameraModel: [...olympusCameraModels],
     PictureMode: [
       "i-Enhance",
       "Vivid",
@@ -114,6 +128,7 @@ export const cameraFieldOptions: {
   },
 
   Hasselblad: {
+    CameraModel: [...hasselbladCameraModels],
     ImageProfile: ["HNCS"],
     WhiteBalance: [
       "Auto",
@@ -131,6 +146,7 @@ export const cameraFieldOptions: {
   },
 
   Leica: {
+    CameraModel: [...leicaCameraModels],
     FilmStyle: [
       "Standard",
       "Vivid",
@@ -155,6 +171,7 @@ export const cameraFieldOptions: {
   },
 
   Pentax: {
+    CameraModel: [...pentaxCameraModels],
     CustomImage: [
       "Bright",
       "Natural",

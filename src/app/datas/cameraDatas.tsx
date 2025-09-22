@@ -19,6 +19,7 @@ export type WBMode =
 // ================= Fujifilm =================
 export interface FujifilmSettings {
   Brand: "Fujifilm";
+  Model: string;
   FilmMode: "Provia" | "Velvia" | "Classic Chrome" | "Acros" | string;
   GrainEffect?:
     | "Off"
@@ -43,6 +44,7 @@ export interface FujifilmSettings {
 // ================= Sony =================
 export interface SonySettings {
   Brand: "Sony";
+  Model: string;
   CreativeLook?: "ST" | "PT" | "VV" | "FL" | string;
   Contrast?: Range<-9 | 9>;
   Highlights?: Range<-9 | 9>;
@@ -57,6 +59,7 @@ export interface SonySettings {
 // ================= Canon =================
 export interface CanonSettings {
   Brand: "Canon";
+  Model: string;
   PictureStyle?:
     | "Auto"
     | "Standard"
@@ -78,6 +81,7 @@ export interface CanonSettings {
 // ================= Nikon =================
 export interface NikonSettings {
   Brand: "Nikon";
+  Model: string;
   PictureControl?:
     | "Standard"
     | "Neutral"
@@ -103,6 +107,7 @@ export interface NikonSettings {
 // ================= Lumix =================
 export interface LumixSettings {
   Brand: "Lumix";
+  Model: string;
   PhotoStyle?:
     | "Standard"
     | "Vivid"
@@ -129,6 +134,8 @@ export interface LumixSettings {
 // ================= Olympus =================
 export interface OlympusSettings {
   Brand: "Olympus";
+  Model: string;
+
   PictureMode?:
     | "i-Enhance"
     | "Vivid"
@@ -150,6 +157,8 @@ export interface OlympusSettings {
 // ================= Ricoh =================
 export interface RicohSettings {
   Brand: "Ricoh";
+  Model: string;
+
   ImageControl?:
     | "Standard"
     | "Vivid"
@@ -175,6 +184,8 @@ export interface RicohSettings {
 // ================= Hasselblad =================
 export interface HasselbladSettings {
   Brand: "Hasselblad";
+  Model: string;
+
   ImageProfile?: "HNCS";
   Contrast?: number;
   Sharpness?: number;
@@ -185,6 +196,8 @@ export interface HasselbladSettings {
 // ================= Leica =================
 export interface LeicaSettings {
   Brand: "Leica";
+  Model: string;
+
   FilmStyle?:
     | "Standard"
     | "Vivid"
@@ -202,6 +215,8 @@ export interface LeicaSettings {
 // ================= Pentax =================
 export interface PentaxSettings {
   Brand: "Pentax";
+  Model: string;
+
   CustomImage?:
     | "Bright"
     | "Natural"
@@ -246,6 +261,7 @@ export type CameraSettings =
 // ================= Default Values =================
 export const defaultFujifilm: FujifilmSettings = {
   Brand: "Fujifilm",
+  Model: "",
   FilmMode: "Provia",
   GrainEffect: "Off",
   ColorChromeEffect: "Off",
@@ -264,6 +280,7 @@ export const defaultFujifilm: FujifilmSettings = {
 
 export const defaultSony: SonySettings = {
   Brand: "Sony",
+  Model: "",
   CreativeLook: "ST",
   Contrast: 0,
   Highlights: 0,
@@ -277,6 +294,7 @@ export const defaultSony: SonySettings = {
 
 export const defaultCanon: CanonSettings = {
   Brand: "Canon",
+  Model: "",
   PictureStyle: "Auto",
   Sharpness: { Strength: 0, Fineness: 0, Threshold: 0 },
   Contrast: 0,
@@ -289,6 +307,7 @@ export const defaultCanon: CanonSettings = {
 
 export const defaultNikon: NikonSettings = {
   Brand: "Nikon",
+  Model: "",
   PictureControl: "Standard",
   QuickSharp: 0,
   Sharpening: 0,
@@ -305,6 +324,7 @@ export const defaultNikon: NikonSettings = {
 
 export const defaultLumix: LumixSettings = {
   Brand: "Lumix",
+  Model: "",
   PhotoStyle: "Standard",
   Contrast: 0,
   Highlight: 0,
@@ -322,6 +342,7 @@ export const defaultLumix: LumixSettings = {
 
 export const defaultOlympus: OlympusSettings = {
   Brand: "Olympus",
+  Model: "",
   PictureMode: "Natural",
   Gradation: "Normal",
   Contrast: 0,
@@ -336,6 +357,7 @@ export const defaultOlympus: OlympusSettings = {
 
 export const defaultRicoh: RicohSettings = {
   Brand: "Ricoh",
+  Model: "",
   ImageControl: "Standard",
   Saturation: 0,
   Hue: 0,
@@ -354,6 +376,7 @@ export const defaultRicoh: RicohSettings = {
 
 export const defaultHasselblad: HasselbladSettings = {
   Brand: "Hasselblad",
+  Model: "",
   ImageProfile: "HNCS",
   Contrast: 0,
   Sharpness: 0,
@@ -363,6 +386,7 @@ export const defaultHasselblad: HasselbladSettings = {
 
 export const defaultLeica: LeicaSettings = {
   Brand: "Leica",
+  Model: "",
   FilmStyle: "Standard",
   Contrast: 0,
   Saturation: 0,
@@ -374,6 +398,7 @@ export const defaultLeica: LeicaSettings = {
 
 export const defaultPentax: PentaxSettings = {
   Brand: "Pentax",
+  Model: "",
   CustomImage: "Bright",
   Saturation: 0,
   Hue: 0,

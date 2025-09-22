@@ -1,4 +1,4 @@
-import React, { KeyboardEventHandler, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import InputField from "../inputfields/InputField";
 import { CameraSettings, defaultCameraSettings } from "@/app/datas/cameraDatas";
 import CameraSettingsForm from "./CameraSettingsForm";
@@ -11,6 +11,7 @@ import {
 } from "@/utils/ValueDetections";
 import { cameraFieldOptions } from "@/app/datas/cameraFieldDatas";
 import TagsInputField from "../inputfields/TagsInputField";
+import { brandModels } from "@/app/datas/cameraModelDatas";
 
 interface UploadFormProps {
   file: File;
@@ -63,8 +64,8 @@ const UploadForm: React.FC<UploadFormProps> = ({
         }
       }
       for (const [key, value] of Object.entries(res?.data.metadata)) {
+        //detect exif fields
         if (key in settings) {
-          // console.log(key,value);
           handleExifChange(key, value as string | number | object);
           if (typeof value === "string") {
             const detectedValue = detectValueinString(
@@ -95,6 +96,7 @@ const UploadForm: React.FC<UploadFormProps> = ({
     }
   };
 
+  // Automatically detect metadata when photo changes
   useEffect(() => {
     if (photo) {
       handleDetectMetadata();
@@ -111,7 +113,7 @@ const UploadForm: React.FC<UploadFormProps> = ({
         onChange={(e) => onChange("title", e.target.value)}
       ></InputField>
       <InputField
-        type={"text"}
+        type={"textarea"}
         label="Description"
         size="xxl"
         placeholder="Add a description"
@@ -138,10 +140,11 @@ const UploadForm: React.FC<UploadFormProps> = ({
                   .innerText as CameraSettings["Brand"];
                 setSelectedCamera(brand);
                 setSettings(defaultCameraSettings[brand]);
-                handleExifChange("Brand", brand); // 👈 update parent state
+                handleExifChange("Brand", brand);
               }}
             />
             <CameraSettingsForm
+              cameraModels={brandModels[selectedCamera] || []}
               settings={settings}
               handleSettings={setSettings}
               handleExifChange={handleExifChange}

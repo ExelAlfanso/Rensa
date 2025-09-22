@@ -53,7 +53,16 @@ const InputDropdown: React.FC<InputDropdownProps> = ({
           </button>
         ))}
       </div>
-      <CaretDownIcon size={20} className="absolute right-3 top-1/2" />
+      <button
+        type="button"
+        className="absolute right-3 top-1/2 cursor-pointer"
+        onClick={(e) => {
+          e.stopPropagation();
+          setIsOpen((prev) => !prev);
+        }}
+      >
+        <CaretDownIcon size={20} />
+      </button>
     </div>
   );
 };
