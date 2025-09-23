@@ -1,32 +1,31 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../buttons/Button";
 import Heading from "../Heading";
 import Text from "../Text";
 import Comment from "../Comment";
 
-import {
-  BookmarkSimpleIcon,
-  CameraIcon,
-  CaretDownIcon,
-} from "@phosphor-icons/react";
+import { BookmarkSimpleIcon, CaretDownIcon } from "@phosphor-icons/react";
 import IconButton from "../buttons/IconButton";
-import ProfileIconButton from "../buttons/ProfileIconButton";
 import { formatDate } from "@/utils/DateFormatter";
 import { PhotoMetadata } from "@/models/Photo";
 import RecipeList from "../lists/RecipeList";
 import ProfileBadge from "../badges/ProfileBadge";
 import CommentInputField from "../inputfields/CommentInputField";
 import api from "@/lib/axios";
+import { useSession } from "next-auth/react";
 interface PhotoInfoCardProps {
   id?: string;
   className?: string;
+  bookmarks?: number;
+  initialBookmarks?: number;
   children?: React.ReactNode;
   title?: string;
   description?: string;
   userId: string;
   metadata?: PhotoMetadata;
+  bookmarkedBy?: string[];
 }
 //TODO: Comment feature
 //TODO: Save feature
@@ -37,24 +36,48 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
   className,
   children,
   title,
+  initialBookmarks,
   description,
   metadata,
   userId,
+  bookmarkedBy,
 }) => {
-  const [username, setUsername] = React.useState("Loading...");
-  const [avatarUrl, setAvatarUrl] = React.useState("/profile.jpg");
+  const { data: session } = useSession();
+  const currentUserId = session?.user?.id as string | undefined;
+  const [username, setUsername] = useState("Loading...");
+  const [avatarUrl, setAvatarUrl] = useState("/profile.jpg");
+  const [isBookmarked, setIsBookmarked] = useState(
+    currentUserId ? bookmarkedBy?.includes(currentUserId) : false
+  );
+
+  const [bookmarks, setBookmarks] = useState(initialBookmarks);
 
   useEffect(() => {
+    setIsBookmarked(
+      currentUserId ? bookmarkedBy?.includes(currentUserId) : false
+    );
     fetchProfileData(userId);
-  }, [userId]);
+  }, [userId, currentUserId, bookmarkedBy]);
+
+  const handleBookmarkToggle = async () => {
+    setIsBookmarked((prev) => !prev);
+    setBookmarks((prev) => (isBookmarked ? (prev || 0) - 1 : (prev || 0) + 1));
+    try {
+      const action = isBookmarked ? "decrement" : "increment";
+
+      const res = await api.post(`/photos/bookmark/${id}`, {
+        action,
+        userId: currentUserId,
+      });
+      setBookmarks(res.data.bookmarks);
+    } catch (err) {}
+  };
 
   const fetchProfileData = async (userId: string) => {
     try {
       const response = await api.get(`/users/${userId}`);
-      if (response) {
-        setUsername(response.data.username);
-        setAvatarUrl(response.data.avatarUrl);
-      }
+      setUsername(response.data.username);
+      setAvatarUrl(response.data.avatarUrl);
     } catch (err) {
       console.error("Error fetching profile data:", err);
     }
@@ -66,8 +89,22 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
     >
       <div className="inline-flex items-center justify-between w-full">
         <span className="text-black inline-flex items-center justify-center">
-          <Text size="s">24</Text>
-          <BookmarkSimpleIcon weight="fill" size={28} />
+          <Text size="s">{bookmarks}</Text>
+          <button onClick={handleBookmarkToggle}>
+            {isBookmarked ? (
+              <BookmarkSimpleIcon
+                weight="fill"
+                size={28}
+                className="hover:scale-110 transition-transform cursor-pointer focus:border-0"
+              />
+            ) : (
+              <BookmarkSimpleIcon
+                weight="regular"
+                size={28}
+                className="hover:scale-110 transition-transform cursor-pointer focus:border-0"
+              />
+            )}
+          </button>
         </span>
         <div className="inline-flex gap-5">
           <IconButton

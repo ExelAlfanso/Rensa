@@ -16,7 +16,8 @@ export interface PhotoDocument extends Document {
   _id: string;
   userId: Types.ObjectId;
   url: string;
-  likes: Types.ObjectId;
+  bookmarks: number;
+  bookmarkedBy: Types.ObjectId[];
   title: string;
   description: string;
   tags: string[];
@@ -30,12 +31,14 @@ const PhotoSchema = new Schema<PhotoDocument>(
       ref: "User",
       required: true,
     },
-    likes: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "User",
-      },
-    ],
+    bookmarks: {
+      type: Number,
+      default: 0,
+    },
+    bookmarkedBy: {
+      type: [{ type: Schema.Types.ObjectId, ref: "User" }],
+      default: [],
+    },
     url: {
       type: String,
       required: true,

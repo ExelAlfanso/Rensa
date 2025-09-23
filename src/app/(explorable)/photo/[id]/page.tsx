@@ -5,7 +5,6 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import { PhotoDocument } from "@/models/Photo";
 import MasonryGalleryPage from "@/sections/MasonryGallerySection";
-import ExploreNavBar from "@/components/navbar/ExploreNavBar";
 import Heading from "@/components/Heading";
 import PhotoInfoCard from "@/components/cards/PhotoInfoCard";
 
@@ -20,7 +19,7 @@ export default async function PhotoPage({
     notFound();
   }
   const photo = await Photo.findById(id).lean<PhotoDocument>();
-
+  if (!photo) notFound();
   return (
     <div className="bg-white-500">
       <div className="flex flex-row items-center justify-center gap-[67px] pt-35 ">
@@ -34,6 +33,9 @@ export default async function PhotoPage({
           ></Image>
         </div>
         <PhotoInfoCard
+          id={id}
+          initialBookmarks={photo?.bookmarks}
+          bookmarkedBy={photo?.bookmarkedBy?.map((id) => id.toString()) || []}
           title={photo?.title}
           description={photo?.description}
           metadata={photo?.metadata}
@@ -41,7 +43,6 @@ export default async function PhotoPage({
         />
       </div>
       <div className="flex flex-col items-start justify-start min-h-screen bg-white-500 px-[260px]">
-        {/* <ExploreNavBar></ExploreNavBar> */}
         <Heading className="text-primary" size="s">
           We thought you will like this
         </Heading>
