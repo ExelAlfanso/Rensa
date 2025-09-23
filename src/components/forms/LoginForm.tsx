@@ -34,7 +34,7 @@ const LoginForm = () => {
       await signIn("credentials", {
         email: formData.get("email"),
         password: formData.get("password"),
-        callbackUrl: "/home",
+        callbackUrl: "/explore",
       });
     } catch (err) {
       console.error(err);

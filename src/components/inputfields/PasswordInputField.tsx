@@ -7,7 +7,9 @@ interface PasswordInputFieldProps {
   name?: string;
   placeholder?: string;
   size?: "m" | "l";
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
 }
 
 const PasswordInputField: React.FC<PasswordInputFieldProps> = ({

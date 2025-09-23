@@ -64,7 +64,7 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async redirect() {
-      return "/home";
+      return "/explore";
     },
     async jwt({ token, account, user }) {
       if (account) {
