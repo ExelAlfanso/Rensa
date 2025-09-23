@@ -1,6 +1,9 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import Button from "@/components/buttons/Button";
+import IconButton from "@/components/buttons/IconButton";
+import { ArrowArcRightIcon, CaretRightIcon } from "@phosphor-icons/react";
 
 export default function LandingPage() {
   const [imgUrls, setImgUrls] = useState<string[]>([]);
@@ -49,7 +52,9 @@ export default function LandingPage() {
       <div id="hero-section">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl text-center font-figtree italic mix-blend-color-dodge text-[#56AD3B]">
           Where Every{" "}
-          <span className="font-forum not-italic text-[56px] inline">Picture</span>
+          <span className="font-forum not-italic text-[56px] inline">
+            Picture
+          </span>
           <br />
           Tells Its{" "}
           <span className="font-forum not-italic text-[56px]">Recipe</span>
@@ -119,14 +124,15 @@ export default function LandingPage() {
         className="static flex flex-row w-screen h-screen p-40 justify-between items-center"
       >
         <div className="flex flex-col gap-0 pb-[28vh]">
-          <div className="text-3xl font-figtree font-medium text-black-500 pb-[4vh]">
-            Get an Idea
+          <div className="text-4xl font-figtree font-medium text-black-500 pb-[4vh]">
+            Get an <span className="font-forum">Idea</span>
             <br />
-            of What You Should
+            <span className="ml-[16px]">of What You Should </span>
             <br />
-            Shoot Tomorrow
+            <span className="font-forum">Shoot </span>
+            Tomorrow
           </div>
-          <div className="font-figtree font-light text-black-300 w-[28vw]">
+          <div className="font-figtree font-light text-[1rem] text-black-300 w-[30vw]">
             <p>
               {" "}
               Stuck on what to capture next? Explore fresh perspectives from the
@@ -147,8 +153,38 @@ export default function LandingPage() {
               />
             </div>
             {/* Content */}
-            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-[40vh] bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
-              <p className="p-4">This is Slide 1 content</p>
+            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+              <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
+                Bloom in Time
+                <div className="pl-2">
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Film Simulation
+                    <div className="text-sm font-thin mt-1 text-black ">
+                      Astia
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Dynamic Range
+                    <div className="text-sm font-thin mt-1 text-black">
+                      DR400
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Highlight
+                    <div className="text-sm font-thin mt-1 text-black">+2</div>
+                  </div>
+                  <div className="text-black-200 text-xs font-light mt-2">
+                    White Balance
+                    <div className="text-sm font-thin mt-1 text-black">
+                      0 Red & -3 Blue
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Noise Reduction
+                    <div className="text-sm font-thin mt-1 text-black">-2</div>
+                  </div>
+                </div>
+              </div>
             </div>
             {/* Controls */}
             <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
@@ -169,8 +205,36 @@ export default function LandingPage() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-[40vh] bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
-              <p className="p-4">This is Slide 2 content</p>
+            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+              <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
+                Sunset Reverie
+                <div className="pl-2">
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Creative Style
+                    <div className="text-sm font-thin mt-1 text-black">
+                      Portrait
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Dynamic Range Optimizer
+                    <div className="text-sm font-thin mt-1 text-black">Lv5</div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Contrast
+                    <div className="text-sm font-thin mt-1 text-black">+1</div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    White Balance
+                    <div className="text-sm font-thin mt-1 text-black">
+                      Daylight, +2 Amber
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Noise Reduction
+                    <div className="text-sm font-thin mt-1 text-black">Low</div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
               <a href="#slide1" className="btn btn-circle">
@@ -190,8 +254,40 @@ export default function LandingPage() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-[40vh] bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
-              <p className="p-4">This is Slide 3 content</p>
+            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+              <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
+                Crimson Echo
+                <div className="pl-2">
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Picture Style
+                    <div className="text-sm font-thin mt-1 text-black">
+                      Faithful
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Auto Lighting Optimizer
+                    <div className="text-sm font-thin mt-1 text-black">
+                      Standard
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Sharpness
+                    <div className="text-sm font-thin mt-1 text-black">+3</div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    White Balance
+                    <div className="text-sm font-thin mt-1 text-black">
+                      Shade, -1 Blue
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    High ISO Speed NR
+                    <div className="text-sm font-thin mt-1 text-black">
+                      Standard
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
               <a href="#slide2" className="btn btn-circle">
@@ -211,8 +307,40 @@ export default function LandingPage() {
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-[40vh] bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
-              <p className="p-4">This is Slide 4 content</p>
+            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+              <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
+                Golden Frame
+                <div className="pl-2">
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Picture Control
+                    <div className="text-sm font-thin mt-1 text-black">
+                      Neutral
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Active D-Lighting
+                    <div className="text-sm font-thin mt-1 text-black">
+                      High
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    Contrast
+                    <div className="text-sm font-thin mt-1 text-black">-1</div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    White Balance
+                    <div className="text-sm font-thin mt-1 text-black">
+                      Auto, Warm Bias
+                    </div>
+                  </div>
+                  <div className="text-xs font-light mt-2 text-black-200">
+                    High ISO NR
+                    <div className="text-sm font-thin mt-1 text-black">
+                      Normal
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
               <a href="#slide3" className="btn btn-circle">
@@ -233,7 +361,7 @@ export default function LandingPage() {
           <div className="sticky left-0 top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden">
             {/* Gambar 1 */}
             <motion.div
-              className="absolute top-[12vh] left-[8vw] w-[28vw] h-[36vh] rounded-lg bg-gray-100 overflow-hidden"
+              className="absolute top-[4vh] left-[8vw] w-[28vw] h-[36vh] rounded-lg bg-gray-100 overflow-hidden"
               style={{ y: smoothCard1Y }}
             >
               {imgUrls[0] && (
@@ -250,9 +378,9 @@ export default function LandingPage() {
               className="absolute top-[72vh] left-[4vw] w-[16vw] h-[32vh] rounded-lg bg-gray-100 overflow-hidden"
               style={{ y: smoothCard2Y }}
             >
-              {imgUrls[1] && (
+              {imgUrls[4] && (
                 <img
-                  src={imgUrls[1]}
+                  src={imgUrls[4]}
                   alt="Random 2"
                   className="w-full h-full object-cover"
                 />
@@ -264,9 +392,9 @@ export default function LandingPage() {
               className="absolute top-[32vh] right-[14vw] w-[32vw] h-[40vh] rounded-lg bg-gray-100 overflow-hidden"
               style={{ y: smoothCard3Y }}
             >
-              {imgUrls[2] && (
+              {imgUrls[5] && (
                 <img
-                  src={imgUrls[2]}
+                  src={imgUrls[5]}
                   alt="Random 3"
                   className="w-full h-full object-cover"
                 />
@@ -275,12 +403,12 @@ export default function LandingPage() {
 
             {/* Gambar 4 */}
             <motion.div
-              className="absolute top-[92vh] right-[8vw] w-[20vw] h-[36vh] rounded-lg bg-gray-100 overflow-hidden"
+              className="absolute top-[92vh] right-[6vw] w-[20vw] h-[36vh] rounded-lg bg-gray-100 overflow-hidden"
               style={{ y: smoothCard4Y }}
             >
-              {imgUrls[3] && (
+              {imgUrls[6] && (
                 <img
-                  src={imgUrls[3]}
+                  src={imgUrls[6]}
                   alt="Random 4"
                   className="w-full h-full object-cover"
                 />
@@ -289,18 +417,32 @@ export default function LandingPage() {
 
             {/* Text CTA */}
             <motion.div
-              className="absolute top-[40vh] left-1/2 -translate-x-1/2 z-20 text-center px-6"
+              className="absolute top-[35vh] left-1/2 -translate-x-1/2 z-20 text-center px-6"
               style={{ y: smoothTextY, opacity: smoothTextOpacity }}
             >
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
+              <h1 className="text-4xl sm:text-3xl md:text-5xl lg:text-6xl font-figtree font-medium mb-4 text-black-500 w-fit">
                 Every Picture Holds a Secret.
               </h1>
-              <p className="text-lg md:text-xl leading-relaxed font-medium">
+              <p className="text-lg md:text-xl leading-relaxed font-figtree font-light text-black-300x  ">
                 Behind every frame lies a quiet formula — the shutter's breath,
                 the lens's sigh, the light's gentle fall.{" "}
                 <span className="font-semibold">Rensa</span> lets you see it
                 all, so tomorrow, your own story can be told the same way.
               </p>
+              <div className="mt-4 flex justify-center items-center">
+                <IconButton
+                  iconPosition="left"
+                  Icon={ArrowArcRightIcon}
+                  paddingX={16}
+                  color="primary"
+                  type="button"
+                >
+                  Explore Now
+                </IconButton>
+                {/* <Button color="primary" className="mt-8" paddingX={8}>
+                  Explore Now
+                </Button> */}
+              </div>
             </motion.div>
           </div>
         </section>
