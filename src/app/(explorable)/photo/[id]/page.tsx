@@ -2,12 +2,11 @@ import { connectDB } from "@/lib/mongodb";
 import Photo from "@/models/Photo";
 import mongoose from "mongoose";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import { PhotoDocument } from "@/models/Photo";
 import MasonryGalleryPage from "@/sections/MasonryGallerySection";
 import Heading from "@/components/Heading";
 import PhotoInfoCard from "@/components/cards/PhotoInfoCard";
-
+import ImagePreview from "@/components/ImagePreview";
 export default async function PhotoPage({
   params,
 }: {
@@ -19,18 +18,18 @@ export default async function PhotoPage({
     notFound();
   }
   const photo = await Photo.findById(id).lean<PhotoDocument>();
+
   if (!photo) notFound();
   return (
     <div className="bg-white-500">
       <div className="flex flex-row items-center justify-center gap-[67px] pt-35 ">
-        <div className="flex items-center justify-center max-w-4xl h-[500px]">
-          <Image
+        <div className="flex flex-col items-start justify-start gap-2">
+          <ImagePreview
             src={photo?.url ?? ""}
             alt={photo?.title ?? "Photo"}
             width={photo?.metadata?.width}
             height={photo?.metadata?.height}
-            className="rounded-3xl"
-          ></Image>
+          />
         </div>
         <PhotoInfoCard
           id={id}
