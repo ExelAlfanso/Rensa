@@ -344,6 +344,7 @@ export const canonCameraModels = [
   "Canon G3 X",
   "Canon 5D MIV",
   "Canon R50",
+  "Canon EOS M50",
   "Canon R10",
   "Canon 1D X II",
   "Canon EOS C70",

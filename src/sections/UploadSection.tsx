@@ -52,9 +52,9 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
     tags: [],
     exif: exif,
   });
-  useEffect(() => {
-    console.log(form);
-  }, [form]);
+  // useEffect(() => {
+  //   console.log(form);
+  // }, [form]);
   const handleExifChange = (
     field: string,
     value: number | object | string | CameraSettings["Brand"]
