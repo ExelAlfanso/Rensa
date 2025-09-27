@@ -33,8 +33,9 @@ const PasswordInputField: React.FC<PasswordInputFieldProps> = ({
         size={size}
       ></InputField>
       <button
+        type="button"
         onClick={handleTogglePassword}
-        className="absolute inset-y-0 right-0 flex items-center text-black text-[32px] pr-5 cursor-pointer"
+        className="absolute inset-y-0 right-0 flex items-center text-black text-[25px] md:text-[32px] pr-5 cursor-pointer"
       >
         {type === "password" ? <EyeIcon /> : <EyeClosedIcon />}
       </button>
