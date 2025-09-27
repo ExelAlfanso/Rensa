@@ -7,7 +7,7 @@ import MasonryGalleryPage from "./MasonryGallerySection";
 const FilterSection = () => {
   const [activeTab, setActiveTab] = useState("tab1");
   return (
-    <div className="flex flex-col items-start justify-start">
+    <div className="flex flex-col justify-center">
       <FilterList></FilterList>
       <div className="border-t border-white-700 w-full my-11"></div>
       <ExploreTabs setActiveTab={setActiveTab} className="mb-10"></ExploreTabs>

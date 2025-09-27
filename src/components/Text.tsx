@@ -14,11 +14,11 @@ const Text: React.FC<TextProps> = ({
   size = "xl",
 }) => {
   const sizeClasses = {
-    s: "text-[13px]",
-    m: "text-[16px]",
-    l: "text-[18px]",
-    xl: "text-[20px]",
-    xxl: "text-[24px]",
+    s: "text-[13px] md:text-[18px]",
+    m: "text-[16px] md:text-[18px]",
+    l: "text-[18px] md:text-[20px]",
+    xl: `text-[20px] md:text-[24px]`,
+    xxl: "text-[24px] md:text-[30px]",
   };
   return (
     <div id={id} className={`font-figtree ${className} ${sizeClasses[size]}`}>

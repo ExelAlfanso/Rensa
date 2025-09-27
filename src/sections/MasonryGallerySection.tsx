@@ -18,7 +18,6 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
     1600: 4,
     1100: 3,
     700: 2,
-    500: 1,
   };
 
   const [photos, setPhotos] = useState<string[]>([]);

@@ -8,7 +8,7 @@ interface LoadingOverlayProps {
 const LoadingOverlay: React.FC<LoadingOverlayProps> = ({ id, className }) => {
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-white/70 ${className}`}
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-white ${className}`}
     >
       <div
         id={id}
