@@ -35,13 +35,13 @@ const InputField: React.FC<InputFieldProps> = ({
   onKeyDown,
 }) => {
   const sizeClasses = {
-    m: "h-12 md:h-12 md:py-3",
+    m: "h-10 md:h-12 md:py-3",
     l: "h-12 md:h-16 md:py-4",
     xl: "h-20 md:h-20 md:py-5",
     xxl: "h-24 md:h-24 md:pt-6 md:pb-20",
   };
   const defaultStyling =
-    "w-full input bg-gray-200 transition-colors text-[16px] duration-300 text-black focus:outline-0 focus:bg-white-500 disabled:text-gray-300 disabled:border-gray-200 disabled:bg-white-500 focus:border-gray-800 rounded-3xl placeholder:text-primary pl-6 pr-4";
+    "w-full input bg-gray-200 transition-colors text-[12px] md:text-[16px] duration-300 text-black focus:outline-0 focus:bg-white-500 disabled:text-gray-300 disabled:border-gray-200 disabled:bg-white-500 focus:border-gray-800 rounded-3xl placeholder:text-primary pl-6 pr-4";
   return (
     <>
       {label && (
@@ -92,7 +92,7 @@ const InputField: React.FC<InputFieldProps> = ({
           <div
             className={`absolute inset-y-0 ${
               iconPosition === "left" ? "left-0 pl-5" : "right-0 pr-5"
-            } flex items-center text-black text-[32px] cursor-pointer`}
+            } flex items-center text-black cursor-pointer`}
           >
             <Icon className={`${disabled ? "text-gray-300" : ""}`} size={20} />
           </div>

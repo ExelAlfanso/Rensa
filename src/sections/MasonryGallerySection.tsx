@@ -16,7 +16,7 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
   const breakpointColumnsObj = {
     default: 5,
     1600: 4,
-    1100: 3,
+    1024: 3,
     700: 2,
   };
 
@@ -65,7 +65,7 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
       >
         {photos.map((src, idx) => (
           <div key={idx}>
-            <div className="relative overflow-hidden cursor-pointer rounded-2xl group">
+            <div className="relative overflow-hidden cursor-pointer rounded-3xl group">
               <ImageWithSkeleton
                 image={{
                   src: src,

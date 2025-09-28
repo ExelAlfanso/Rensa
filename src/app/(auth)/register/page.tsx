@@ -1,6 +1,5 @@
-// app/(auth)/login/page.tsx
-import LoginForm from "@/components/forms/LoginForm";
+import RegisterForm from "@/components/forms/RegisterForm";
 
-export default function LoginPage() {
-  return <LoginForm />;
+export default function RegisterPage() {
+  return <RegisterForm />;
 }

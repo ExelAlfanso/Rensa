@@ -10,14 +10,14 @@ interface ProfileButtonProps {
 const ProfileButton: React.FC<ProfileButtonProps> = ({
   src,
   alt,
-  size = "12",
+  size = "8",
 }) => {
   const sizeClasses: Record<string, string> = {
-    "8": "w-8 h-8",
-    "10": "w-10 h-10",
-    "12": "w-12 h-12",
-    "16": "w-16 h-16",
-    "20": "w-20 h-20",
+    "8": "w-8 h-8 md:w-10 md:h-10",
+    "10": "w-10 h-10 md:w-12 md:h-12",
+    "12": "w-12 h-12 md:w-16 md:h-16",
+    "16": "w-16 h-16 md:w-20 md:h-20",
+    "20": "w-20 h-20 md:w-32 md:h-32",
   };
 
   return (

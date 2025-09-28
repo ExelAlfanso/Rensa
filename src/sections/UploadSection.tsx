@@ -173,10 +173,10 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
   } else {
     content = (
       <>
-        <Text size="xxl" className="mb-6">
+        <Text size="xl" className="mb-6">
           Drag and drop an image, or{" "}
           <span>
-            <Text size="xxl" className="inline underline">
+            <Text size="xl" className="inline underline">
               Browse
             </Text>
           </span>
@@ -189,9 +189,9 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
   }
 
   return (
-    <div className="w-full gap-2 px-65">
+    <div className="w-full gap-2 px-5 md:px-10 xl:px-65">
       {uploadedFile ? (
-        <div className="flex items-center justify-between mb-10">
+        <div className="flex items-center justify-between py-10 lg:mb-10">
           <Button onClick={handleCancelButton} color={"tertiary"}>
             Cancel
           </Button>
@@ -209,7 +209,7 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
           </button>
         </div>
       )}
-      <Heading size="l" alignment="center">
+      <Heading size="s" alignment="center">
         {!uploadedFile && "Show us the scene that stayed with you."}
       </Heading>
       {!uploadedFile ? (
@@ -225,11 +225,11 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
           content={content}
         ></UploadDropZone>
       ) : (
-        <div>
+        <div className="pt-15">
           {error && (
             <Text className="text-center mb-2 text-red-500">{error}</Text>
           )}
-          <div className="flex flex-row items-center justify-center">
+          <div className="flex flex-col lg:flex-row items-center justify-center">
             <UploadPreview photo={photo}></UploadPreview>
             <UploadForm
               file={uploadedFile}

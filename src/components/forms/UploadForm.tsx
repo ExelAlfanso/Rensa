@@ -104,7 +104,7 @@ const UploadForm: React.FC<UploadFormProps> = ({
   }, [photo]);
 
   return (
-    <div className="flex flex-col gap-5 p-10 mt-10 overflow-y-scroll shadow-lg w-250 h-175 no-scrollbar rounded-3xl bg-white-200 text-primary">
+    <div className="flex flex-col gap-5 p-10 mt-10 overflow-y-scroll shadow-lg w-[80%] md:h-190 lg:h-175 no-scrollbar rounded-3xl bg-white-200 text-primary mb-25">
       <InputField
         size="m"
         type={"text"}

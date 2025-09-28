@@ -30,7 +30,7 @@ const UploadDropZone: React.FC<UploadDropZoneProps> = ({
       onDrop={handleDrop}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
-      className={`flex flex-col items-center justify-center max-w-2xl mx-auto my-20 transition-all duration-300 border-2 border-dashed cursor-pointer px-28 border-white-700 ${
+      className={`flex flex-col items-center justify-center max-w-2xl mx-auto my-20 transition-all duration-300 border-2 border-dashed cursor-pointer px-10 md:px-15 lg:px-28 border-white-700 ${
         isDragOver ? "bg-white-600" : "hover:bg-white-600"
       } rounded-3xl h-96`}
     >

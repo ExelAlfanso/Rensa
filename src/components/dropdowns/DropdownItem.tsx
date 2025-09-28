@@ -11,8 +11,8 @@ const DropdownItem: React.FC<DropdownItemProps> = ({
   className,
 }) => {
   return (
-    <li className="w-full">
-      <Link href={href} className={`px-5 hover:bg-white-600`}>
+    <li className={`w-full `}>
+      <Link href={href} className={`${className} hover:bg-white-600`}>
         {children}
       </Link>
     </li>
