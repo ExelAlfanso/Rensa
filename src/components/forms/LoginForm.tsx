@@ -1,20 +1,18 @@
 "use client";
+import { useState, FormEvent } from "react";
 import Link from "next/link";
-// import GoogleLoginButton from "@/components/GoogleLoginButton";
-import React, { FormEvent, useState } from "react";
-import Button from "@/components/buttons/Button";
+import AuthFormLayout from "./AuthFormLayout";
 import InputField from "@/components/inputfields/InputField";
-import Logo from "@/components/icons/Logo";
+import PasswordInputField from "@/components/inputfields/PasswordInputField";
+import Button from "@/components/buttons/Button";
 import { useLoading } from "@/hooks/useLoading";
 import { signIn } from "next-auth/react";
-import PasswordInputField from "../inputfields/PasswordInputField";
 
-// TODO: ON HOLD BECAUSE REPLACING LOGO AND SHIT
-
-const LoginForm = () => {
+export default function LoginForm() {
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
   const { setLoading } = useLoading();
+
   const validateForm = () => {
     if (!form.email.trim()) return "Email is required";
     if (!form.password.trim()) return "Password is required";
@@ -24,69 +22,61 @@ const LoginForm = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errorMsg = validateForm();
-    if (errorMsg) {
-      setError(errorMsg);
-      return;
-    }
+    if (errorMsg) return setError(errorMsg);
+
     setLoading(true);
     try {
-      const formData = new FormData(e.currentTarget);
       await signIn("credentials", {
-        email: formData.get("email"),
-        password: formData.get("password"),
+        email: form.email,
+        password: form.password,
         callbackUrl: "/explore",
       });
-    } catch (err) {
-      console.error(err);
+    } catch {
       setError("Login failed");
     } finally {
       setLoading(false);
     }
   };
-  return (
-    <div>
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col items-center justify-center h-full gap-16 mb-5 w-xl"
-      >
-        <div className="flex flex-col items-center justify-center">
-          <Logo size={100} />
-          <h1 className="font-forum text-3xl text-black">Login</h1>
-        </div>
-        <fieldset className="w-full p-4 fieldset">
-          {error && <div className=" text-orange-950">{error}</div>}
-          <InputField
-            type="email"
-            name="email"
-            placeholder="Email"
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-            className="mb-4"
-          />
-          <PasswordInputField
-            name="password"
-            placeholder="Password"
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-          />
-          <Button type={"submit"} color="primary" className="h-[62px] my-7">
-            Login
-          </Button>
-          {/* <div className="divider">or</div> */}
-          {/* <GoogleLoginButton /> */}
-        </fieldset>
-      </form>
-      <div className="flex flex-col items-center justify-center gap-5">
-        <Link href="/register" className="text-gray-700">
-          Forgot password?
-        </Link>
-        <span className="flex items-center justify-center gap-1 text-gray-700">
-          No account?
-          <Link href="/register" className="text-orange-500">
-            Create one
-          </Link>
-        </span>
-      </div>
-    </div>
-  );
-};
 
-export default LoginForm;
+  return (
+    <AuthFormLayout
+      title="Login"
+      onSubmit={handleSubmit}
+      error={error}
+      button={
+        <Button
+          type="submit"
+          color="primary"
+          className="h-[52px] md:h-[62px] my-7"
+        >
+          Login
+        </Button>
+      }
+      footer={
+        <>
+          <Link href="/forgot-password" className="text-gray-700">
+            Forgot password?
+          </Link>
+          <span className="flex items-center justify-center gap-1 text-gray-700">
+            No account?
+            <Link href="/register" className="text-orange-500">
+              Create one
+            </Link>
+          </span>
+        </>
+      }
+    >
+      <InputField
+        type="email"
+        name="email"
+        placeholder="Email or Username"
+        onChange={(e) => setForm({ ...form, email: e.target.value })}
+      />
+      <PasswordInputField
+        name="password"
+        placeholder="Password"
+        onChange={(e) => setForm({ ...form, password: e.target.value })}
+      />
+    </AuthFormLayout>
+  );
+}

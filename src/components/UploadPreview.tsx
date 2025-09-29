@@ -7,7 +7,7 @@ interface UploadPreviewProps {
 
 const UploadPreview: React.FC<UploadPreviewProps> = ({ photo }) => {
   return (
-    <div>
+    <div className="flex flex-col items-center justify-center lg:block">
       <Heading size="l" alignment="left">
         What it is about?
       </Heading>

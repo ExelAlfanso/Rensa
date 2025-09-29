@@ -85,7 +85,7 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
   return (
     <div
       id={id}
-      className={`flex flex-col gap-1.5 bg-white-200 ${className} shadow-lg p-10 rounded-3xl text-primary`}
+      className={`flex flex-col gap-1.5 bg-white-200 ${className} shadow-lg p-10 rounded-3xl text-primary w-full lg:max-w-3xl xl:w-[30%]`}
     >
       <div className="inline-flex items-center justify-between w-full">
         <span className="text-black inline-flex items-center justify-center">

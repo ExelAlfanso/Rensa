@@ -1,27 +1,29 @@
 import { FilterLists } from "@/app/datas/filterDatas";
 import React from "react";
+import Text from "../Text";
 
 const FilterList = () => {
   return (
-    <>
-      <div className="flex flex-row justify-between text-black w-full pt-50 mb-11">
+    <div className="px-3">
+      <div className="grid grid-rows-2 grid-cols-2 lg:flex lg:flex-row md:justify-between text-black w-full pt-50 mb-11">
         {FilterLists.map((list, idx) => {
           return (
             <div key={idx}>
-              <h3 className="text-[18px] text-white-700 font-light">
+              <Text size="s" className="text-white-700 font-light">
                 {list.title}
-              </h3>
+              </Text>
               <div
                 className={`grid ${
-                  list.column === 1 ? "grid-cols-1" : "grid-cols-2"
+                  list.column === 1 ? "grid-cols-1" : "gap-x-10 grid-cols-2"
                 }`}
               >
                 {list.items.map((item, idx) => (
-                  <div key={idx} className="mr-5 font-forum text-3xl">
+                  <div
+                    key={idx}
+                    className="font-forum text-[14px] sm:text-[20px] lg:text-2xl 2xl:text-3xl"
+                  >
                     <button
-                      className={`cursor-pointer hover:text-gray-700 transition-colors duration-300 ${
-                        list.column === 1 ? "" : "mr-10"
-                      }
+                      className={`cursor-pointer hover:text-gray-700 transition-colors duration-300 mr-5
                   }`}
                     >
                       {item.label}
@@ -36,7 +38,7 @@ const FilterList = () => {
       <button className="btn border-0 outline-0 ring-0 bg-[#BC0E0E] rounded-full">
         Clear
       </button>
-    </>
+    </div>
   );
 };
 

@@ -19,9 +19,10 @@ const ExploreTabs: React.FC<ExploreTabsProps> = ({
           key={idx}
           type="radio"
           name="my_tabs_2"
-          className="tab transition-all duration-300 hover:text-primary text-primary text-[20px] "
+          className={`tab transition-all duration-300 hover:text-black-300 text-primary text-[14px] md:text-[20px] `}
           onClick={() => {
             setActiveTab?.(tab.id);
+            tab.isActive = !tab.isActive;
           }}
           defaultChecked={tab.id === "tab1"}
           aria-label={tab.label}
