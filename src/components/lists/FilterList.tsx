@@ -4,7 +4,7 @@ import Text from "../Text";
 
 const FilterList = () => {
   return (
-    <div className="px-3 md:px-0">
+    <div className="px-3">
       <div className="grid grid-rows-2 grid-cols-2 lg:flex lg:flex-row md:justify-between text-black w-full pt-50 mb-11">
         {FilterLists.map((list, idx) => {
           return (

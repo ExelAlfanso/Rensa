@@ -1,25 +1,25 @@
 "use client";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import Button from "@/components/buttons/Button";
 import IconButton from "@/components/buttons/IconButton";
 import { ArrowArcRightIcon, CaretRightIcon } from "@phosphor-icons/react";
+import Image from "next/image";
+import CarouselContent from "@/components/carousel/CarouselContent";
+import CarouselSlide from "@/components/carousel/CarouselSlide";
 
 export default function LandingPage() {
   const [imgUrls, setImgUrls] = useState<string[]>([]);
-
-  useEffect(() => {
-    Promise.all(
-      Array(8)
-        .fill(null)
-        .map(() => fetch("/api/unsplashes").then((res) => res.json()))
-    ).then((results) => {
-      const urls = results
-        .map((data) => data.urls && data.urls.regular)
-        .filter(Boolean);
-      setImgUrls(urls);
+  const fetchImages = useCallback(async (page: number) => {
+    const newImages = Array.from({ length: 10 }, () => {
+      const h = 300 + Math.floor(Math.random() * 200);
+      return `https://picsum.photos/200/${h}?random=${Math.random()}`;
     });
+    setImgUrls((prev) => [...prev, ...newImages]);
   }, []);
+  useEffect(() => {
+    fetchImages(8); // load 8 random images at mount
+  }, [fetchImages]);
 
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -48,35 +48,42 @@ export default function LandingPage() {
   });
 
   return (
-    <div>
+    <div className="bg-white-100">
       <div id="hero-section">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl text-center font-figtree italic mix-blend-color-dodge text-[#56AD3B]">
+        <div className="absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[32px] md:text-4xl lg:text-7xl xl:text-8xl text-center font-figtree italic mix-blend-color-dodge text-[#56AD3B]">
           Where Every{" "}
-          <span className="font-forum not-italic text-[56px] inline">
+          <span className="font-forum not-italic text-[32px] md:text-4xl lg:text-7xl xl:text-8xl inline">
             Picture
           </span>
           <br />
           Tells Its{" "}
-          <span className="font-forum not-italic text-[56px]">Recipe</span>
+          <span className="font-forum not-italic text-[32px] md:text-4xl lg:text-7xl xl:text-8xl">
+            Recipe
+          </span>
         </div>
 
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl text-center font-figtree italic mix-blend-exclusion text-white">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[32px] md:text-4xl lg:text-7xl xl:text-8xl text-center font-figtree italic mix-blend-exclusion text-white">
           Where Every{" "}
-          <span className="font-forum not-italic text-[56px]">Picture</span>
+          <span className="font-forum not-italic text-[32px] md:text-4xl lg:text-7xl xl:text-8xl">
+            Picture
+          </span>
           <br />
           Tells Its{" "}
-          <span className="font-forum not-italic text-[56px]">Recipe</span>
+          <span className="font-forum not-italic text-[32px] md:text-4xl lg:text-7xl xl:text-8xl">
+            Recipe
+          </span>
         </div>
 
-        <div className="relative w-screen h-screen -z-10">
+        <div className="relative w-screen h-screen z-10">
           <div
             id="container-1"
             className="absolute top-[12vh] left-[8vw] w-[28vw] h-[36vh]  rounded-lg bg-gray-100"
           >
             {imgUrls[0] && (
-              <img
+              <Image
+                alt="photo"
+                fill
                 src={imgUrls[0]}
-                alt="Random 1"
                 className="w-full h-full object-cover"
               />
             )}
@@ -86,9 +93,10 @@ export default function LandingPage() {
             className="absolute top-[54vh] left-[18vw] w-[16vw] h-[40vh]  rounded-lg bg-gray-100"
           >
             {imgUrls[1] && (
-              <img
+              <Image
+                fill
+                alt="photo"
                 src={imgUrls[1]}
-                alt="Random 2"
                 className="w-full h-full object-cover"
               />
             )}
@@ -98,9 +106,10 @@ export default function LandingPage() {
             className="absolute top-[16vh] right-[14vw] w-[32vw] h-[40vh]  rounded-lg bg-gray-100"
           >
             {imgUrls[2] && (
-              <img
+              <Image
+                alt="photo"
+                fill
                 src={imgUrls[2]}
-                alt="Random 3"
                 className="w-full h-full object-cover"
               />
             )}
@@ -110,9 +119,10 @@ export default function LandingPage() {
             className="absolute bottom-[6vh] right-[16vw] w-[20vw] h-[36vh]  rounded-lg bg-gray-100"
           >
             {imgUrls[3] && (
-              <img
+              <Image
+                alt="photo"
+                fill
                 src={imgUrls[3]}
-                alt="Random 3"
                 className="w-full h-full object-cover"
               />
             )}
@@ -121,18 +131,18 @@ export default function LandingPage() {
       </div>
       <div
         id="idea-content"
-        className="static flex flex-row w-screen h-screen p-40 justify-between items-center"
+        className="static flex flex-col lg:flex-row w-screen h-screen p-10 md:p-40 justify-between items-center"
       >
-        <div className="flex flex-col gap-0 pb-[28vh]">
-          <div className="text-4xl font-figtree font-medium text-black-500 pb-[4vh]">
+        <div className="flex flex-col gap-0 pb-8 lg:pb-[28vh]">
+          <div className="text-[32px] md:text-4xl lg:text-7xl xl:text-8xl font-figtree font-medium text-black-500 pb-[4vh] text-center lg:text-left">
             Get an <span className="font-forum">Idea</span>
             <br />
-            <span className="ml-[16px]">of What You Should </span>
+            <span className="ml-[16px] lg:text-right">of What You Should </span>
             <br />
             <span className="font-forum">Shoot </span>
             Tomorrow
           </div>
-          <div className="font-figtree font-light text-[1rem] text-black-300 w-[30vw]">
+          <div className="font-figtree font-light text-[10px] md:text-[1rem] text-center lg:text-left text-black-300 mx-4">
             <p>
               {" "}
               Stuck on what to capture next? Explore fresh perspectives from the
@@ -142,18 +152,20 @@ export default function LandingPage() {
           </div>
         </div>
 
-        <div className="carousel w-[40vw] h-[76vh]">
+        <div className="carousel w-[60vw] h-[50vh]">
           {/* Slide 1 */}
-          <div id="slide1" className="carousel-item relative w-[40vw] h-[52vh]">
+          <CarouselSlide id="slide1">
             {/* Image wrapper */}
-            <div className="absolute inset-0 overflow-hidden">
-              <img
+            <div className="absolute inset-0">
+              <Image
+                alt="photo"
+                fill
                 src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
                 className="w-full h-full object-cover"
               />
             </div>
             {/* Content */}
-            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+            <CarouselContent>
               <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
                 Bloom in Time
                 <div className="pl-2">
@@ -185,27 +197,20 @@ export default function LandingPage() {
                   </div>
                 </div>
               </div>
-            </div>
-            {/* Controls */}
-            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
-              <a href="#slide4" className="btn btn-circle">
-                ❮
-              </a>
-              <a href="#slide2" className="btn btn-circle">
-                ❯
-              </a>
-            </div>
-          </div>
+            </CarouselContent>
+          </CarouselSlide>
 
           {/* Slide 2 */}
-          <div id="slide2" className="carousel-item relative w-[40vw] h-[52vh]">
+          <CarouselSlide id="slide2">
             <div className="absolute inset-0 overflow-hidden">
-              <img
+              <Image
+                alt="photo"
+                fill
                 src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+            <CarouselContent>
               <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
                 Sunset Reverie
                 <div className="pl-2">
@@ -235,26 +240,20 @@ export default function LandingPage() {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
-              <a href="#slide1" className="btn btn-circle">
-                ❮
-              </a>
-              <a href="#slide3" className="btn btn-circle">
-                ❯
-              </a>
-            </div>
-          </div>
+            </CarouselContent>
+          </CarouselSlide>
 
           {/* Slide 3 */}
-          <div id="slide3" className="carousel-item relative w-[40vw] h-[52vh]">
+          <CarouselSlide id="slide3">
             <div className="absolute inset-0 overflow-hidden">
-              <img
+              <Image
+                alt="photo"
+                fill
                 src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+            <CarouselContent>
               <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
                 Crimson Echo
                 <div className="pl-2">
@@ -288,26 +287,20 @@ export default function LandingPage() {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
-              <a href="#slide2" className="btn btn-circle">
-                ❮
-              </a>
-              <a href="#slide4" className="btn btn-circle">
-                ❯
-              </a>
-            </div>
-          </div>
+            </CarouselContent>
+          </CarouselSlide>
 
           {/* Slide 4 */}
-          <div id="slide4" className="carousel-item relative w-[40vw] h-[52vh]">
+          <CarouselSlide id="slide4">
             <div className="absolute inset-0 overflow-hidden">
-              <img
+              <Image
+                alt="photo"
+                fill
                 src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
                 className="w-full h-full object-cover"
               />
             </div>
-            <div className="absolute top-[32vh] left-[18vw] w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+            <CarouselContent>
               <div className="p-4 flex flex-col font-figtree text-xl font-semibold">
                 Golden Frame
                 <div className="pl-2">
@@ -341,16 +334,8 @@ export default function LandingPage() {
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="absolute left-5 right-5 top-1/2 flex -translate-y-1/2 justify-between">
-              <a href="#slide3" className="btn btn-circle">
-                ❮
-              </a>
-              <a href="#slide1" className="btn btn-circle">
-                ❯
-              </a>
-            </div>
-          </div>
+            </CarouselContent>
+          </CarouselSlide>
         </div>
       </div>
       <div className="h-[50vh]">
@@ -365,9 +350,10 @@ export default function LandingPage() {
               style={{ y: smoothCard1Y }}
             >
               {imgUrls[0] && (
-                <img
+                <Image
+                  alt="photo"
+                  fill
                   src={imgUrls[0]}
-                  alt="Random 1"
                   className="w-full h-full object-cover"
                 />
               )}
@@ -379,9 +365,10 @@ export default function LandingPage() {
               style={{ y: smoothCard2Y }}
             >
               {imgUrls[4] && (
-                <img
+                <Image
+                  alt="photo"
+                  fill
                   src={imgUrls[4]}
-                  alt="Random 2"
                   className="w-full h-full object-cover"
                 />
               )}
@@ -393,9 +380,10 @@ export default function LandingPage() {
               style={{ y: smoothCard3Y }}
             >
               {imgUrls[5] && (
-                <img
+                <Image
+                  alt="photo"
+                  fill
                   src={imgUrls[5]}
-                  alt="Random 3"
                   className="w-full h-full object-cover"
                 />
               )}
@@ -407,9 +395,10 @@ export default function LandingPage() {
               style={{ y: smoothCard4Y }}
             >
               {imgUrls[6] && (
-                <img
+                <Image
+                  alt="photo"
+                  fill
                   src={imgUrls[6]}
-                  alt="Random 4"
                   className="w-full h-full object-cover"
                 />
               )}
@@ -424,8 +413,8 @@ export default function LandingPage() {
                 Every Picture Holds a Secret.
               </h1>
               <p className="text-lg md:text-xl leading-relaxed font-figtree font-light text-black-300x  ">
-                Behind every frame lies a quiet formula — the shutter's breath,
-                the lens's sigh, the light's gentle fall.{" "}
+                Behind every frame lies a quiet formula — the shutter&apos;s
+                breath, the lens&apos;s sigh, the light&apos;s gentle fall.{" "}
                 <span className="font-semibold">Rensa</span> lets you see it
                 all, so tomorrow, your own story can be told the same way.
               </p>

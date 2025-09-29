@@ -17,9 +17,13 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
   height,
 }) => {
   return (
-    <>
-      <LinkButton href={"/explore"} Icon={XIcon}></LinkButton>
-      <div className="w-4xl">
+    <div className="flex flex-col items-center justify-center gap-5 relative">
+      <LinkButton
+        className="self-start"
+        href={"/explore"}
+        Icon={XIcon}
+      ></LinkButton>
+      <div className="w-full xl:max-w-3xl">
         <Image
           src={src}
           alt={alt}
@@ -28,7 +32,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
           className="rounded-3xl"
         ></Image>
       </div>
-    </>
+    </div>
   );
 };
 export default ImagePreview;
