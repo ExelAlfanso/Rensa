@@ -3,7 +3,7 @@ interface CarouselContentProps {
 }
 const CarouselContent: React.FC<CarouselContentProps> = ({ children }) => {
   return (
-    <div className="absolute top-[32vh] left-[18vw] w-50 bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+    <div className="absolute right-20 -bottom-10 w-50 bg-[#fafafa] z-50 rounded-3xl shadow-lg overflow-visible">
       {children}
     </div>
   );
