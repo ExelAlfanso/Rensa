@@ -80,53 +80,45 @@ export default function LandingPage() {
             id="container-1"
             className="absolute top-[12vh] left-[8vw] w-[28vw] h-[36vh]  rounded-lg bg-gray-100"
           >
-            {imgUrls[0] && (
-              <Image
-                alt="photo"
-                fill
-                src={imgUrls[0]}
-                className="w-full h-full object-cover"
-              />
-            )}
+            <Image
+              alt="photo"
+              fill
+              src={"/image5.JPG"}
+              className="w-full h-full object-cover"
+            />
           </div>
           <div
             id="container-2"
             className="absolute top-[54vh] left-[18vw] w-[16vw] h-[40vh]  rounded-lg bg-gray-100"
           >
-            {imgUrls[1] && (
-              <Image
-                fill
-                alt="photo"
-                src={imgUrls[1]}
-                className="w-full h-full object-cover"
-              />
-            )}
+            <Image
+              fill
+              alt="photo"
+              src={"/image1.JPG"}
+              className="w-full h-full object-cover"
+            />
           </div>
           <div
             id="container-3"
             className="absolute top-[16vh] right-[14vw] w-[32vw] h-[40vh]  rounded-lg bg-gray-100"
           >
-            {imgUrls[2] && (
-              <Image
-                alt="photo"
-                fill
-                src={imgUrls[2]}
-                className="w-full h-full object-cover"
-              />
-            )}
+            <Image
+              alt="photo"
+              fill
+              src={"/image4.JPG"}
+              className="w-full h-full object-cover"
+            />
           </div>
           <div
             id="container-4"
             className="absolute bottom-[6vh] right-[16vw] w-[20vw] h-[36vh]  rounded-lg bg-gray-100"
           >
-            {imgUrls[3] && (
-              <Image
-                alt="photo"
-                fill
-                src={imgUrls[3]}
-                className="w-full h-full object-cover"
-              />
-            )}
+            <Image
+              alt="photo"
+              fill
+              src={"/image3.JPG"}
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
       </div>
@@ -161,7 +153,7 @@ export default function LandingPage() {
               <Image
                 alt="photo"
                 fill
-                src="https://img.daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.webp"
+                src="/image6.JPG"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -207,7 +199,7 @@ export default function LandingPage() {
               <Image
                 alt="photo"
                 fill
-                src="https://img.daisyui.com/images/stock/photo-1609621838510-5ad474b7d25d.webp"
+                src="/image7.JPG"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -250,7 +242,7 @@ export default function LandingPage() {
               <Image
                 alt="photo"
                 fill
-                src="https://img.daisyui.com/images/stock/photo-1414694762283-acccc27bca85.webp"
+                src="/image7.JPG"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -297,7 +289,7 @@ export default function LandingPage() {
               <Image
                 alt="photo"
                 fill
-                src="https://img.daisyui.com/images/stock/photo-1665553365602-b2fb8e5d1707.webp"
+                src="/image8.JPG"
                 className="w-full h-full object-cover"
               />
             </div>
