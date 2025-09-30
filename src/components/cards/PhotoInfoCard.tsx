@@ -70,7 +70,9 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
         userId: currentUserId,
       });
       setBookmarks(res.data.bookmarks);
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const fetchProfileData = async (userId: string) => {
