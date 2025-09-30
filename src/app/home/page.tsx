@@ -7,8 +7,10 @@ import Image from "next/image";
 import Link from "next/link";
 import Carousel from "@/components/carousel/Carousel";
 
-import { cardData, heroImagesData } from "@/app/datas/homeDatas";
+import { cardData } from "@/app/datas/homeDatas";
 import HeroSection from "@/sections/HeroSection";
+import HomeNavbar from "@/components/navbar/HomeNavbar";
+import Footer from "@/components/footer/Footer";
 
 export default function LandingPage() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -45,7 +47,8 @@ export default function LandingPage() {
   });
 
   return (
-    <div className="bg-white-100">
+    <div className="bg-white-100 w-full">
+      <HomeNavbar></HomeNavbar>
       <HeroSection></HeroSection>
       <div
         id="idea-content"
@@ -70,7 +73,7 @@ export default function LandingPage() {
         </div>
         <Carousel />
       </div>
-      <div className="h-[50vh]">
+      <div className="h-[50vh] pt-30">
         <section
           ref={sectionRef}
           className="relative z-0 h-[400vh] bg-white text-center text-black"
@@ -122,6 +125,7 @@ export default function LandingPage() {
             </motion.div>
           </div>
         </section>
+        <Footer />
       </div>
     </div>
   );

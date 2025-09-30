@@ -26,7 +26,7 @@ export default function Carousel() {
             className="carousel-item relative w-full h-[40vh] md:h-[52vh]"
           >
             {/* Image wrapper */}
-            <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden rounded-lg">
               <Image
                 src={slide.src}
                 alt={slide.title}
