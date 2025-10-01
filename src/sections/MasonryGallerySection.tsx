@@ -28,10 +28,10 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
   const [loading, setLoading] = useState(false);
 
   const fetchImages = useCallback(async (page: number) => {
-    setLoading(true);
+    setLoading(true); // block multiple fetches
     const newImages = Array.from({ length: 10 }, () => {
       const h = 300 + Math.floor(Math.random() * 200);
-      return `https://picsum.photos/200/${h}?random=${Math.random()}`;
+      return `https://picsum.photos/200/${h}`;
     });
     setPhotos((prev) => [...prev, ...newImages]);
     setBatchCount(newImages.length);
@@ -47,12 +47,14 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
   };
 
   useEffect(() => {
-    // Once all images in the batch are loaded AND sentinel is in view → fetch next page
-    if (loadedCount === batchCount && batchCount > 0 && inView) {
-      setPage((prev) => prev + 1);
-    }
-    if (loadedCount === batchCount && batchCount > 0) {
-      setLoading(false); // all loaded, hide spinner
+    if (batchCount > 0 && loadedCount === batchCount) {
+      // ✅ all images in batch are loaded
+      setLoading(false);
+
+      if (inView) {
+        // ✅ only trigger next page if not already loading
+        setPage((prev) => prev + 1);
+      }
     }
   }, [loadedCount, batchCount, inView]);
 

@@ -12,7 +12,7 @@ import HeroSection from "@/sections/HeroSection";
 import HomeNavbar from "@/components/navbar/HomeNavbar";
 import Footer from "@/components/footer/Footer";
 
-export default function LandingPage() {
+export default function Home() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
