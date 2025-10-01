@@ -12,6 +12,7 @@ import {
 import { cameraFieldOptions } from "@/app/datas/cameraFieldDatas";
 import TagsInputField from "../inputfields/TagsInputField";
 import { brandModels } from "@/app/datas/cameraModelDatas";
+import { CodepenLogoIcon } from "@phosphor-icons/react";
 
 interface UploadFormProps {
   file: File;
@@ -39,6 +40,7 @@ const UploadForm: React.FC<UploadFormProps> = ({
   );
   const [selectedCamera, setSelectedCamera] =
     useState<CameraSettings["Brand"]>("Fujifilm");
+  const [detectedMetadata, setDetectedMetadata] = useState(null);
   const handleDetectMetadata = async () => {
     setIsDetecting(true);
     try {
@@ -53,40 +55,14 @@ const UploadForm: React.FC<UploadFormProps> = ({
         }
       );
       console.log("metadata res:", res?.data.metadata);
+      setDetectedMetadata(res?.data.metadata);
       if (res?.data.metadata.Make) {
-        const brand = formatLabelFirstLetter(
-          res.data.metadata.Make
-        ) as CameraSettings["Brand"];
+        const brand = res.data.metadata.Make as CameraSettings["Brand"];
+        const newSettings = defaultCameraSettings[brand];
         if (brand in defaultCameraSettings) {
           setSelectedCamera(brand);
-          setSettings(defaultCameraSettings[brand]);
           handleExifChange("Brand", brand);
-        }
-      }
-      for (const [key, value] of Object.entries(res?.data.metadata)) {
-        //detect exif fields
-        if (key in settings) {
-          handleExifChange(key, value as string | number | object);
-          if (typeof value === "string") {
-            const detectedValue = detectValueinString(
-              cameraFieldOptions[selectedCamera]?.[key] || [],
-              value
-            );
-            if (detectedValue) {
-              handleExifChange(key, detectedValue);
-              setSettings((prev) => ({ ...prev, [key]: detectedValue }));
-            } else {
-              const extractedNumber = extractNumberFromString(value);
-              console.log("Extracted " + extractedNumber + " from: " + value);
-              if (extractedNumber !== null) {
-                handleExifChange(key, extractedNumber);
-                setSettings((prev) => ({ ...prev, [key]: extractedNumber }));
-              }
-            }
-          } else {
-            setSettings((prev) => ({ ...prev, [key]: value }));
-          }
-          console.log(key, value);
+          setSettings(newSettings);
         }
       }
     } catch (err) {
@@ -95,7 +71,34 @@ const UploadForm: React.FC<UploadFormProps> = ({
       setIsDetecting(false);
     }
   };
-
+  const handleAutoFill = () => {
+    for (const [key, value] of Object.entries(detectedMetadata || {})) {
+      if (key in settings) {
+        handleExifChange(key, value as string | number | object);
+        setSettings((prev) => ({ ...prev, [key]: value }));
+        console.log("Detected: ", key, value);
+        if (typeof value === "string") {
+          const detectedValue = detectValueinString(
+            cameraFieldOptions[selectedCamera]?.[key] || [],
+            value
+          );
+          if (detectedValue) {
+            handleExifChange(key, detectedValue);
+            setSettings((prev) => ({ ...prev, [key]: detectedValue }));
+          } else {
+            const extractedNumber = extractNumberFromString(value);
+            console.log("Extracted " + extractedNumber + " from: " + value);
+            if (extractedNumber !== null) {
+              handleExifChange(key, extractedNumber);
+              setSettings((prev) => ({ ...prev, [key]: extractedNumber }));
+            }
+          }
+        } else {
+          setSettings((prev) => ({ ...prev, [key]: value }));
+        }
+      }
+    }
+  };
   // Automatically detect metadata when photo changes
   useEffect(() => {
     if (photo) {
@@ -103,6 +106,11 @@ const UploadForm: React.FC<UploadFormProps> = ({
     }
   }, [photo]);
 
+  useEffect(() => {
+    if (detectedMetadata) {
+      handleAutoFill();
+    }
+  }, [detectedMetadata]);
   return (
     <div className="flex flex-col gap-5 p-10 mt-10 overflow-y-scroll shadow-lg w-[80%] md:h-190 lg:h-175 no-scrollbar rounded-3xl bg-white-200 text-primary mb-25">
       <InputField
