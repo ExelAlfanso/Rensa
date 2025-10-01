@@ -2,7 +2,25 @@ import { FilterLists } from "@/app/datas/filterDatas";
 import React from "react";
 import Text from "../Text";
 
-const FilterList = () => {
+interface FilterListProps {
+  onFilterChange: React.Dispatch<React.SetStateAction<string[]>>;
+  filters: string[];
+  handleClearFilters: () => void;
+}
+
+const FilterList: React.FC<FilterListProps> = ({
+  onFilterChange,
+  filters,
+  handleClearFilters,
+}) => {
+  const handleClearFiltersClick = () => {
+    handleClearFilters();
+    for (const list of FilterLists) {
+      for (const item of list.items) {
+        item.isActive = false;
+      }
+    }
+  };
   return (
     <div className="px-3">
       <div className="grid grid-rows-2 grid-cols-2 lg:flex lg:flex-row md:justify-between text-black w-full pt-50 mb-11">
@@ -23,10 +41,25 @@ const FilterList = () => {
                     className="font-forum text-[14px] sm:text-[20px] lg:text-2xl 2xl:text-3xl"
                   >
                     <button
-                      className={`cursor-pointer hover:text-gray-700 transition-colors duration-300 mr-5
-                  }`}
+                      onClick={() => {
+                        onFilterChange?.((prev) => {
+                          if (prev.includes(item.label)) {
+                            return prev.filter((f) => f !== item.label);
+                          } else {
+                            return [...prev, item.label];
+                          }
+                        });
+                        item.isActive = !item.isActive;
+                      }}
+                      className="relative cursor-pointer hover:text-gray-700 transition-colors duration-300 mr-5 pb-1"
                     >
-                      {item.label}
+                      <span>{item.label}</span>
+                      {/* Underline */}
+                      <span
+                        className={`absolute left-0 bottom-0 h-[2px] w-full bg-orange-500 transform transition-transform duration-300 origin-left ${
+                          item.isActive ? "scale-x-100" : "scale-x-0"
+                        }`}
+                      ></span>
                     </button>
                   </div>
                 ))}
@@ -35,9 +68,14 @@ const FilterList = () => {
           );
         })}
       </div>
-      <button className="btn border-0 outline-0 ring-0 bg-[#BC0E0E] rounded-full">
-        Clear
-      </button>
+      {filters.length > 0 ? (
+        <button
+          onClick={handleClearFiltersClick}
+          className="btn border-0 outline-0 ring-0 hover:bg-red-500 bg-[#BC0E0E] rounded-full"
+        >
+          Clear
+        </button>
+      ) : null}
     </div>
   );
 };
