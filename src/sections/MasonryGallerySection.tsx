@@ -13,6 +13,7 @@ import {
 } from "@/services/ImageServices";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { filter } from "motion/react-client";
+import { AnimatePresence, motion } from "motion/react";
 
 interface MasonryGallerySectionProps {
   activeTab?: string;
@@ -27,13 +28,6 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
   useDatabase = true,
   onPhotoClick,
 }) => {
-  const breakpointColumnsObj = {
-    default: 5,
-    1600: 4,
-    1024: 3,
-    700: 2,
-  };
-
   const { ref, inView } = useInView({ threshold: 0.5 });
 
   // Use FetchPhotosResponse directly
@@ -62,7 +56,19 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
 
   const photos: (Photo | string)[] =
     data?.pages.flatMap((page) => page.data as (Photo | string)[]) ?? [];
+  const getDynamicColumns = (photoCount: number) => {
+    if (photoCount <= 1) return 1;
+    if (photoCount === 2) return 2;
+    if (photoCount === 3) return 3;
+    return 4; // default for larger sets
+  };
 
+  const breakpointColumnsObj = {
+    default: getDynamicColumns(photos.length),
+    1600: getDynamicColumns(photos.length),
+    1024: Math.min(getDynamicColumns(photos.length), 3),
+    700: Math.min(getDynamicColumns(photos.length), 2),
+  };
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
       fetchNextPage();
@@ -100,55 +106,63 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <Masonry
-        breakpointCols={breakpointColumnsObj}
-        className="my-masonry-grid"
-        columnClassName="my-masonry-grid_column"
-      >
-        {photos.map((photo, idx) => {
-          const isPhotoObject = typeof photo !== "string";
+      <AnimatePresence mode="popLayout">
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className="my-masonry-grid"
+          columnClassName="my-masonry-grid_column"
+        >
+          {photos.map((photo, idx) => {
+            const isPhotoObject = typeof photo !== "string";
 
-          return (
-            <div key={getPhotoKey(photo, idx)}>
-              <div
-                className="relative overflow-hidden transition-transform duration-300 cursor-pointer rounded-3xl group hover:scale-105"
-                onClick={() => handlePhotoClick(photo, idx)}
+            return (
+              <motion.div
+                key={getPhotoKey(photo, idx)}
+                layout
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
               >
-                <ImageWithSkeleton
-                  image={{
-                    src: getPhotoUrl(photo),
-                    alt: getPhotoTitle(photo, idx),
-                    width: 250,
-                    height: 350,
-                  }}
-                />
-                <div className="absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40" />
+                <div
+                  className="relative overflow-hidden transition-transform duration-300 cursor-pointer rounded-3xl group hover:scale-105"
+                  onClick={() => handlePhotoClick(photo, idx)}
+                >
+                  <ImageWithSkeleton
+                    image={{
+                      src: getPhotoUrl(photo),
+                      alt: getPhotoTitle(photo, idx),
+                      width: 250,
+                      height: 350,
+                    }}
+                  />
+                  <div className="absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40" />
 
-                {/* Show metadata overlay for DB photos */}
-                {isPhotoObject && (
-                  <div className="absolute bottom-0 left-0 right-0 p-4 transition-transform duration-300 translate-y-full bg-gradient-to-t from-black/80 to-transparent group-hover:translate-y-0">
-                    <h3 className="text-white font-semibold text-sm line-clamp-1">
-                      {(photo as Photo).title}
-                    </h3>
-                    {(photo as Photo).tags.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {(photo as Photo).tags.slice(0, 3).map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2 py-0.5 text-xs text-white bg-white/20 rounded-full"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-          );
-        })}
-      </Masonry>
+                  {isPhotoObject && (
+                    <div className="absolute bottom-0 left-0 right-0 p-4 transition-transform duration-300 translate-y-full bg-gradient-to-t from-black/80 to-transparent group-hover:translate-y-0">
+                      <h3 className="text-white font-semibold text-sm line-clamp-1">
+                        {(photo as Photo).title}
+                      </h3>
+                      {(photo as Photo).tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {(photo as Photo).tags.slice(0, 3).map((tag) => (
+                            <span
+                              key={tag}
+                              className="px-2 py-0.5 text-xs text-white bg-white/20 rounded-full"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            );
+          })}
+        </Masonry>
+      </AnimatePresence>
 
       <div
         ref={ref}
