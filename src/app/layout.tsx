@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Forum, Figtree } from "next/font/google";
 import "./globals.css";
-import SessionProviderWrapper from "@/wrappers/SessionProviderWrapper";
+import SessionProviderWrapper from "@/providers/SessionProviderWrapper";
 import { LoadingProvider } from "@/hooks/useLoading";
+import QueryProvider from "@/providers/QueryProvider";
 
 const forum = Forum({
   subsets: ["latin"],
@@ -29,9 +30,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased ${forum.variable} ${figtree.variable}`}>
-        <SessionProviderWrapper>
-          <LoadingProvider>{children}</LoadingProvider>
-        </SessionProviderWrapper>
+        <QueryProvider>
+          <SessionProviderWrapper>
+            <LoadingProvider>{children}</LoadingProvider>
+          </SessionProviderWrapper>
+        </QueryProvider>
       </body>
     </html>
   );

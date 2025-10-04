@@ -107,6 +107,7 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
       setError("No photo selected!");
       return;
     }
+    const tagsWithBrand = [...form.tags, form.exif.Brand.toLowerCase()];
 
     const formData = new FormData();
     if (uploadedFile) {
@@ -115,7 +116,7 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
     formData.append("userId", session?.user.id || "");
     formData.append("title", form.title);
     formData.append("description", form.description);
-    formData.append("tags", JSON.stringify(form.tags));
+    formData.append("tags", JSON.stringify(tagsWithBrand));
     formData.append("exif", JSON.stringify(form.exif));
 
     setLoading(true);

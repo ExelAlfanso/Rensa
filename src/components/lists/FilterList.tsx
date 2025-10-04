@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import { FilterLists } from "@/app/datas/filterDatas";
-import React from "react";
 import Text from "../Text";
 
 interface FilterListProps {
@@ -13,69 +13,78 @@ const FilterList: React.FC<FilterListProps> = ({
   filters,
   handleClearFilters,
 }) => {
-  const handleClearFiltersClick = () => {
-    handleClearFilters();
-    for (const list of FilterLists) {
-      for (const item of list.items) {
-        item.isActive = false;
-      }
-    }
+  // local UI state for toggled filters
+  const [activeFilters, setActiveFilters] = useState<string[]>(filters);
+
+  const toggleFilter = (label: string) => {
+    const lower = label.toLowerCase();
+
+    setActiveFilters((prev) => {
+      const updated = prev.includes(lower)
+        ? prev.filter((f) => f !== lower)
+        : [...prev, lower];
+
+      // propagate to parent
+      onFilterChange(updated);
+      return updated;
+    });
   };
+
+  const handleClearFiltersClick = () => {
+    setActiveFilters([]);
+    handleClearFilters();
+  };
+
   return (
     <div className="px-3">
       <div className="grid grid-rows-2 grid-cols-2 lg:flex lg:flex-row md:justify-between text-black w-full pt-50 mb-11">
-        {FilterLists.map((list, idx) => {
-          return (
-            <div key={idx}>
-              <Text size="s" className="text-white-700 font-light">
-                {list.title}
-              </Text>
-              <div
-                className={`grid ${
-                  list.column === 1 ? "grid-cols-1" : "gap-x-10 grid-cols-2"
-                }`}
-              >
-                {list.items.map((item, idx) => (
+        {FilterLists.map((list, idx) => (
+          <div key={idx}>
+            <Text size="s" className="text-white-700 font-light">
+              {list.title}
+            </Text>
+            <div
+              className={`grid ${
+                list.column === 1 ? "grid-cols-1" : "gap-x-10 grid-cols-2"
+              }`}
+            >
+              {list.items.map((item, idx) => {
+                const isActive = activeFilters.includes(
+                  item.label.toLowerCase()
+                );
+                return (
                   <div
                     key={idx}
                     className="font-forum text-[14px] sm:text-[20px] lg:text-2xl 2xl:text-3xl"
                   >
                     <button
-                      onClick={() => {
-                        onFilterChange?.((prev) => {
-                          if (prev.includes(item.label)) {
-                            return prev.filter((f) => f !== item.label);
-                          } else {
-                            return [...prev, item.label];
-                          }
-                        });
-                        item.isActive = !item.isActive;
-                      }}
+                      onClick={() => toggleFilter(item.label)}
                       className="relative cursor-pointer hover:text-gray-700 transition-colors duration-300 mr-5 pb-1"
                     >
                       <span>{item.label}</span>
-                      {/* Underline */}
+                      {/* underline animation */}
                       <span
                         className={`absolute left-0 bottom-0 h-[2px] w-full bg-orange-500 transform transition-transform duration-300 origin-left ${
-                          item.isActive ? "scale-x-100" : "scale-x-0"
+                          isActive ? "scale-x-100" : "scale-x-0"
                         }`}
-                      ></span>
+                      />
                     </button>
                   </div>
-                ))}
-              </div>
+                );
+              })}
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
-      {filters.length > 0 ? (
+
+      {activeFilters.length > 0 && (
         <button
           onClick={handleClearFiltersClick}
           className="btn border-0 outline-0 ring-0 hover:bg-red-500 bg-[#BC0E0E] rounded-full"
         >
           Clear
         </button>
-      ) : null}
+      )}
     </div>
   );
 };

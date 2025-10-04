@@ -22,7 +22,10 @@ const FilterSection = () => {
       ></FilterList>
       <div className="border-t border-white-700 w-full my-11"></div>
       <ExploreTabs setActiveTab={setActiveTab} className="mb-10"></ExploreTabs>
-      <MasonryGalleryPage activeTab={activeTab}></MasonryGalleryPage>
+      <MasonryGalleryPage
+        activeTab={activeTab}
+        filters={filters}
+      ></MasonryGalleryPage>
     </div>
   );
 };
