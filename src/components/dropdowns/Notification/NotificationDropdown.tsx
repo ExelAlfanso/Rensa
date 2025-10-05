@@ -11,12 +11,13 @@ import DropdownItem from "../DropdownItem";
 
 const NotificationDropdown = () => {
   return (
-    <div className="relative z-50">
+    <div className="relative z-50 w-full">
       <IconDropdown Tag={BellIcon}>
         <Heading alignment="center" size="m" className="py-6">
           Notifications
         </Heading>
-        {/* this is a placeholder, here will map through notification data state */}
+        {/* this is a p
+        laceholder, here will map through notification data state */}
         {notificationDatas.map((notification, idx) => (
           <DropdownItem
             key={notification.id}

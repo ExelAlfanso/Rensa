@@ -4,7 +4,7 @@ import Image from "next/image";
 
 interface LogoProps {
   size?: string;
-  className: string;
+  className?: string;
   color?: string;
 }
 const Logo: React.FC<LogoProps> = ({
