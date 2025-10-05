@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-interface LinkButtonProps {
+interface LinkIconButtonProps {
   href: string;
   className?: string;
   onClick?: () => void;
@@ -8,7 +8,7 @@ interface LinkButtonProps {
   Icon: React.ElementType;
 }
 
-const LinkButton: React.FC<LinkButtonProps> = ({
+const LinkIconButton: React.FC<LinkIconButtonProps> = ({
   href,
   className,
   onClick,
@@ -23,4 +23,4 @@ const LinkButton: React.FC<LinkButtonProps> = ({
   );
 };
 
-export default LinkButton;
+export default LinkIconButton;

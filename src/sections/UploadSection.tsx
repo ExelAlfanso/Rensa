@@ -4,16 +4,17 @@ import api from "@/lib/axios";
 import { ArrowLeftIcon } from "@phosphor-icons/react";
 import React, { useEffect, useState } from "react";
 import Text from "../components/Text";
-import Button from "../components/buttons/Button";
 import Heading from "../components/Heading";
 import { useRouter } from "next/navigation";
 import { useFileUpload } from "@/hooks/useFileUpload";
 import UploadPreview from "../components/UploadPreview";
 import UploadForm from "../components/forms/UploadForm";
 import UploadDropZone from "../components/dropzones/UploadDropZone";
-import { useSession } from "next-auth/react";
 import { useLoading } from "@/hooks/useLoading";
 import { CameraSettings, defaultCameraSettings } from "@/app/datas/cameraDatas";
+import { useAuthStore } from "@/stores/useAuthStore";
+import TertiaryButton from "@/components/buttons/TertiaryButton";
+import PrimaryButton from "@/components/buttons/PrimaryButton";
 
 interface UploadButtonProps {
   onFileSelect?: (file: File) => void;
@@ -33,15 +34,10 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
     handleFileChange,
     handleCancel,
   } = useFileUpload(onFileSelect);
-  const { data: session } = useSession();
+  const user = useAuthStore((state) => state.user);
   const { setLoading } = useLoading();
-  const [exif, setExif] = useState<CameraSettings>(
-    defaultCameraSettings["Fujifilm"]
-  );
   const [error, setError] = useState<string>("");
-  const [tags, setTags] = useState<string[]>([]);
   const [form, setForm] = useState<{
-    // file: File | null;
     title: string;
     description: string;
     tags: string[];
@@ -50,42 +46,37 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
     title: "",
     description: "",
     tags: [],
-    exif: exif,
+    exif: defaultCameraSettings["Fujifilm"],
   });
-  // useEffect(() => {
-  //   console.log(form);
-  // }, [form]);
+  useEffect(() => {
+    console.log(form);
+  }, [form]);
   const handleExifChange = (
     field: string,
     value: number | object | string | CameraSettings["Brand"]
   ) => {
     if (field === "Brand") {
       const newExif = defaultCameraSettings[value as CameraSettings["Brand"]];
-      setExif(newExif);
       setForm((prev) => ({ ...prev, exif: newExif }));
     } else {
-      setExif((prev) => ({ ...prev, [field]: value }));
       setForm((prev) => ({ ...prev, exif: { ...prev.exif, [field]: value } }));
     }
   };
   const handleTagsChange = (value: string | string[]) => {
     if (typeof value === "string") {
-      if (!value.trim() || tags.includes(value.trim())) return;
-      setTags((prev) => [...prev, value.trim()]);
+      if (!value.trim() || form.tags.includes(value.trim())) return;
       setForm((prev) => ({ ...prev, tags: [...prev.tags, value.trim()] }));
     } else {
-      setTags([...value]);
       setForm((prev) => ({ ...prev, tags: [...value] }));
     }
   };
   const handleCancelButton = () => {
     handleCancel();
     setForm({
-      // file: uploadedFile,
       title: "",
       description: "",
       tags: [],
-      exif: exif,
+      exif: defaultCameraSettings["Fujifilm"],
     });
   };
   const handleUpload = async () => {
@@ -113,7 +104,7 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
     if (uploadedFile) {
       formData.append("file", uploadedFile); // must be a File/Blob
     }
-    formData.append("userId", session?.user.id || "");
+    formData.append("userId", user?.id || "");
     formData.append("title", form.title);
     formData.append("description", form.description);
     formData.append("tags", JSON.stringify(tagsWithBrand));
@@ -193,12 +184,8 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
     <div className="w-full gap-2 px-5 md:px-10 xl:px-65">
       {uploadedFile ? (
         <div className="flex items-center justify-between py-10 lg:mb-10">
-          <Button onClick={handleCancelButton} color={"tertiary"}>
-            Cancel
-          </Button>
-          <Button onClick={handleUpload} color={"primary"}>
-            Upload
-          </Button>
+          <TertiaryButton onClick={handleCancelButton}>Cancel</TertiaryButton>
+          <PrimaryButton onClick={handleUpload}>Upload</PrimaryButton>
         </div>
       ) : (
         <div className="flex items-end justify-between mb-10">

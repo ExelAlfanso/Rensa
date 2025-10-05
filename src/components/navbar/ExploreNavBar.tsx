@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import Button from "../buttons/Button";
 import Logo from "../icons/Logo";
 import Heading from "../Heading";
 import ProfileButton from "@/components/buttons/ProfileIconButton";
@@ -10,14 +9,14 @@ import NotificationDropdown from "../dropdowns/Notification/NotificationDropdown
 import SearchInputField from "../inputfields/SearchInputField";
 import { useRouter } from "next/navigation";
 import AccountDropdown from "../dropdowns/AccountDropdown";
-import { useSession } from "next-auth/react";
-
-//TODO: Make the navbar responsive
+import { useAuthStore } from "@/stores/useAuthStore";
+import PrimaryButton from "../buttons/PrimaryButton";
+import SecondaryButton from "../buttons/SecondaryButton";
+import TertiaryButton from "../buttons/TertiaryButton";
 
 const ExploreNavBar = () => {
-  const { data: session } = useSession();
+  const user = useAuthStore((state) => state.user);
 
-  const router = useRouter();
   return (
     <nav className="z-20 left-1/2 top-5 -translate-x-1/2 fixed w-[90%] lg:w-[70%] xl:w-[80%] h-14 md:h-18 text-black rounded-[48px] flex items-center justify-between bg-white-200 shadow-lg">
       <div className="flex flex-row items-center gap-1 lg:gap-4 ml-2 lg:ml-6">
@@ -29,35 +28,22 @@ const ExploreNavBar = () => {
       </div>
       <div className="flex flex-row items-center justify-center gap-6 mr-6">
         <span className="inline-flex items-center gap-2">
-          {session ? (
+          {user ? (
             <>
-              <Button
-                onClick={() => router.push("/upload")}
-                color={"secondary"}
-              >
-                Create
-              </Button>
+              <Link href={"/upload"}>
+                <SecondaryButton href="/upload">Create</SecondaryButton>
+              </Link>
               <span className="hidden lg:flex ">
                 <NotificationDropdown></NotificationDropdown>
                 <BookmarkButton></BookmarkButton>
               </span>
               <ProfileButton src={"/profile.jpg"} alt={""}></ProfileButton>
-              <AccountDropdown
-                src="/profile.jpg"
-                user={session?.user}
-              ></AccountDropdown>
+              <AccountDropdown src="/profile.jpg" user={user}></AccountDropdown>
             </>
           ) : (
             <>
-              <Button onClick={() => router.push("/login")} color={"primary"}>
-                Login
-              </Button>
-              <Button
-                onClick={() => router.push("/register")}
-                color={"tertiary"}
-              >
-                Sign Up
-              </Button>
+              <PrimaryButton href="/login">Login</PrimaryButton>
+              <TertiaryButton href="/register">Sign Up</TertiaryButton>
             </>
           )}
         </span>

@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 import { XIcon } from "@phosphor-icons/react";
-import LinkButton from "./LinkButton";
+import LinkIconButton from "./buttons/LinkIconButton";
 interface ImagePreviewProps {
   src: string;
   alt: string;
@@ -18,11 +18,11 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
 }) => {
   return (
     <div className="flex flex-col items-center justify-center gap-5 relative">
-      <LinkButton
+      <LinkIconButton
         className="self-start"
         href={"/explore"}
         Icon={XIcon}
-      ></LinkButton>
+      ></LinkIconButton>
       <div className="w-full xl:max-w-3xl">
         <Image
           src={src}
