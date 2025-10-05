@@ -4,7 +4,7 @@ interface TextProps {
   id?: string;
   className?: string;
   children?: React.ReactNode;
-  size?: "s" | "m" | "l" | "xl" | "xxl";
+  size?: "xs" | "s" | "m" | "l" | "xl" | "xxl";
 }
 
 const Text: React.FC<TextProps> = ({
@@ -14,6 +14,7 @@ const Text: React.FC<TextProps> = ({
   size = "xl",
 }) => {
   const sizeClasses = {
+    xs: "text-[10px] md:text-[13px]",
     s: "text-[13px] md:text-[18px]",
     m: "text-[16px] md:text-[18px]",
     l: "text-[18px] md:text-[20px]",

@@ -23,7 +23,7 @@ export default function AuthFormLayout({
     <div className="w-[90%] md:w-[400px] lg:w-[450px] xl:w-[500px] 2xl:w-[550px] flex flex-col items-center justify-center">
       <form onSubmit={onSubmit} className="w-full h-full gap-16 mb-5">
         <div className="flex flex-col items-center justify-center">
-          <Logo size={100} />
+          <Logo size={lg} />
           <h1 className="font-forum text-3xl text-black">{title}</h1>
         </div>
 
