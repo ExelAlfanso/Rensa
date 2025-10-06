@@ -29,7 +29,9 @@ export const ImageWithSkeleton: React.FC<ImageWithSkeletonProps> = ({
         {...image}
         alt="pic"
         loading="lazy"
-        style={{ height: "auto", width: image.width }}
+        className={`w-full h-full object-cover ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
         onLoad={handleLoad}
       />
     </div>

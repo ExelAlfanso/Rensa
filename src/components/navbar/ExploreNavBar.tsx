@@ -30,9 +30,7 @@ const ExploreNavBar = () => {
         <span className="inline-flex items-center gap-2">
           {user ? (
             <>
-              <Link href={"/upload"}>
-                <SecondaryButton href="/upload">Create</SecondaryButton>
-              </Link>
+              <SecondaryButton href="/upload">Create</SecondaryButton>
               <span className="hidden lg:flex ">
                 <NotificationDropdown></NotificationDropdown>
                 <BookmarkButton></BookmarkButton>

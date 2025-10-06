@@ -34,7 +34,7 @@ const CarouselSlide: React.FC<CarouselSlideProps> = ({
         />
       </div>
 
-      <div className="absolute right-30 -bottom-10 w-[20vw] h-fit bg-[#fafafa] z-20 rounded-3xl shadow-lg overflow-visible">
+      <div className="absolute right-30 -bottom-10 w-[20vw] h-fit bg-[#fafafa] z-10 rounded-3xl shadow-lg overflow-visible">
         {children}
       </div>
       <div className="absolute z-30 flex justify-between -translate-y-1/2 left-5 right-5 top-1/2">
