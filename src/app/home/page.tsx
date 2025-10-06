@@ -77,6 +77,7 @@ export default function Home() {
         <section
           ref={sectionRef}
           className="relative z-0 h-[400vh] bg-white text-center text-black"
+          style={{ height: "calc(400vh + 200vh)" }}
         >
           <div className="sticky left-0 top-0 flex h-screen w-full flex-col items-center justify-center overflow-hidden">
             {cardData.map((card, index) => (

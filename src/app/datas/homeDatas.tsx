@@ -1,5 +1,3 @@
-//TODO: Update responsiveness of text and images
-
 export const heroImagesData = [
   {
     id: 1,

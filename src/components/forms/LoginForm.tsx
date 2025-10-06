@@ -4,9 +4,9 @@ import Link from "next/link";
 import AuthFormLayout from "./AuthFormLayout";
 import InputField from "@/components/inputfields/InputField";
 import PasswordInputField from "@/components/inputfields/PasswordInputField";
-import Button from "@/components/buttons/Button";
 import { useLoading } from "@/hooks/useLoading";
 import { signIn } from "next-auth/react";
+import PrimaryButton from "../buttons/PrimaryButton";
 
 export default function LoginForm() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -44,13 +44,16 @@ export default function LoginForm() {
       onSubmit={handleSubmit}
       error={error}
       button={
-        <Button
-          type="submit"
-          color="primary"
-          className="h-[52px] md:h-[62px] my-7"
-        >
+        // <Button
+        //   type="submit"
+        //   color="primary"
+        //   className="h-[52px] md:h-[62px] my-7"
+        // >
+        //   Login
+        // </Button>
+        <PrimaryButton className="h-[52px] md:h-[62px] my-7" type="submit">
           Login
-        </Button>
+        </PrimaryButton>
       }
       footer={
         <>

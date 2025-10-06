@@ -2,6 +2,9 @@
 
 import React from "react";
 import Button from "./Button";
+import PrimaryButton from "./PrimaryButton";
+import SecondaryButton from "./SecondaryButton";
+import TertiaryButton from "./TertiaryButton";
 
 interface IconButtonProps {
   type?: "submit" | "button";
@@ -20,12 +23,22 @@ const IconButton: React.FC<IconButtonProps> = ({
   Icon,
   paddingX = 6,
 }) => {
+  let Tag = Button;
+  if (color === "primary") {
+    Tag = PrimaryButton;
+  }
+  if (color === "secondary") {
+    Tag = SecondaryButton;
+  }
+  if (color === "tertiary") {
+    Tag = TertiaryButton;
+  }
   return (
-    <Button type={type} color={color} paddingX={paddingX}>
+    <Tag type={type} paddingX={paddingX}>
       {iconPosition === "left" && Icon && <Icon size={18} />}
       {children}
       {iconPosition === "right" && Icon && <Icon size={18} />}
-    </Button>
+    </Tag>
   );
 };
 

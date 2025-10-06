@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Button from "../buttons/Button";
 import Heading from "../Heading";
 import Text from "../Text";
 import Comment from "../Comment";
@@ -15,6 +14,7 @@ import ProfileBadge from "../badges/ProfileBadge";
 import CommentInputField from "../inputfields/CommentInputField";
 import api from "@/lib/axios";
 import { useSession } from "next-auth/react";
+import PrimaryButton from "../buttons/PrimaryButton";
 interface PhotoInfoCardProps {
   id?: string;
   className?: string;
@@ -29,7 +29,6 @@ interface PhotoInfoCardProps {
 }
 //TODO: Comment feature
 //TODO: Save feature
-//TODO: Bookmark feature
 
 const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
   id,
@@ -118,7 +117,7 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
             All Photos
           </IconButton>
 
-          <Button color="primary">Save</Button>
+          <PrimaryButton>Save</PrimaryButton>
         </div>
       </div>
       <div className="mb-9">

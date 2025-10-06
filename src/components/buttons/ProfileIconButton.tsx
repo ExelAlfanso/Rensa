@@ -28,6 +28,7 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({
         src={src}
         alt={alt}
         fill
+        sizes="(max-width: 768px) 40px, (max-width: 1200px) 60px, 80px"
         className="object-cover rounded-full aspect-square"
       />
     </button>

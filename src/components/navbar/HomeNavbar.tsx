@@ -2,18 +2,15 @@
 import React from "react";
 import Logo from "../icons/Logo";
 import Heading from "../Heading";
-import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/useAuthStore";
 import LinkTertiaryButton from "../buttons/LinkButtons/LinkTertiaryButton";
 import LinkPrimaryButton from "../buttons/LinkButtons/LinkPrimaryButton";
 import Link from "next/link";
 
-//TODO: Make the navbar responsive
-
 const HomeNavbar = () => {
   const user = useAuthStore((state) => state.user);
   return (
-    <nav className="z-20 left-1/2 top-5 -translate-x-1/2 fixed w-[90%] lg:w-[70%] xl:w-[80%] h-14 md:h-18 text-black rounded-[48px] flex items-center justify-between bg-white-200 shadow-lg">
+    <nav className="z-30 left-1/2 top-5 -translate-x-1/2 fixed w-[90%] lg:w-[70%] xl:w-[80%] h-14 md:h-18 text-black rounded-[48px] flex items-center justify-between bg-white-200 shadow-lg">
       <div className="flex flex-row items-center gap-1 lg:gap-4 ml-2 lg:ml-6">
         <Logo size={"s"}></Logo>
         <Link href="/home">

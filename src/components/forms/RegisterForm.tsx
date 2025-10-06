@@ -3,12 +3,12 @@ import { useState } from "react";
 import Link from "next/link";
 import AuthFormLayout from "./AuthFormLayout";
 import InputField from "@/components/inputfields/InputField";
-import Button from "@/components/buttons/Button";
 import { useLoading } from "@/hooks/useLoading";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import api from "@/lib/axios";
+import PrimaryButton from "../buttons/PrimaryButton";
 
 export default function RegisterForm() {
   const [form, setForm] = useState({
@@ -63,9 +63,12 @@ export default function RegisterForm() {
       onSubmit={handleSubmit}
       error={error}
       button={
-        <Button className="h-[62px] my-7" color="primary" type="submit">
+        // <Button className="h-[62px] my-7" color="primary" type="submit">
+        //   Register
+        // </Button>
+        <PrimaryButton className="h-[62px] my-7" type="submit">
           Register
-        </Button>
+        </PrimaryButton>
       }
       footer={
         <span className="flex items-center justify-center gap-1 text-gray-700">
