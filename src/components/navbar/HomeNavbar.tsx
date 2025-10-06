@@ -2,13 +2,10 @@
 import React from "react";
 import Logo from "../icons/Logo";
 import Heading from "../Heading";
-import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/stores/useAuthStore";
 import LinkTertiaryButton from "../buttons/LinkButtons/LinkTertiaryButton";
 import LinkPrimaryButton from "../buttons/LinkButtons/LinkPrimaryButton";
 import Link from "next/link";
-
-//TODO: Make the navbar responsive
 
 const HomeNavbar = () => {
   const user = useAuthStore((state) => state.user);

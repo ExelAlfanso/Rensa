@@ -4,7 +4,6 @@ import { CameraSettings, defaultCameraSettings } from "@/app/datas/cameraDatas";
 import CameraSettingsForm from "./CameraSettingsForm";
 import InputDropdown from "../inputfields/InputDropdown";
 import api from "@/lib/axios";
-import { formatLabelFirstLetter } from "@/utils/LabelFormatter";
 import {
   detectValueinString,
   extractNumberFromString,
@@ -12,7 +11,6 @@ import {
 import { cameraFieldOptions } from "@/app/datas/cameraFieldDatas";
 import TagsInputField from "../inputfields/TagsInputField";
 import { brandModels } from "@/app/datas/cameraModelDatas";
-import { CodepenLogoIcon } from "@phosphor-icons/react";
 
 interface UploadFormProps {
   file: File;
