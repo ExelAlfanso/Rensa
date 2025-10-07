@@ -11,7 +11,7 @@ import {
   sonyCameraModels,
 } from "./cameraModelDatas";
 // Lookup of dropdown options per brand + field
-const iso = ["Auto", "100", "200", "400", "800", "1600", "3200", "6400"];
+
 export const cameraFieldOptions: {
   [B in CameraSettings["Brand"]]?: Record<string, string[]>;
 } = {
@@ -40,13 +40,11 @@ export const cameraFieldOptions: {
       "Flash",
     ],
     DynamicRange: ["DR100", "DR200", "DR400", "Auto", "Standard"],
-    ISO: iso,
   },
 
   Sony: {
     CameraModel: [...sonyCameraModels],
     CreativeLook: ["ST", "PT", "VV", "FL"],
-    ISO: iso,
   },
 
   Canon: {
@@ -63,7 +61,6 @@ export const cameraFieldOptions: {
     ],
     FilterEffect: ["Yellow", "Red", "Green"],
     ToningEffect: ["Sepia", "Blue", "Green"],
-    ISO: iso,
   },
 
   Nikon: {
@@ -78,7 +75,6 @@ export const cameraFieldOptions: {
       "Flat",
     ],
     FilterEffects: ["Yellow", "Orange", "Red", "Green"],
-    ISO: iso,
   },
 
   Lumix: {
@@ -95,7 +91,6 @@ export const cameraFieldOptions: {
     FilterEffect: ["Yellow", "Orange", "Red", "Green"],
     GrainEffect: ["Off", "Low", "Standard", "High"],
     ColorNoiseReduction: ["On", "Off"],
-    ISO: iso,
   },
 
   Olympus: {
@@ -111,7 +106,6 @@ export const cameraFieldOptions: {
     Gradation: ["Auto", "Normal", "High Key", "Low Key"],
     ColorFilter: ["Neutral", "Yellow", "Orange", "Red", "Green"],
     PictureTone: ["Neutral", "Sepia", "Blue", "Purple", "Green"],
-    ISO: iso,
   },
 
   Ricoh: {
@@ -124,7 +118,6 @@ export const cameraFieldOptions: {
       "High-Contrast B&W",
     ],
     GrainEffect: ["Off", "Weak", "Medium", "Strong"],
-    ISO: iso,
   },
 
   Hasselblad: {
@@ -142,7 +135,6 @@ export const cameraFieldOptions: {
       "Fluorescent",
       "Flash",
     ],
-    ISO: iso,
   },
 
   Leica: {
@@ -167,7 +159,6 @@ export const cameraFieldOptions: {
       "Fluorescent",
       "Flash",
     ],
-    ISO: iso,
   },
 
   Pentax: {
@@ -186,6 +177,5 @@ export const cameraFieldOptions: {
       "Monochrome",
       "Cross Processing",
     ],
-    ISO: iso,
   },
 };

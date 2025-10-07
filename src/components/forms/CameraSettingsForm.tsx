@@ -10,13 +10,11 @@ interface CameraSettingsFormProps {
   settings: CameraSettings;
   cameraModels: string[];
   handleSettings: (settings: CameraSettings) => void;
-  handleExifChange: (field: string, value: number | object | string) => void;
 }
 
 const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
   settings,
   cameraModels,
-  handleExifChange,
   handleSettings,
 }) => {
   return (
@@ -31,9 +29,8 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
             <SearchDropdown
               label={key}
               key={key}
-              value={String(settings.Model || "")}
+              value={(settings.Model as string) ?? ""}
               onSelect={(model) => {
-                handleExifChange(key, model);
                 handleSettings({ ...settings, Model: model });
               }}
               cameraModels={cameraModels}
@@ -49,7 +46,6 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
               placeholder={`Select ${key}`}
               values={options}
               onChange={(e) => {
-                handleExifChange(key, e.currentTarget.innerText);
                 handleSettings({
                   ...settings,
                   [key]: e.currentTarget.innerText,
@@ -69,7 +65,6 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
               value={settings[key as keyof CameraSettings] as number}
               placeholder={`Enter ${key}`}
               onChange={(e) => {
-                handleExifChange(key, Number(e.target.value));
                 handleSettings({ ...settings, [key]: Number(e.target.value) });
               }}
             />
@@ -89,10 +84,6 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
                   placeholder={`Enter ${subKey}`}
                   value={subVal as number}
                   onChange={(e) => {
-                    handleExifChange(key, {
-                      ...value,
-                      [subKey]: Number(e.target.value),
-                    });
                     handleSettings({
                       ...settings,
                       [key]: {

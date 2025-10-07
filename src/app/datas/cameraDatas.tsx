@@ -275,7 +275,7 @@ export const defaultFujifilm: FujifilmSettings = {
   Sharpness: 0,
   NoiseReduction: 0,
   Clarity: 0,
-  ISO: "Auto",
+  ISO: 0,
 };
 
 export const defaultSony: SonySettings = {
@@ -289,7 +289,7 @@ export const defaultSony: SonySettings = {
   Saturation: 0,
   Sharpness: 0,
   Clarity: 0,
-  ISO: "Auto",
+  ISO: 0,
 };
 
 export const defaultCanon: CanonSettings = {
@@ -302,7 +302,7 @@ export const defaultCanon: CanonSettings = {
   ColorTone: 0,
   FilterEffect: "Yellow",
   ToningEffect: "Sepia",
-  ISO: "Auto",
+  ISO: 0,
 };
 
 export const defaultNikon: NikonSettings = {
@@ -319,7 +319,7 @@ export const defaultNikon: NikonSettings = {
   Hue: 0,
   FilterEffects: "Yellow",
   Toning: "",
-  ISO: "Auto",
+  ISO: 0,
 };
 
 export const defaultLumix: LumixSettings = {
@@ -337,7 +337,7 @@ export const defaultLumix: LumixSettings = {
   Sharpness: 0,
   NoiseReduction: 0,
   Clarity: 0,
-  ISO: "Auto",
+  ISO: 0,
 };
 
 export const defaultOlympus: OlympusSettings = {
@@ -352,7 +352,7 @@ export const defaultOlympus: OlympusSettings = {
   PictureTone: "Neutral",
   HighlightShadowControl: { Highlight: 0, Shadow: 0 },
   ColorCreator: { Hue: 0, Saturation: 0 },
-  ISO: "Auto",
+  ISO: 0,
 };
 
 export const defaultRicoh: RicohSettings = {
@@ -371,7 +371,7 @@ export const defaultRicoh: RicohSettings = {
   Toning: "",
   FilterEffect: "",
   GrainEffect: "Off",
-  ISO: "Auto",
+  ISO: 0,
 };
 
 export const defaultHasselblad: HasselbladSettings = {
@@ -381,7 +381,7 @@ export const defaultHasselblad: HasselbladSettings = {
   Contrast: 0,
   Sharpness: 0,
   WhiteBalance: "Auto",
-  ISO: "Auto",
+  ISO: 0,
 };
 
 export const defaultLeica: LeicaSettings = {
@@ -393,7 +393,7 @@ export const defaultLeica: LeicaSettings = {
   Sharpness: 0,
   Toning: "Sepia",
   WhiteBalance: "Auto",
-  ISO: "Auto",
+  ISO: 0,
 };
 
 export const defaultPentax: PentaxSettings = {
@@ -412,7 +412,7 @@ export const defaultPentax: PentaxSettings = {
   Toning: "",
   FilterEffect: "",
   GrainEffect: "Off",
-  ISO: "Auto",
+  ISO: 0,
 };
 
 // Union default values lookup

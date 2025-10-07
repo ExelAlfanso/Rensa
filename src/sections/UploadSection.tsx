@@ -79,8 +79,7 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
       exif: defaultCameraSettings["Fujifilm"],
     });
   };
-  const handleUpload = async () => {
-    setError("");
+  const validateForm = () => {
     if (!form.title.trim()) {
       setError("Title is required!");
       return;
@@ -98,6 +97,10 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
       setError("No photo selected!");
       return;
     }
+  };
+  const handleUpload = async () => {
+    setError("");
+    validateForm();
     const tagsWithBrand = [...form.tags, form.exif.Brand.toLowerCase()];
 
     const formData = new FormData();

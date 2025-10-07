@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import InputField from "../inputfields/InputField";
 import { CameraSettings, defaultCameraSettings } from "@/app/datas/cameraDatas";
 import CameraSettingsForm from "./CameraSettingsForm";
 import InputDropdown from "../inputfields/InputDropdown";
-import api from "@/lib/axios";
-import {
-  detectValueinString,
-  extractNumberFromString,
-} from "@/utils/ValueDetections";
-import { cameraFieldOptions } from "@/app/datas/cameraFieldDatas";
 import TagsInputField from "../inputfields/TagsInputField";
 import { brandModels } from "@/app/datas/cameraModelDatas";
+import { useExifDetection } from "@/hooks/useExifDetection";
 
 interface UploadFormProps {
   file: File;
@@ -32,83 +27,25 @@ const UploadForm: React.FC<UploadFormProps> = ({
   handleExifChange,
   handleTags,
 }) => {
-  const [isDetecting, setIsDetecting] = useState(false);
-  const [settings, setSettings] = useState<CameraSettings>(
-    defaultCameraSettings["Fujifilm"]
-  );
-  const [selectedCamera, setSelectedCamera] =
-    useState<CameraSettings["Brand"]>("Fujifilm");
-  const [detectedMetadata, setDetectedMetadata] = useState(null);
-  const handleDetectMetadata = async () => {
-    setIsDetecting(true);
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
-      const res = await api.post(
-        "https://exifreader.onrender.com/api/exifread",
+  const {
+    isDetecting,
+    detectAndApplyExif,
+    settings,
+    selectedCamera,
+    setSelectedCamera,
+    setSettings,
+  } = useExifDetection(file, handleExifChange);
 
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
-      console.log("metadata res:", res?.data.metadata);
-      setDetectedMetadata(res?.data.metadata);
-      if (res?.data.metadata.Make) {
-        const brand = res.data.metadata.Make as CameraSettings["Brand"];
-        const newSettings = defaultCameraSettings[brand];
-        if (brand in defaultCameraSettings) {
-          setSelectedCamera(brand);
-          handleExifChange("Brand", brand);
-          setSettings(newSettings);
-        }
-      }
-    } catch (err) {
-      console.error("Metadata detection failed:", err);
-    } finally {
-      setIsDetecting(false);
-    }
-  };
-  const handleAutoFill = () => {
-    for (const [key, value] of Object.entries(detectedMetadata || {})) {
-      if (key in settings) {
-        handleExifChange(key, value as string | number | object);
-        setSettings((prev) => ({ ...prev, [key]: value }));
-        console.log("Detected: ", key, value);
-        if (typeof value === "string") {
-          const detectedValue = detectValueinString(
-            cameraFieldOptions[selectedCamera]?.[key] || [],
-            value
-          );
-          if (detectedValue) {
-            handleExifChange(key, detectedValue);
-            setSettings((prev) => ({ ...prev, [key]: detectedValue }));
-          } else {
-            const extractedNumber = extractNumberFromString(value);
-            console.log("Extracted " + extractedNumber + " from: " + value);
-            if (extractedNumber !== null) {
-              handleExifChange(key, extractedNumber);
-              setSettings((prev) => ({ ...prev, [key]: extractedNumber }));
-            }
-          }
-        } else {
-          setSettings((prev) => ({ ...prev, [key]: value }));
-        }
-      }
-    }
-  };
-  // Automatically detect metadata when photo changes
   useEffect(() => {
-    if (photo) {
-      handleDetectMetadata();
-    }
+    if (photo) detectAndApplyExif();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [photo]);
 
-  useEffect(() => {
-    if (detectedMetadata) {
-      handleAutoFill();
-    }
-  }, [detectedMetadata]);
+  const handleBrandChange = (brand: CameraSettings["Brand"]) => {
+    setSelectedCamera(brand);
+    setSettings(defaultCameraSettings[brand]);
+    handleExifChange("Brand", brand);
+  };
   return (
     <div className="flex flex-col gap-5 p-10 mt-10 overflow-y-scroll shadow-lg w-[80%] md:h-190 lg:h-175 no-scrollbar rounded-3xl bg-white-200 text-primary mb-25">
       <InputField
@@ -144,16 +81,13 @@ const UploadForm: React.FC<UploadFormProps> = ({
               onChange={(e) => {
                 const brand = e.currentTarget
                   .innerText as CameraSettings["Brand"];
-                setSelectedCamera(brand);
-                setSettings(defaultCameraSettings[brand]);
-                handleExifChange("Brand", brand);
+                handleBrandChange(brand);
               }}
             />
             <CameraSettingsForm
               cameraModels={brandModels[selectedCamera] || []}
               settings={settings}
               handleSettings={setSettings}
-              handleExifChange={handleExifChange}
             ></CameraSettingsForm>
           </>
         )}
