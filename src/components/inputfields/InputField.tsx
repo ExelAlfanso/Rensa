@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import Text from "../Text";
-import "./InputField.css";
+// import "./InputField.css";
 
 interface InputFieldProps {
   type: string;

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import InputField from "./InputField";
-import { ChatTeardropIcon, MagnifyingGlassIcon } from "@phosphor-icons/react";
-import { div } from "motion/react-client";
+import { ChatTeardropIcon } from "@phosphor-icons/react";
 
 interface CommentInputFieldProps {
   id?: string;

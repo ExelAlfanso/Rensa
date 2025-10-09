@@ -28,7 +28,7 @@ const InputDropdown: React.FC<InputDropdownProps> = ({
   };
   return (
     <div ref={dropdownRef} className="relative w-full text-primary">
-      <Text size="s" className="text-gray-700">
+      <Text size="xs" className="text-gray-700">
         {label}
       </Text>
       <button

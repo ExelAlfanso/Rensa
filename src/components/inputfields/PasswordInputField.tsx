@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { EyeIcon, EyeClosedIcon } from "@phosphor-icons/react";
-import { motion } from "motion/react";
-import InputField from "./InputField";
+import BaseInputField from "./BaseInputField";
 
 interface PasswordInputFieldProps {
   name?: string;
   placeholder?: string;
-  size?: "m" | "l";
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -14,7 +12,6 @@ interface PasswordInputFieldProps {
 
 const PasswordInputField: React.FC<PasswordInputFieldProps> = ({
   name,
-  size = "l",
   placeholder,
   onChange,
 }) => {
@@ -25,13 +22,12 @@ const PasswordInputField: React.FC<PasswordInputFieldProps> = ({
   };
   return (
     <div className="relative">
-      <InputField
+      <BaseInputField
         type={type}
         onChange={onChange}
         name={name}
         placeholder={placeholder}
-        size={size}
-      ></InputField>
+      ></BaseInputField>
       <button
         type="button"
         onClick={handleTogglePassword}

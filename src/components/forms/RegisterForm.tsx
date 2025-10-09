@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import api from "@/lib/axios";
 import PrimaryButton from "../buttons/PrimaryButton";
+import TextInputField from "../inputfields/TextInputField";
 
 export default function RegisterForm() {
   const [form, setForm] = useState({
@@ -63,10 +64,7 @@ export default function RegisterForm() {
       onSubmit={handleSubmit}
       error={error}
       button={
-        // <Button className="h-[62px] my-7" color="primary" type="submit">
-        //   Register
-        // </Button>
-        <PrimaryButton className="h-[62px] my-7" type="submit">
+        <PrimaryButton className="h-[52px] md:h-[62px] my-7" type="submit">
           Register
         </PrimaryButton>
       }
@@ -79,25 +77,25 @@ export default function RegisterForm() {
         </span>
       }
     >
-      <InputField
+      <TextInputField
         type="text"
         name="username"
         placeholder="Username"
         onChange={(e) => setForm({ ...form, username: e.target.value })}
       />
-      <InputField
+      <TextInputField
         type="email"
         name="email"
         placeholder="Email"
         onChange={(e) => setForm({ ...form, email: e.target.value })}
       />
-      <InputField
+      <TextInputField
         type="password"
         name="password"
         placeholder="Password"
         onChange={(e) => setForm({ ...form, password: e.target.value })}
       />
-      <InputField
+      <TextInputField
         type="password"
         name="confirmPassword"
         placeholder="Confirm Password"

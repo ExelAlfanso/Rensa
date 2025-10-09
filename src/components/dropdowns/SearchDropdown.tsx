@@ -31,7 +31,7 @@ export const SearchDropdown: React.FC<SearchDropdownProps> = ({
   return (
     <div className="relative w-full mt-3" ref={dropdownRef}>
       {label && (
-        <Text size="s" className="text-gray-700">
+        <Text size="xs" className="text-gray-700">
           {label}
         </Text>
       )}

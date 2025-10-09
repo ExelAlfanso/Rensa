@@ -7,6 +7,7 @@ import PasswordInputField from "@/components/inputfields/PasswordInputField";
 import { useLoading } from "@/hooks/useLoading";
 import { signIn } from "next-auth/react";
 import PrimaryButton from "../buttons/PrimaryButton";
+import TextInputField from "../inputfields/TextInputField";
 
 export default function LoginForm() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -44,13 +45,6 @@ export default function LoginForm() {
       onSubmit={handleSubmit}
       error={error}
       button={
-        // <Button
-        //   type="submit"
-        //   color="primary"
-        //   className="h-[52px] md:h-[62px] my-7"
-        // >
-        //   Login
-        // </Button>
         <PrimaryButton className="h-[52px] md:h-[62px] my-7" type="submit">
           Login
         </PrimaryButton>
@@ -69,7 +63,7 @@ export default function LoginForm() {
         </>
       }
     >
-      <InputField
+      <TextInputField
         type="email"
         name="email"
         placeholder="Email or Username"

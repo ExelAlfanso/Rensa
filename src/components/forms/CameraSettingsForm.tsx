@@ -6,6 +6,7 @@ import { CameraSettings } from "@/app/datas/cameraDatas";
 import { cameraFieldOptions } from "@/app/datas/cameraFieldDatas";
 import { formatLabel } from "@/utils/LabelFormatter";
 import { SearchDropdown } from "../dropdowns/SearchDropdown";
+import NumberInputField from "../inputfields/NumberInputField";
 interface CameraSettingsFormProps {
   settings: CameraSettings;
   cameraModels: string[];
@@ -58,7 +59,7 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
         // Render number input if value is numeric
         if (typeof value === "number") {
           return (
-            <InputField
+            <NumberInputField
               key={key}
               type="number"
               label={key}
@@ -77,11 +78,9 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
             <div key={key} className="p-2 border border-gray-500 rounded-lg">
               <h4 className="font-semibold">{formatLabel(key)}</h4>
               {Object.entries(value).map(([subKey, subVal]) => (
-                <InputField
+                <NumberInputField
                   key={subKey}
-                  type="number"
                   label={subKey}
-                  placeholder={`Enter ${subKey}`}
                   value={subVal as number}
                   onChange={(e) => {
                     handleSettings({
@@ -93,6 +92,23 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
                     });
                   }}
                 />
+
+                // <InputField
+                //   key={subKey}
+                //   type="number"
+                //   label={subKey}
+                //   placeholder={`Enter ${subKey}`}
+                //   value={subVal as number}
+                //   onChange={(e) => {
+                //     handleSettings({
+                //       ...settings,
+                //       [key]: {
+                //         ...value,
+                //         [subKey]: Number(e.target.value),
+                //       },
+                //     });
+                //   }}
+                // />
               ))}
             </div>
           );
