@@ -33,11 +33,15 @@ const TagsInputField: React.FC<TagsInputFieldProps> = ({
   const [inputValue, setInputValue] = React.useState("");
   return (
     <div>
-      {tags.map((tag, index) => (
-        <div key={index} className="">
-          <TagChip tag={tag} onClick={() => removeTag(tag)}></TagChip>
-        </div>
-      ))}
+      <div className="grid grid-cols-4 gap-2 mb-2">
+        {tags.map((tag, index) => (
+          <TagChip
+            key={index}
+            tag={tag}
+            onClick={() => removeTag(tag)}
+          ></TagChip>
+        ))}
+      </div>
       <InputField
         type="text"
         placeholder={placeholder}

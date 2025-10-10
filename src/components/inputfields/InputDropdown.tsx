@@ -55,13 +55,16 @@ const InputDropdown: React.FC<InputDropdownProps> = ({
       </div>
       <button
         type="button"
-        className="absolute right-3 top-1/2 cursor-pointer"
+        className="absolute right-3 top-1/2 cursor-pointer "
         onClick={(e) => {
           e.stopPropagation();
           setIsOpen((prev) => !prev);
         }}
       >
-        <CaretDownIcon size={20} />
+        <CaretDownIcon
+          size={20}
+          className="hover:text-orange-500 transition-colors duration-200"
+        />
       </button>
     </div>
   );

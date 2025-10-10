@@ -321,6 +321,7 @@ export const sonyCameraModels = [
 
 export const canonCameraModels = [
   "C50",
+  "EOS 1300D",
   "ELPH 360 HS A",
   "R50 V",
   "R1",
@@ -408,7 +409,6 @@ export const canonCameraModels = [
   "N100",
   "SX40 HS",
   "M10",
-  "M",
   "SX730 HS",
   "T7",
   "G11",
@@ -449,10 +449,8 @@ export const canonCameraModels = [
   "ELPH 510 HS",
   "ELPH 340 HS",
   "ELPH 350 HS",
-  "N Facebook ready",
   "ELPH 330 HS",
   "SX410 IS",
-  "N",
   "ELPH 500 HS",
   "S90",
   "SX170 IS",

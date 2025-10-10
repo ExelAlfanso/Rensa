@@ -13,7 +13,7 @@ const TagChip: React.FC<TagChipProps> = ({
   disabled = false,
 }) => {
   return (
-    <span className="flex flex-wrap items-center gap-2 p-2 bg-black border border-gray-200 rounded-full text-white-200">
+    <span className="flex justify-between gap-2 p-2 pl-4 pr-6 bg-black border rounded-full text-white-200">
       {tag}
       <button onClick={onClick} type="button" disabled={disabled}>
         <XIcon size={10} color={"white"}></XIcon>
