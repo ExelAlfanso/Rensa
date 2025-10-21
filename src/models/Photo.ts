@@ -1,4 +1,5 @@
 import { model, Schema, Document, models, Types } from "mongoose";
+import { StatsRecording } from "motion/react";
 
 export interface PhotoMetadata {
   width: number;
@@ -21,6 +22,10 @@ export interface PhotoDocument extends Document {
   title: string;
   description: string;
   tags: string[];
+  category: string;
+  style: string;
+  color: string;
+  camera: string;
   metadata: PhotoMetadata;
 }
 
@@ -54,7 +59,12 @@ const PhotoSchema = new Schema<PhotoDocument>(
       uploadedAt: Date,
     },
     tags: [{ type: String }],
+    category: { type: String, default: "" },
+    style: { type: String, default: "" },
+    color: { type: String, default: "" },
+    camera: { type: String, default: "" },
   },
+
   {
     timestamps: true,
   }

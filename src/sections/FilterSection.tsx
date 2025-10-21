@@ -10,9 +10,9 @@ const FilterSection = () => {
   const handleClearFilters = () => {
     setFilters([]);
   };
-  useEffect(() => {
-    console.log(filters);
-  }, [filters]);
+  // useEffect(() => {
+  //   console.log(filters);
+  // }, [filters]);
   return (
     <div className="flex flex-col justify-center">
       <FilterList

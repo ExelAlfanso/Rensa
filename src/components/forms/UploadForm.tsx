@@ -6,6 +6,7 @@ import InputDropdown from "../inputfields/InputDropdown";
 import TagsInputField from "../inputfields/TagsInputField";
 import { brandModels } from "@/app/datas/cameraModelDatas";
 import { useExifDetection } from "@/hooks/useExifDetection";
+import { FilterLists } from "@/app/datas/filterDatas";
 
 interface UploadFormProps {
   file: File;
@@ -68,6 +69,33 @@ const UploadForm: React.FC<UploadFormProps> = ({
         placeholder={"Enter Tags"}
         handleTags={handleTags}
       ></TagsInputField>
+      <InputDropdown
+        label="Category"
+        placeholder="Select Category"
+        values={FilterLists[0].items.map((item) => item.label)}
+        onChange={(e) => {
+          const category = e.currentTarget.innerText;
+          onChange("category", category);
+        }}
+      ></InputDropdown>
+      <InputDropdown
+        label="Style"
+        placeholder="Select Style"
+        values={FilterLists[2].items.map((item) => item.label)}
+        onChange={(e) => {
+          const style = e.currentTarget.innerText;
+          onChange("style", style);
+        }}
+      ></InputDropdown>
+      <InputDropdown
+        label="Color"
+        placeholder="Select Color"
+        values={FilterLists[3].items.map((item) => item.label)}
+        onChange={(e) => {
+          const color = e.currentTarget.innerText;
+          onChange("color", color);
+        }}
+      ></InputDropdown>
       <div className="w-full my-2 border-t border-white-700"></div>
       <div className="flex flex-col items-center justify-center">
         {isDetecting ? (

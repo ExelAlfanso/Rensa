@@ -3,13 +3,12 @@ import cloudinary from "@/lib/cloudinary";
 import { connectDB } from "@/lib/mongodb";
 import Photo from "@/models/Photo";
 import sharp from "sharp";
-//TODO: Change userID to user : {id, username, avatarUrl} so that it is easier to put in datas in photoinfocard.
-//TODO: Make how to track saved/bookmarked number to be fetched in photoinfocard.
-//TODO: Add data what camera was used
 
 async function compressImageUnder10MB(buffer: Buffer): Promise<Buffer> {
   let quality = 90; // start high
   let output = await sharp(buffer)
+    .withMetadata()
+    .rotate(0)
     .resize({ width: 2000 }) // limit dimensions
     .jpeg({ quality })
     .toBuffer();
@@ -18,6 +17,8 @@ async function compressImageUnder10MB(buffer: Buffer): Promise<Buffer> {
   while (output.length > 10 * 1024 * 1024 && quality > 10) {
     quality -= 10;
     output = await sharp(buffer)
+      .withMetadata()
+      .rotate(0)
       .resize({ width: 2000 })
       .jpeg({ quality })
       .toBuffer();
@@ -33,9 +34,13 @@ export async function POST(req: Request) {
     const userId = formData.get("userId") as string;
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
+    const category = formData.get("category") as string;
+    const style = formData.get("style") as string;
+    const color = formData.get("color") as string;
     const exif = JSON.parse(formData.get("exif") as string);
+    const camera = exif.Brand as string;
     const tags = JSON.parse(formData.get("tags") as string);
-
+    console.log("Received camera brand:", camera);
     if (!file) {
       return NextResponse.json(
         { success: false, error: "No file provided" },
@@ -70,7 +75,11 @@ export async function POST(req: Request) {
       url: secure_url,
       title,
       description,
+      category,
+      style,
+      color,
       tags,
+      camera,
       metadata: {
         width,
         height,

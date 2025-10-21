@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FilterLists } from "@/app/datas/filterDatas";
 import Text from "../Text";
 
@@ -16,18 +16,16 @@ const FilterList: React.FC<FilterListProps> = ({
   // local UI state for toggled filters
   const [activeFilters, setActiveFilters] = useState<string[]>(filters);
 
+  // ✅ Sync to parent only AFTER local state changes
+  useEffect(() => {
+    onFilterChange(activeFilters);
+  }, [activeFilters, onFilterChange]);
+
   const toggleFilter = (label: string) => {
     const lower = label.toLowerCase();
-
-    setActiveFilters((prev) => {
-      const updated = prev.includes(lower)
-        ? prev.filter((f) => f !== lower)
-        : [...prev, lower];
-
-      // propagate to parent
-      onFilterChange(updated);
-      return updated;
-    });
+    setActiveFilters((prev) =>
+      prev.includes(lower) ? prev.filter((f) => f !== lower) : [...prev, lower]
+    );
   };
 
   const handleClearFiltersClick = () => {

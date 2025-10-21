@@ -1,28 +1,35 @@
 import { connectDB } from "@/lib/mongodb";
-import Photo from "@/models/Photo";
+import Photo, { PhotoDocument } from "@/models/Photo";
+import { FilterQuery } from "mongoose";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   await connectDB();
   const { searchParams } = new URL(req.url);
+
   const page = parseInt(searchParams.get("page") || "1");
   const limit = parseInt(searchParams.get("limit") || "10");
 
+  // Structured filters
   const filtersParam = searchParams.get("filters") || "";
   const filters = filtersParam ? filtersParam.split(",") : [];
-
-  const filter = filters.length > 0 ? { tags: { $in: filters } } : {};
+  const filter: FilterQuery<PhotoDocument> =
+    filters.length > 0
+      ? {
+          $or: [
+            { tags: { $in: filters } },
+            { category: { $in: filters } },
+            { color: { $in: filters } },
+            { style: { $in: filters } },
+          ],
+        }
+      : {};
 
   try {
     const skip = (page - 1) * limit;
 
-    // Execute both queries in parallel for better performance
     const [photos, total] = await Promise.all([
-      Photo.find(filter)
-        .sort({ createdAt: -1 }) // Show newest first
-        .skip(skip)
-        .limit(limit)
-        .lean(),
+      Photo.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
       Photo.countDocuments(filter),
     ]);
 
@@ -30,7 +37,7 @@ export async function GET(req: Request) {
     const hasMore = page < totalPages;
 
     return NextResponse.json({
-      photos, // Changed from 'data' to 'photos'
+      photos,
       currentPage: page,
       totalPages,
       hasMore,

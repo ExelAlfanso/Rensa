@@ -16,10 +16,10 @@ import { useAuthStore } from "@/stores/useAuthStore";
 import TertiaryButton from "@/components/buttons/TertiaryButton";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
 
-interface UploadButtonProps {
+interface UploadSectionProps {
   onFileSelect?: (file: File) => void;
 }
-const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
+const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
   const {
     photo,
     uploadedFile,
@@ -41,16 +41,24 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
     title: string;
     description: string;
     tags: string[];
+    category: string;
+    style: string;
+    color: string;
+    camera: string;
     exif: CameraSettings;
   }>({
     title: "",
     description: "",
     tags: [],
+    category: "",
+    style: "",
+    color: "",
+    camera: "",
     exif: defaultCameraSettings["Fujifilm"],
   });
-  useEffect(() => {
-    console.log(form);
-  }, [form]);
+  // useEffect(() => {
+  //   console.log(form);
+  // }, [form]);
   const handleExifChange = (
     field: string,
     value: number | object | string | CameraSettings["Brand"]
@@ -76,6 +84,10 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
       title: "",
       description: "",
       tags: [],
+      category: "",
+      style: "",
+      color: "",
+      camera: "",
       exif: defaultCameraSettings["Fujifilm"],
     });
   };
@@ -105,11 +117,15 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
 
     const formData = new FormData();
     if (uploadedFile) {
-      formData.append("file", uploadedFile); // must be a File/Blob
+      formData.append("file", uploadedFile);
     }
     formData.append("userId", user?.id || "");
     formData.append("title", form.title);
     formData.append("description", form.description);
+    formData.append("category", form.category.toLowerCase());
+    formData.append("style", form.style.toLowerCase());
+    formData.append("color", form.color.toLowerCase());
+    formData.append("camera", form.camera.toLowerCase());
     formData.append("tags", JSON.stringify(tagsWithBrand));
     formData.append("exif", JSON.stringify(form.exif));
 
@@ -237,4 +253,4 @@ const UploadButton: React.FC<UploadButtonProps> = ({ onFileSelect }) => {
   );
 };
 
-export default UploadButton;
+export default UploadSection;

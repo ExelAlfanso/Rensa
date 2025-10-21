@@ -1,5 +1,5 @@
 import api from "@/lib/axios";
-
+// import { Filters } from "@/sections/FilterSection";
 export async function fetchImagesFromPicSum(page: number) {
   const newImages = Array.from({ length: 10 }, () => {
     const h = 300 + Math.floor(Math.random() * 200);
@@ -57,22 +57,21 @@ export interface FetchPhotosResponse {
 // Fetch photos from your MongoDB backend
 export async function fetchImagesFromDB(
   page: number,
-  // tag?: string,
-  filters: string[] = []
+  filters: string[] | undefined
 ): Promise<FetchPhotosResponse> {
   try {
     const params: Record<string, string | number | undefined> = {
       page,
       limit: 10,
-      filters: filters.length > 0 ? filters.join(",") : undefined,
+      filters: filters ? filters.join(",") : undefined,
     };
-    console.log("📤 Sending request to /photos/getPhotos with params:", params);
+    // console.log("📤 Sending request to /photos/getPhotos with params:", params);
 
     const res = await api.get<BackendPhotosResponse>("/photos/getPhotos", {
       params,
     });
 
-    console.log("Fetched photos from DB:", res.data);
+    // console.log("Fetched photos from DB:", res.data);
 
     return {
       data: res.data.photos,
