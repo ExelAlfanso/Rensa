@@ -40,7 +40,6 @@ export async function POST(req: Request) {
     const exif = JSON.parse(formData.get("exif") as string);
     const camera = exif.Brand as string;
     const tags = JSON.parse(formData.get("tags") as string);
-    console.log("Received camera brand:", camera);
     if (!file) {
       return NextResponse.json(
         { success: false, error: "No file provided" },

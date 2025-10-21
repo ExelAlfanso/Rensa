@@ -14,6 +14,7 @@ import {
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { filter } from "motion/react-client";
 import { AnimatePresence, motion } from "motion/react";
+import Link from "next/link";
 
 interface MasonryGallerySectionProps {
   activeTab?: string;
@@ -114,6 +115,7 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
         >
           {photos.map((photo, idx) => {
             const isPhotoObject = typeof photo !== "string";
+            const photoId = isPhotoObject ? (photo as Photo)._id : null;
 
             return (
               <motion.div
@@ -124,40 +126,47 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
               >
-                <div
-                  className="relative overflow-hidden transition-transform duration-300 cursor-pointer rounded-3xl group hover:scale-105"
-                  onClick={() => handlePhotoClick(photo, idx)}
+                <Link
+                  href={photoId ? `/photo/${photoId}` : "#"}
+                  prefetch={false}
+                  onClick={(e) => {
+                    if (!photoId) e.preventDefault(); // prevent invalid navigation
+                    if (onPhotoClick) handlePhotoClick(photo, idx);
+                  }}
+                  className="block"
                 >
-                  <ImageWithSkeleton
-                    image={{
-                      src: getPhotoUrl(photo),
-                      alt: getPhotoTitle(photo, idx),
-                      width: 250,
-                      height: 350,
-                    }}
-                  />
-                  <div className="absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40" />
+                  <div className="relative overflow-hidden transition-transform duration-300 cursor-pointer rounded-3xl group hover:scale-105">
+                    <ImageWithSkeleton
+                      image={{
+                        src: getPhotoUrl(photo),
+                        alt: getPhotoTitle(photo, idx),
+                        width: 250,
+                        height: 350,
+                      }}
+                    />
+                    <div className="absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40" />
 
-                  {isPhotoObject && (
-                    <div className="absolute bottom-0 left-0 right-0 p-4 transition-transform duration-300 translate-y-full bg-gradient-to-t from-black/80 to-transparent group-hover:translate-y-0">
-                      <h3 className="text-white font-semibold text-sm line-clamp-1">
-                        {(photo as Photo).title}
-                      </h3>
-                      {(photo as Photo).tags.length > 0 && (
-                        <div className="flex flex-wrap gap-1 mt-2">
-                          {(photo as Photo).tags.slice(0, 3).map((tag) => (
-                            <span
-                              key={tag}
-                              className="px-2 py-0.5 text-xs text-white bg-white/20 rounded-full"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
+                    {isPhotoObject && (
+                      <div className="absolute bottom-0 left-0 right-0 p-4 transition-transform duration-300 translate-y-full bg-gradient-to-t from-black/80 to-transparent group-hover:translate-y-0">
+                        <h3 className="text-white font-semibold text-sm line-clamp-1">
+                          {(photo as Photo).title}
+                        </h3>
+                        {(photo as Photo).tags.length > 0 && (
+                          <div className="flex flex-wrap gap-1 mt-2">
+                            {(photo as Photo).tags.slice(0, 3).map((tag) => (
+                              <span
+                                key={tag}
+                                className="px-2 py-0.5 text-xs text-white bg-white/20 rounded-full"
+                              >
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </Link>
               </motion.div>
             );
           })}
