@@ -41,7 +41,7 @@ const AccountDropdown = ({ src, user }: AccountDropdownProps) => {
               />
             </div>
             <div>
-              <Text>{user?.name}</Text>
+              <Text size="s">{user?.name}</Text>
               <Text className="text-gray-600 font-light" size="s">
                 Free Plan
               </Text>
@@ -51,8 +51,8 @@ const AccountDropdown = ({ src, user }: AccountDropdownProps) => {
         <div className="border-t border-white-700 w-[90%] my-2"></div>
         {accountDropdownDatas.map((item, idx) => (
           <DropdownItem key={idx} href={item.href}>
-            <item.icon className="w-6 h-6 md:w-8 md:h-8 mr-2" />
-            <Text size="m">{item.title}</Text>
+            <item.icon className="w-6 h-6 mr-2" />
+            <Text size="s">{item.title}</Text>
           </DropdownItem>
         ))}
       </IconDropdown>

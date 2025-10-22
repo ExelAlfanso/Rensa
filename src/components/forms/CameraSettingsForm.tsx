@@ -92,23 +92,6 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
                     });
                   }}
                 />
-
-                // <InputField
-                //   key={subKey}
-                //   type="number"
-                //   label={subKey}
-                //   placeholder={`Enter ${subKey}`}
-                //   value={subVal as number}
-                //   onChange={(e) => {
-                //     handleSettings({
-                //       ...settings,
-                //       [key]: {
-                //         ...value,
-                //         [subKey]: Number(e.target.value),
-                //       },
-                //     });
-                //   }}
-                // />
               ))}
             </div>
           );

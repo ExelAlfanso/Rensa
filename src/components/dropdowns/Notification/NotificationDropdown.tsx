@@ -34,7 +34,7 @@ const NotificationDropdown = () => {
                 className="object-cover rounded-2xl aspect-square"
               />
             </div>
-            <Text size="s" className="inline">
+            <Text size="xs" className="inline">
               <span className="inline font-bold">{notification.username}</span>{" "}
               saved your image
             </Text>

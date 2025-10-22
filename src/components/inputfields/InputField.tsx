@@ -2,7 +2,7 @@
 import React from "react";
 import Text from "../Text";
 // import "./InputField.css";
-
+// DEPRECATED: Use BaseInputField instead
 interface InputFieldProps {
   type: string;
   placeholder?: string;
@@ -41,12 +41,12 @@ const InputField: React.FC<InputFieldProps> = ({
     xxl: "h-24 md:h-24 md:pt-6 md:pb-20",
   };
   const defaultStyling =
-    "w-full input bg-gray-200 transition-colors text-[12px] md:text-[16px] duration-300 text-black focus:outline-0 focus:bg-white-500 disabled:text-gray-300 disabled:border-gray-200 disabled:bg-white-500 focus:border-gray-800 rounded-3xl placeholder:text-primary pl-6 pr-4";
+    "w-full bg-gray-200 text-[16px] md:text-[18px] focus:outline-0 focus:ring-0 focus:border focus:border-gray-800 text-black focus:bg-white-500 disabled:text-gray-300 disabled:border-gray-200 disabled:bg-white-500 rounded-3xl placeholder:text-primary pl-6 pr-4";
   return (
     <>
       {label && (
-        <label className={`mb-1 text-left `}>
-          <Text size="s" className="text-gray-700 ">
+        <label className={`text-left`}>
+          <Text size="m" className="text-gray-700">
             {label}
           </Text>
         </label>
@@ -57,7 +57,7 @@ const InputField: React.FC<InputFieldProps> = ({
           name={name}
           disabled={disabled}
           value={value as string | number | undefined}
-          className={`  ${defaultStyling} ${sizeClasses[size]} ${className}`}
+          className={` ${defaultStyling} ${sizeClasses[size]} ${className}`}
           placeholder={placeholder}
           onChange={onChange}
           onKeyDown={onKeyDown}
@@ -69,7 +69,7 @@ const InputField: React.FC<InputFieldProps> = ({
           name={name}
           disabled={disabled}
           value={value as string | number | undefined}
-          className={`  ${defaultStyling} ${sizeClasses[size]} ${className}`}
+          className={`${defaultStyling} ${sizeClasses[size]} ${className}`}
           placeholder={placeholder}
           onChange={onChange}
           rows={6}

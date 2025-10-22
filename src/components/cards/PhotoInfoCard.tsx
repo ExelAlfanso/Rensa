@@ -133,9 +133,9 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
           alt={username}
           className="mb-5"
         />
-        <Text size="m" className="text-black-200 max-w-[350px]">
+        <p className="text-[16px] text-black-200 max-w-[350px]">
           {description}
-        </Text>
+        </p>
       </div>
       <div>
         <RecipeList metadata={metadata}></RecipeList>
@@ -145,7 +145,8 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
           Comments
         </Heading>
         <div className="overflow-y-scroll no-scrollbar h-35">
-          <Comment>Nice looking picture mate!</Comment>
+          {/*TODO: Map through comments and render them*/}
+          <Comment username="user1">Nice looking picture mate!</Comment>
           <Comment>Nice looking picture mate!</Comment>
           <Comment>Nice looking picture mate!</Comment>
           <Comment>Nice looking picture mate!</Comment>

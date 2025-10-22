@@ -2,6 +2,7 @@ import React, { KeyboardEvent } from "react";
 import InputField from "./InputField";
 import { XIcon } from "@phosphor-icons/react";
 import TagChip from "../chips/TagChip";
+import BaseInputField from "./BaseInputField";
 
 interface TagsInputFieldProps {
   label?: string;
@@ -33,7 +34,7 @@ const TagsInputField: React.FC<TagsInputFieldProps> = ({
   const [inputValue, setInputValue] = React.useState("");
   return (
     <div>
-      <div className="grid grid-cols-4 gap-2 mb-2">
+      <div className="flex gap-2 mb-2">
         {tags.map((tag, index) => (
           <TagChip
             key={index}
@@ -42,7 +43,7 @@ const TagsInputField: React.FC<TagsInputFieldProps> = ({
           ></TagChip>
         ))}
       </div>
-      <InputField
+      <BaseInputField
         type="text"
         placeholder={placeholder}
         value={inputValue}

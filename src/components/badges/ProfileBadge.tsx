@@ -24,9 +24,7 @@ const ProfileBadge: React.FC<ProfileBadgeProps> = ({
         alt={alt}
         size={size}
       ></ProfileIconButton>
-      <Text size="s" className="text-white-700 ">
-        @{username}
-      </Text>
+      <h2 className="text-[13px] font-figtree text-black-200">@{username}</h2>
     </span>
   );
 };

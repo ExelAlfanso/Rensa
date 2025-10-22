@@ -1,9 +1,13 @@
 export function detectValueinString(keys: string[], str: string) {
-  for (const key of keys) {
-    if (str.toLowerCase().includes(key.toLowerCase())) {
-      // console.log(`Detected ${key} in ${str}`);
-      return key;
+  try {
+    for (const key of keys) {
+      if (str.toLowerCase().includes(key.toLowerCase())) {
+        // console.log(`Detected ${key} in ${str}`);
+        return key;
+      }
     }
+  } catch (e) {
+    console.error("Error in detectValueinString:", e);
   }
 
   return null;

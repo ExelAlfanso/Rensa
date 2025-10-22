@@ -15,7 +15,7 @@ const SecondaryButton: React.FC<ButtonProps> = ({
       id={id}
       href={href}
       onClick={onClick}
-      className={`btn-secondary hover:bg-orange-300 focus:bg-orange-700 ${className}`}
+      className={`btn-secondary text-white hover:bg-orange-300 focus:bg-orange-700 ${className}`}
     >
       {children}
     </Button>

@@ -1,24 +1,23 @@
-
 @tailwind utilities;
 
 @import "tailwindcss";
 @plugin "daisyui";
 
-@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Forum&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Forum&display=swap'); */
 :root {
   --background: #ffffff;
   --primary: #031602;
-  --secondary: #FF9000;
-  
+  --secondary: #ff9000;
+
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-background: var(--background);
-  --color-foreground: var(--foreground); 
+  --color-foreground: var(--foreground);
 
-  --font-forum: 'Forum', serif;
-  --font-figtree: 'Figtree', sans-serif;
+  --font-forum: "Forum", serif;
+  --font-figtree: "Figtree", sans-serif;
 
-   /* White Shades from Palette */
+  /* White Shades from Palette */
   --white-50: #ffffff;
   --white-100: #fdfdfd;
   --white-200: #fdfdfd;
@@ -53,7 +52,7 @@
   --black-700: #021001;
   --black-800: #020c01;
   --black-900: #010901;
-  
+
   /* gray Shades from Palette */
   --gray-50: #fafcfa;
   --gray-100: #f0f4f1;
@@ -66,19 +65,18 @@
   --gray-800: #727a72;
   --gray-900: #575a58;
 
-  --font-figtree: 'Figtree',serif;
-  --font-forum: 'Forum',sans-serif; 
-  
+  --font-figtree: "Figtree", serif;
+  --font-forum: "Forum", sans-serif;
 }
-@theme light{
+@theme light {
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-background: var(--background);
-  --color-foreground: var(--foreground); 
+  --color-foreground: var(--foreground);
 
   --color-neutral: var(--orange-500);
 
- /* White Shades */
+  /* White Shades */
   --color-white-50: var(--white-50);
   --color-white-100: var(--white-100);
   --color-white-200: var(--white-200);
@@ -130,9 +128,9 @@
   --color-secondary: var(--secondary);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  
+
   --font-figtree: var(--font-figtree);
-  --font-forum: var(--font-forum); 
+  --font-forum: var(--font-forum);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -158,7 +156,6 @@ select:-webkit-autofill:focus {
   color: white;
 }
 
-
 @layer utilities {
   .no-scrollbar {
     /* Firefox */
@@ -168,6 +165,6 @@ select:-webkit-autofill:focus {
   }
 
   .no-scrollbar::-webkit-scrollbar {
-    display: none; 
+    display: none;
   }
 }

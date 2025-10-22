@@ -28,14 +28,18 @@ const InputDropdown: React.FC<InputDropdownProps> = ({
   };
   return (
     <div ref={dropdownRef} className="relative w-full text-primary">
-      <Text size="xs" className="text-gray-700">
-        {label}
-      </Text>
+      {label && (
+        <label className="text-[13px] text-black-200 font-figtree font-medium mb-1">
+          {label}
+        </label>
+      )}
       <button
         onClick={() => setIsOpen((prev) => !prev)}
-        className="w-full px-4 py-2 text-left bg-gray-200 cursor-pointer rounded-3xl hover:bg-gray-300 ring-0 outline-0"
+        className={`w-full px-4 py-2 text-left bg-gray-200 ${
+          value ? "text-black" : "text-gray-800"
+        } cursor-pointer rounded-3xl hover:bg-gray-300 ring-0 outline-0`}
       >
-        {value || placeholder || "Select an option"}
+        <Text size="m">{value || placeholder || "Select an option"}</Text>
       </button>
 
       <div

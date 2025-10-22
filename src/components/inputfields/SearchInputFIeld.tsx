@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import InputField from "./InputField";
 import { MagnifyingGlassIcon } from "@phosphor-icons/react";
+import IconInputField from "./IconInputField";
 interface SearchInputFieldProps {
   disabled?: boolean;
   className?: string;
@@ -16,15 +16,13 @@ const SearchInputField: React.FC<SearchInputFieldProps> = ({
     console.log(term);
   }
   return (
-    <InputField
-      type={""}
-      onChange={(e) => handleSearch(e.target.value)}
-      Icon={MagnifyingGlassIcon}
+    <IconInputField
+      type="text"
       placeholder="Search"
-      size="m"
-      className={`${className}`}
-      disabled={disabled}
-    ></InputField>
+      Icon={MagnifyingGlassIcon}
+      iconPosition="right"
+      onChange={(e) => console.log(e.target.value)}
+    />
   );
 };
 

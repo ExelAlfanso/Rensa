@@ -15,7 +15,7 @@ const BaseInputField: React.FC<BaseInputFieldProps> = ({ label, ...props }) => (
     )}
     <input
       {...props}
-      className="w-full pl-6 pr-4 bg-gray-200 rounded-3xl px-4 py-3 text-sm focus:outline-none focus:bg-white h-12 md:h-16 md:py-4 text-black placeholder:text-primary transition-colors duration-300 font-figtree text-[12px] md:text-[16px]"
+      className="w-full pl-6 pr-4 bg-gray-200 rounded-3xl px-4 py-3 text-[16px] focus:outline-gray-800 focus:bg-[#FAFAFA] h-12 md:h-16 md:py-4 text-black placeholder:text-black-300 font-figtree "
     />
   </div>
 );
