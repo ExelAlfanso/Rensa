@@ -30,7 +30,6 @@ export interface FujifilmSettings {
   ColorChromeEffect?: "Off" | "Strong" | "Weak";
   ColorChromeFXBlue?: "Off" | "Strong" | "Weak";
   WhiteBalance?: WBMode;
-  WbShift?: { RedBlue: number; YellowMagenta: number };
   DynamicRange?: "DR100" | "DR200" | "DR400" | "Auto";
   HighlightTone?: Range<-2 | 4>;
   ShadowTone?: Range<-2 | 4>;
@@ -69,7 +68,7 @@ export interface CanonSettings {
     | "Neutral"
     | "Faithful"
     | "Monochrome";
-  Sharpness?: { Strength: number; Fineness: number; Threshold: number };
+  Sharpness?: "Normal" | "Soft" | "Hard";
   Contrast?: number;
   Saturation?: number;
   ColorTone?: number;
@@ -149,8 +148,6 @@ export interface OlympusSettings {
   Saturation?: number;
   ColorFilter?: "Neutral" | "Yellow" | "Orange" | "Red" | "Green";
   PictureTone?: "Neutral" | "Sepia" | "Blue" | "Purple" | "Green";
-  HighlightShadowControl?: { Highlight: number; Shadow: number };
-  ColorCreator?: { Hue: number; Saturation: number };
   ISO?: number | "Auto";
 }
 
@@ -267,7 +264,6 @@ export const defaultFujifilm: FujifilmSettings = {
   ColorChromeEffect: "Off",
   ColorChromeFXBlue: "Off",
   WhiteBalance: "Auto",
-  WbShift: { RedBlue: 0, YellowMagenta: 0 },
   DynamicRange: "DR100",
   HighlightTone: 0,
   ShadowTone: 0,
@@ -296,7 +292,7 @@ export const defaultCanon: CanonSettings = {
   Brand: "Canon",
   Model: "",
   PictureStyle: "Auto",
-  Sharpness: { Strength: 0, Fineness: 0, Threshold: 0 },
+  Sharpness: "Normal",
   Contrast: 0,
   Saturation: 0,
   ColorTone: 0,
@@ -350,8 +346,6 @@ export const defaultOlympus: OlympusSettings = {
   Saturation: 0,
   ColorFilter: "Neutral",
   PictureTone: "Neutral",
-  HighlightShadowControl: { Highlight: 0, Shadow: 0 },
-  ColorCreator: { Hue: 0, Saturation: 0 },
   ISO: 0,
 };
 

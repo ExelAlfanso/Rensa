@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
-import InputField from "../inputfields/InputField";
+// import InputField from "../inputfields/InputField";
 import InputDropdown from "../inputfields/InputDropdown";
 import { CameraSettings } from "@/app/datas/cameraDatas";
 import { cameraFieldOptions } from "@/app/datas/cameraFieldDatas";
-import { formatLabel } from "@/utils/LabelFormatter";
+// import { formatLabel } from "@/utils/LabelFormatter";
 import { SearchDropdown } from "../dropdowns/SearchDropdown";
 import NumberInputField from "../inputfields/NumberInputField";
 interface CameraSettingsFormProps {
@@ -19,7 +19,7 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
   handleSettings,
 }) => {
   return (
-    <div className="grid w-full grid-cols-1 gap-5">
+    <div className="grid w-full grid-cols-2 gap-5">
       {Object.entries(settings).map(([key, value]) => {
         const brand = settings.Brand;
         const options = cameraFieldOptions[brand]?.[key];
@@ -72,30 +72,30 @@ const CameraSettingsForm: React.FC<CameraSettingsFormProps> = ({
           );
         }
 
-        // Render object inputs
-        if (typeof value === "object" && value !== null) {
-          return (
-            <div key={key} className="p-2 border border-gray-500 rounded-lg">
-              <h4 className="font-semibold">{formatLabel(key)}</h4>
-              {Object.entries(value).map(([subKey, subVal]) => (
-                <NumberInputField
-                  key={subKey}
-                  label={subKey}
-                  value={subVal as number}
-                  onChange={(e) => {
-                    handleSettings({
-                      ...settings,
-                      [key]: {
-                        ...value,
-                        [subKey]: Number(e.target.value),
-                      },
-                    });
-                  }}
-                />
-              ))}
-            </div>
-          );
-        }
+        // // Render object inputs
+        // if (typeof value === "object" && value !== null) {
+        //   return (
+        //     <div key={key} className="p-2 border border-gray-500 rounded-lg">
+        //       <h4 className="font-semibold">{formatLabel(key)}</h4>
+        //       {Object.entries(value).map(([subKey, subVal]) => (
+        //         <NumberInputField
+        //           key={subKey}
+        //           label={subKey}
+        //           value={subVal as number}
+        //           onChange={(e) => {
+        //             handleSettings({
+        //               ...settings,
+        //               [key]: {
+        //                 ...value,
+        //                 [subKey]: Number(e.target.value),
+        //               },
+        //             });
+        //           }}
+        //         />
+        //       ))}
+        //     </div>
+        //   );
+        // }
       })}
     </div>
   );

@@ -2,7 +2,7 @@
 import FilterList from "@/components/lists/FilterList";
 import ExploreTabs from "@/components/tabs/ExploreTabs";
 import React, { useEffect, useState } from "react";
-import MasonryGalleryPage from "./MasonryGallerySection";
+import MasonryGalleryPage from "./MasonryGallerySection/MasonryGallerySection";
 
 const FilterSection = () => {
   const [activeTab, setActiveTab] = useState("tab1");
@@ -25,6 +25,7 @@ const FilterSection = () => {
       <MasonryGalleryPage
         activeTab={activeTab}
         filters={filters}
+        useDatabase={true}
       ></MasonryGalleryPage>
     </div>
   );

@@ -29,7 +29,12 @@ export async function GET(req: Request) {
     const skip = (page - 1) * limit;
 
     const [photos, total] = await Promise.all([
-      Photo.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).lean(),
+      Photo.find(filter)
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limit)
+        .populate("userId", "username avatar")
+        .lean(),
       Photo.countDocuments(filter),
     ]);
 

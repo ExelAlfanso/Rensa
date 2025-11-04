@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ProfileIconButton from "../buttons/ProfileIconButton";
-import Text from "../Text";
-import api from "@/lib/axios";
 interface ProfileBadgeProps {
   alt?: string;
   size?: "8" | "10" | "12" | "16" | "20";

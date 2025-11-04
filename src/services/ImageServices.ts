@@ -1,4 +1,5 @@
 import api from "@/lib/axios";
+import { PopulatedPhoto } from "@/types/PopulatedPhoto";
 // import { Filters } from "@/sections/FilterSection";
 export async function fetchImagesFromPicSum(page: number) {
   const newImages = Array.from({ length: 10 }, () => {
@@ -40,7 +41,7 @@ export interface Photo {
 
 // Shape of API response from your backend
 interface BackendPhotosResponse {
-  photos: Photo[];
+  photos: PopulatedPhoto[];
   currentPage: number;
   totalPages: number;
   hasMore: boolean;
@@ -49,7 +50,7 @@ interface BackendPhotosResponse {
 
 // SINGLE unified response type for React Query
 export interface FetchPhotosResponse {
-  data: Photo[] | string[]; // Can be either Photo objects or string URLs
+  data: PopulatedPhoto[] | string[]; // Can be either Photo objects or string URLs
   urls: string[]; // Always array of URLs
   nextPage: number | undefined; // MUST be optional
 }
@@ -82,18 +83,6 @@ export async function fetchImagesFromDB(
     console.error("Error fetching photos:", error);
     throw error;
   }
-}
-
-// Fetch a single photo by ID
-export async function fetchPhotoById(photoId: string): Promise<Photo> {
-  const res = await api.get<Photo>(`/photos/${photoId}`);
-  return res.data;
-}
-
-// Toggle bookmark on a photo
-export async function toggleBookmark(photoId: string): Promise<Photo> {
-  const res = await api.post<Photo>(`/photos/${photoId}/bookmark`);
-  return res.data;
 }
 
 // Search photos by tags
