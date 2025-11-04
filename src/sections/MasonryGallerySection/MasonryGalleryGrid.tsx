@@ -22,19 +22,24 @@ const MasonryGalleryGrid: React.FC<MasonryGalleryGridProps> = ({ photos }) => {
     if (photoCount <= 1) return 1;
     if (photoCount === 2) return 2;
     if (photoCount === 3) return 3;
-    return 4; // default for larger sets
+    if (photoCount === 4) return 4;
+    return 5;
   };
+
   const breakpointColumnsObj = {
     default: getDynamicColumns(photos.length),
-    1600: getDynamicColumns(photos.length),
-    1024: Math.min(getDynamicColumns(photos.length), 3),
-    700: Math.min(getDynamicColumns(photos.length), 2),
+    1920: Math.min(getDynamicColumns(photos.length), 5),
+    1600: Math.min(getDynamicColumns(photos.length), 4),
+    1280: Math.min(getDynamicColumns(photos.length), 3),
+    900: Math.min(getDynamicColumns(photos.length), 2),
+    640: 2,
   };
+
   return (
     <AnimatePresence mode="popLayout">
       <Masonry
         breakpointCols={breakpointColumnsObj}
-        className="my-masonry-grid"
+        className="my-masonry-grid w-full"
         columnClassName="my-masonry-grid_column"
       >
         {photos.map((photo, idx) => {
@@ -60,8 +65,8 @@ const MasonryGalleryGrid: React.FC<MasonryGalleryGridProps> = ({ photos }) => {
                     image={{
                       src: getPhotoUrl(photo),
                       alt: getPhotoTitle(photo, idx),
-                      width: 250,
-                      height: 350,
+                      width: 350,
+                      height: 450,
                     }}
                   />
                   <div className="absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40" />

@@ -14,18 +14,18 @@ const FilterSection = () => {
   //   console.log(filters);
   // }, [filters]);
   return (
-    <div className="flex flex-col justify-center">
+    <div className="flex flex-col justify-center w-full px-[25px] md:px-[30px] lg:px-[70px] xl:px-[90px] 2xl:px-[260px]">
       <FilterList
         filters={filters}
         onFilterChange={setFilters}
         handleClearFilters={handleClearFilters}
       ></FilterList>
-      <div className="border-t border-white-700 w-full my-11"></div>
+      <div className="border-t border-white-700 my-11"></div>
       <ExploreTabs setActiveTab={setActiveTab} className="mb-10"></ExploreTabs>
       <MasonryGalleryPage
         activeTab={activeTab}
         filters={filters}
-        useDatabase={true}
+        useDatabase={false}
       ></MasonryGalleryPage>
     </div>
   );
