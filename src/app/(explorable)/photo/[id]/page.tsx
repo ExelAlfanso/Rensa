@@ -1,25 +1,27 @@
-import { connectDB } from "@/lib/mongodb";
-import Photo from "@/models/Photo";
-import mongoose from "mongoose";
-import { notFound } from "next/navigation";
-import { PhotoDocument } from "@/models/Photo";
-import MasonryGalleryPage from "@/sections/MasonryGallerySection";
+import MasonryGalleryPage from "@/sections/MasonryGallerySection/MasonryGallerySection";
 import Heading from "@/components/Heading";
 import PhotoInfoCard from "@/components/cards/PhotoInfoCard";
 import ImagePreview from "@/components/ImagePreview";
+import api from "@/lib/axios";
+import { notFound } from "next/navigation";
+
 export default async function PhotoPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }) {
-  await connectDB();
-  const { id } = await params;
-  if (!mongoose.Types.ObjectId.isValid(id)) {
+  const id = params.id;
+  let photo = null;
+  try {
+    const res = await api.get(`/api/photos/photo/${id}`);
+    photo = res.data;
+  } catch (error) {
+    console.error("Error fetching photo:", error);
+  }
+
+  if (!photo) {
     notFound();
   }
-  const photo = await Photo.findById(id).lean<PhotoDocument>();
-
-  if (!photo) notFound();
   return (
     <div className="bg-white-500 w-full flex flex-col items-center justify-center px-[25px] md:px-[30px] lg:px-[70px] xl:px-[90px] 2xl:px-[260px] gap-10">
       <div className="flex flex-col lg:flex-row items-center justify-center gap-[67px] pt-35 ">
@@ -34,7 +36,9 @@ export default async function PhotoPage({
         <PhotoInfoCard
           id={id}
           initialBookmarks={photo?.bookmarks}
-          bookmarkedBy={photo?.bookmarkedBy?.map((id) => id.toString()) || []}
+          bookmarkedBy={
+            photo?.bookmarkedBy?.map((id: string) => id.toString()) || []
+          }
           title={photo?.title}
           description={photo?.description}
           metadata={photo?.metadata}
