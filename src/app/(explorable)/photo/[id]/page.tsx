@@ -13,7 +13,7 @@ export default async function PhotoPage({
   const id = params.id;
   let photo = null;
   try {
-    const res = await api.get(`/api/photos/photo/${id}`);
+    const res = await api.get(`/photos/photo/${id}`);
     photo = res.data;
   } catch (error) {
     console.error("Error fetching photo:", error);

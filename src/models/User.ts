@@ -1,4 +1,4 @@
-import mongoose, { model, Schema } from "mongoose";
+import mongoose, { model, Schema, Types } from "mongoose";
 
 export interface UserDocument {
   _id: string;
@@ -6,6 +6,7 @@ export interface UserDocument {
   email: string;
   password: string;
   avatar: string;
+  rolls: Types.ObjectId[];
 }
 
 const UserSchema = new Schema<UserDocument>(
@@ -27,6 +28,7 @@ const UserSchema = new Schema<UserDocument>(
     avatar: {
       type: String,
     },
+    rolls: { type: [Schema.Types.ObjectId], ref: "Roll", default: [] },
   },
   {
     timestamps: true,

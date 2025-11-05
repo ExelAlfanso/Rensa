@@ -2,6 +2,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type { Session } from "next-auth";
+import { useRollsStore } from "./useRollsStore";
 
 interface AuthState {
   user: Session["user"] | null;
@@ -24,6 +25,10 @@ export const useAuthStore = create<AuthState>()(
       setLoading: (isLoading) => set({ isLoading }),
       clearAuth: () =>
         set({ user: null, accessToken: undefined, isLoading: false }),
+      logout: () => {
+        set({ user: null });
+        useRollsStore.getState().clearRolls();
+      },
     }),
     {
       name: "auth-store", // stored in sessionStorage

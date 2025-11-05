@@ -19,7 +19,7 @@ export const ImageWithSkeleton: React.FC<ImageWithSkeletonProps> = ({
     if (onLoad) onLoad();
   };
   return (
-    <div className="relative w-full h-auto transition-transform duration-300 transform group-hover:scale-105">
+    <div className="relative w-full h-auto transition-transform duration-300 transform">
       {!loaded && (
         <div className="absolute inset-0 z-10 flex items-center justify-center">
           <div className="skeleton bg-[#D5D5D5] animate-none w-full h-full"></div>

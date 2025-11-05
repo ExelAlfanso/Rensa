@@ -6,14 +6,17 @@ const getPhotoUrl = (photo: PopulatedPhoto | string): string => {
 
 const getPhotoTitle = (
   photo: PopulatedPhoto | string,
-  index: number
+  index: string | null
 ): string => {
   return typeof photo === "string"
-    ? `Gallery image ${index + 1}`
+    ? `Gallery image ${index !== null ? Number(index) + 1 : ""}`
     : photo.title || `Photo by user ${photo.userId}`;
 };
 
-const getPhotoKey = (photo: PopulatedPhoto | string, index: number): string => {
+const getPhotoKey = (
+  photo: PopulatedPhoto | string,
+  index: string | null
+): string => {
   return typeof photo === "string" ? `${photo}-${index}` : photo._id;
 };
 const getPhotoUserId = (

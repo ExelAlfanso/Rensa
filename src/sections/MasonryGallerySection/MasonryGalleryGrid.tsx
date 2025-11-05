@@ -1,23 +1,21 @@
-import RollDropdown from "@/components/dropdowns/RollDropdown";
-import { ImageWithSkeleton } from "@/components/ImageWithSkeleton";
 import { PopulatedPhoto } from "@/types/PopulatedPhoto";
-import {
-  getPhotoKey,
-  getPhotoUrl,
-  getPhotoTitle,
-  getPhotoUserId,
-} from "@/utils/MasonryGalleryUtils";
-import { PlusIcon } from "@phosphor-icons/react";
-import { AnimatePresence, motion } from "motion/react";
-import Link from "next/link";
+import { getPhotoKey } from "@/utils/MasonryGalleryUtils";
+import { AnimatePresence } from "motion/react";
 import Masonry from "react-masonry-css";
-import Text from "@/components/Text";
+import PhotoCard from "@/components/PhotoCard";
+import { useState } from "react";
 
 interface MasonryGalleryGridProps {
   photos: (PopulatedPhoto | string)[];
 }
 
 const MasonryGalleryGrid: React.FC<MasonryGalleryGridProps> = ({ photos }) => {
+  const [activeDropdownId, setActiveDropdownId] = useState<string | null>(null);
+
+  const handleToggleDropdown = (photoId: string | null) => {
+    setActiveDropdownId((prev) => (prev === photoId ? null : photoId));
+  };
+
   const getDynamicColumns = (photoCount: number) => {
     if (photoCount <= 1) return 1;
     if (photoCount === 2) return 2;
@@ -35,6 +33,7 @@ const MasonryGalleryGrid: React.FC<MasonryGalleryGridProps> = ({ photos }) => {
     640: 2,
   };
   const masonryWidthClass = photos.length > 5 ? "w-full" : "w-auto";
+
   return (
     <AnimatePresence mode="popLayout">
       <Masonry
@@ -43,54 +42,16 @@ const MasonryGalleryGrid: React.FC<MasonryGalleryGridProps> = ({ photos }) => {
         columnClassName="my-masonry-grid_column"
       >
         {photos.map((photo, idx) => {
-          const isPhotoObject = typeof photo !== "string";
-          const photoId = isPhotoObject ? (photo as PopulatedPhoto)._id : null;
-
+          const photoId = (photo as PopulatedPhoto)._id || idx.toString();
           return (
-            <motion.div
-              key={getPhotoKey(photo, idx)}
-              layout
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
-            >
-              <Link
-                href={photoId ? `/photo/${photoId}` : "#"}
-                prefetch={false}
-                onClick={(e) => e.stopPropagation()}
-                className="block"
-              >
-                <div className="relative overflow-hidden transition-transform duration-300 cursor-pointer rounded-3xl group hover:scale-105">
-                  <ImageWithSkeleton
-                    image={{
-                      src: getPhotoUrl(photo),
-                      alt: getPhotoTitle(photo, idx),
-                      width: 350,
-                      height: 450,
-                    }}
-                  />
-                  <div className="absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40" />
-
-                  <div className="transition-opacity duration-300 opacity-0 bg-gradient-to-t group-hover:opacity-100">
-                    <div className="absolute top-0 right-0 w-full p-4">
-                      <div className="flex flex-row justify-between">
-                        <RollDropdown />
-                        <div className="w-[32px] h-[32px] flex items-center justify-center rounded-full border-2 border-white bg-white">
-                          <PlusIcon className="text-black text-[16px]" />
-                        </div>
-                      </div>
-                    </div>
-                    <Text
-                      size={"xs"}
-                      className="absolute bottom-0 right-0 p-4 font-normal"
-                    >
-                      @{getPhotoUserId(photo)?.username}
-                    </Text>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
+            <PhotoCard
+              key={getPhotoKey(photo, photoId)}
+              id={photoId}
+              photo={photo}
+              isDropdownOpen={activeDropdownId === photoId}
+              onToggleDropdown={() => handleToggleDropdown(photoId)}
+              closeAllDropdowns={() => setActiveDropdownId(null)}
+            />
           );
         })}
       </Masonry>
