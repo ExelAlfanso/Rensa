@@ -11,8 +11,10 @@ interface IconButtonProps {
   iconPosition: "left" | "right";
   color?: "primary" | "secondary" | "tertiary";
   children?: React.ReactNode;
+  weight?: "regular" | "bold";
   Icon?: React.ElementType;
   paddingX?: number;
+  className?: string;
 }
 
 const IconButton: React.FC<IconButtonProps> = ({
@@ -22,6 +24,8 @@ const IconButton: React.FC<IconButtonProps> = ({
   iconPosition,
   Icon,
   paddingX = 6,
+  weight = "regular",
+  className,
 }) => {
   let Tag = Button;
   if (color === "primary") {
@@ -34,10 +38,10 @@ const IconButton: React.FC<IconButtonProps> = ({
     Tag = TertiaryButton;
   }
   return (
-    <Tag type={type} paddingX={paddingX}>
-      {iconPosition === "left" && Icon && <Icon size={18} />}
+    <Tag type={type} paddingX={paddingX} className={className}>
+      {iconPosition === "left" && Icon && <Icon weight={weight} size={18} />}
       {children}
-      {iconPosition === "right" && Icon && <Icon size={18} />}
+      {iconPosition === "right" && Icon && <Icon weight={weight} size={18} />}
     </Tag>
   );
 };
