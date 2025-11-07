@@ -15,9 +15,9 @@ const RollDropdownItem: React.FC<RollDropdownItemProps> = ({ roll }) => {
     <DropdownItem
       href={`/rolls/${roll._id}`}
       key={roll._id}
-      className="flex flex-row items-center justify-start gap-2 px-8 py-4"
+      className="flex flex-row items-center justify-start gap-2 px-4 py-2 md:px-8 md:py-4"
     >
-      <div className="w-12 h-12 relative">
+      <div className="w-10 h-10 md:w-12 md:h-12 relative">
         <Image
           src={roll.imageUrl}
           alt={roll.name}

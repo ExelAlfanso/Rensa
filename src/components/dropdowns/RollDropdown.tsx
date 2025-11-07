@@ -27,7 +27,11 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
   const { rolls, fetchRolls, isLoading } = useRollsStore();
   // const user = useAuthStore((state) => state.user);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const dropdownRef = useOutsideClick<HTMLDivElement>(() => closeAll());
+  const dropdownRef = useOutsideClick<HTMLDivElement>(() => {
+    // 👇 don't close if the click is on the button
+    if (buttonRef.current?.contains(event?.target as Node)) return;
+    closeAll();
+  });
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -42,7 +46,18 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
     }
   }, [isOpen]);
 
-  // 👇 Close dropdown if scrolled out of view
+  useEffect(() => {
+    const handleResize = () => {
+      setIsOpen(false);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   useEffect(() => {
     const handleScroll = () => {
       if (!dropdownRef.current) return;
@@ -102,13 +117,17 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
               top: dropdownPosition.top,
               left: dropdownPosition.left,
               zIndex: 9999,
+              visibility:
+                dropdownPosition.top === 0 && dropdownPosition.left === 0
+                  ? "hidden"
+                  : "visible",
             }}
-            className={`origin-top flex flex-col item-start justify-center gap-4 bg-white border border-gray-400 rounded-2xl shadow-lg text-primary w-[328px] py-4 ease-out transform `}
+            className={`origin-top flex flex-col item-start justify-center gap-4 bg-white border border-gray-400 rounded-2xl shadow-lg text-primary w-[200px] md:w-[328px] py-4 ease-out transform `}
           >
             <Heading alignment="center" size="m" className="py-2">
               Rolls
             </Heading>
-            <SearchInputField className="ml-2"></SearchInputField>
+            <SearchInputField className="ml-2 w-[178px] md:w-[309px]"></SearchInputField>
 
             <ul className="w-full overflow-auto max-h-60">
               {rolls.length > 0 ? (

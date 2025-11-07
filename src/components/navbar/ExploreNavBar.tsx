@@ -23,7 +23,7 @@ const ExploreNavBar = () => {
         <Link className="hidden lg:block" href="/home">
           <Heading size="s">Rensa</Heading>
         </Link>
-        <SearchInputField className=""></SearchInputField>
+        <SearchInputField className="`w-[156px] md:w-[309px]"></SearchInputField>
       </div>
       <div className="flex flex-row items-center justify-center gap-6 mr-6">
         <span className="inline-flex items-center gap-2">

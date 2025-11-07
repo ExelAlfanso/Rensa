@@ -36,7 +36,7 @@ const IconInputField: React.FC<IconInputFieldProps> = ({
 
       <input
         {...props}
-        className={`w-[156px] md:w-[309px] bg-gray-200 rounded-3xl text-[16px] text-black font-figtree 
+        className={`bg-gray-200 rounded-3xl text-[16px] text-black font-figtree 
           placeholder:text-black-300 h-[36px] md:h-[42px] md:py-4 
           focus:outline-none focus:border focus:border-black-200 focus:bg-[#FAFAFA]
           transition-colors duration-200
