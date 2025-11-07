@@ -16,8 +16,7 @@ const NotificationDropdown = () => {
         <Heading alignment="center" size="m" className="py-6">
           Notifications
         </Heading>
-        {/* this is a p
-        laceholder, here will map through notification data state */}
+        {/* this is a placeholder, here will map through notification data state */}
         {notificationDatas.map((notification, idx) => (
           <DropdownItem
             key={notification.id}

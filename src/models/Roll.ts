@@ -6,6 +6,7 @@ export interface RollDocument extends Document {
   name: string;
   description: string;
   photos: Types.ObjectId[];
+  imageUrl: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -16,6 +17,7 @@ const RollSchema = new Schema<RollDocument>(
     name: { type: String, required: true },
     description: { type: String, default: "" },
     photos: { type: [Schema.Types.ObjectId], ref: "Photo", default: [] },
+    imageUrl: { type: String, default: "/images/image6.JPG" },
   },
   {
     timestamps: true,

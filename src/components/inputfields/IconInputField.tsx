@@ -20,7 +20,7 @@ const IconInputField: React.FC<IconInputFieldProps> = ({
   ...props
 }) => {
   return (
-    <div className={`flex flex-col relative w-full ${containerClassName}`}>
+    <div className={`relative w-full ${containerClassName}`}>
       {label && (
         <label className="text-[13px] text-black-200 font-figtree font-medium mb-1">
           {label}

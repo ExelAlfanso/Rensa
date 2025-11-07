@@ -9,7 +9,7 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <>
-      <div className="relative flex flex-col justify-between min-h-screen bg-white rounded-b-3xl">
+      <div className="relative flex flex-col justify-between min-h-screen text-white bg-white rounded-b-3xl">
         <Image
           src="/images/not-found/not-found.png"
           alt="Not found"
@@ -35,7 +35,7 @@ export default function NotFound() {
           className="absolute bottom-0 size-auto "
         />
 
-        <div className="absolute flex flex-col items-center justify-center flex-1 w-full gap-8 px-6 py-12 top-10 md:flex-row text-primary md:text-left">
+        <div className="absolute flex flex-col items-center justify-center flex-1 w-full gap-8 px-6 py-12 top-10 md:flex-row md:text-left">
           <h1 className="text-[120px] md:text-[240px] font-sans font-bold leading-none">
             404
           </h1>

@@ -6,10 +6,7 @@ import { heroImagesData } from "@/app/datas/homeDatas";
 
 export default function HeroSection() {
   return (
-    <div
-      id="hero-section"
-      className="relative w-screen h-screen overflow-hidden"
-    >
+    <div id="hero-section" className="relative w-full h-screen overflow-hidden">
       {/* Top green text (color-dodge effect) */}
       <motion.div
         className="w-full absolute z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 

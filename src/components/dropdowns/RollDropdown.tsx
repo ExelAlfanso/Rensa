@@ -4,11 +4,10 @@ import { createPortal } from "react-dom";
 import Text from "@/components/Text";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import Heading from "../Heading";
-import { useAuthStore } from "@/stores/useAuthStore";
-import api from "@/lib/axios";
 import PrimaryButton from "../buttons/PrimaryButton";
-import DropdownItem from "./DropdownItem";
 import { useRollsStore } from "@/stores/useRollsStore";
+import RollDropdownItem from "../RollDropdownItem";
+import SearchInputField from "../inputfields/SearchInputField";
 
 interface RollDropdownProps {
   isOpen: boolean;
@@ -26,7 +25,7 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
     left: 0,
   });
   const { rolls, fetchRolls, isLoading } = useRollsStore();
-  const user = useAuthStore((state) => state.user);
+  // const user = useAuthStore((state) => state.user);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const dropdownRef = useOutsideClick<HTMLDivElement>(() => closeAll());
 
@@ -43,13 +42,41 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
     }
   }, [isOpen]);
 
+  // 👇 Close dropdown if scrolled out of view
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!dropdownRef.current) return;
+
+      const rect = dropdownRef.current.getBoundingClientRect();
+      const completelyOutOfView =
+        rect.bottom < 0 || rect.top > window.innerHeight;
+
+      if (completelyOutOfView) setIsOpen(false);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    console.log("Rolls from store:", rolls);
+  }, [rolls]);
+
   const updateDropdownPosition = () => {
     const button = buttonRef.current;
-    if (button) {
-      const rect = button.getBoundingClientRect();
+    const dropdown = dropdownRef.current;
+
+    if (button && dropdown) {
+      const buttonRect = button.getBoundingClientRect();
+      const dropdownRect = dropdown.getBoundingClientRect();
+
       setDropdownPosition({
-        top: rect.bottom + window.scrollY + 4,
-        left: rect.left + window.scrollX,
+        top: buttonRect.bottom + window.scrollY + 4,
+        left:
+          buttonRect.left +
+          window.scrollX +
+          buttonRect.width / 2 -
+          dropdownRect.width / 2,
       });
     }
   };
@@ -59,44 +86,44 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
       <button
         ref={buttonRef}
         onClick={handleClick}
-        className="flex flex-row items-center gap-2 px-4 py-2 cursor-pointer rounded-3xl ring-0 outline-0 font-semibold"
+        className="flex flex-row items-center gap-2 px-4 py-2 font-semibold cursor-pointer rounded-3xl ring-0 outline-0"
       >
         <Text size="xs">All Photos</Text>
         <CaretDownIcon weight="bold" />
       </button>
 
-      {createPortal(
-        <div
-          ref={dropdownRef}
-          style={{
-            position: "absolute",
-            top: dropdownPosition.top,
-            left: dropdownPosition.left,
-            zIndex: 9999,
-          }}
-          className={`origin-top bg-white border border-gray-400 rounded-2xl shadow-lg text-primary w-100 p-4 
-      transition-all duration-300 ease-out transform 
-      ${isOpen ? "scale-100 opacity-100" : "scale-95 opacity-0"}
-    `}
-        >
-          <Heading alignment="center" size="m" className="py-2">
-            Rolls
-          </Heading>
+      {isOpen &&
+        createPortal(
+          <div
+            ref={dropdownRef}
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              position: "absolute",
+              top: dropdownPosition.top,
+              left: dropdownPosition.left,
+              zIndex: 9999,
+            }}
+            className={`origin-top flex flex-col item-start justify-center gap-4 bg-white border border-gray-400 rounded-2xl shadow-lg text-primary w-[328px] py-4 ease-out transform `}
+          >
+            <Heading alignment="center" size="m" className="py-2">
+              Rolls
+            </Heading>
+            <SearchInputField className="ml-2"></SearchInputField>
 
-          {user && rolls && rolls.length > 0 ? (
-            rolls.map((roll) => (
-              <DropdownItem href={`/rolls/${roll._id}`} key={roll._id}>
-                {roll.name}
-              </DropdownItem>
-            ))
-          ) : (
-            <li className="px-4 py-2 text-gray-500">No rolls found</li>
-          )}
+            <ul className="w-full overflow-auto max-h-60">
+              {rolls.length > 0 ? (
+                rolls.map((roll) => (
+                  <RollDropdownItem roll={roll} key={roll._id} />
+                ))
+              ) : (
+                <li className="px-4 py-2 text-gray-500">No rolls found</li>
+              )}
+            </ul>
 
-          <PrimaryButton className="w-full mt-2">New Roll</PrimaryButton>
-        </div>,
-        document.body
-      )}
+            <PrimaryButton className="mx-4 mt-2">New Roll</PrimaryButton>
+          </div>,
+          document.body
+        )}
     </div>
   );
 };

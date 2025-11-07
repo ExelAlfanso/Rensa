@@ -1,5 +1,7 @@
 import DropdownItem from "./dropdowns/DropdownItem";
 import Image from "next/image";
+import Text from "./Text";
+import SearchInputField from "./inputfields/SearchInputField";
 interface RollDropdownItemProps {
   roll: {
     _id: string;
@@ -13,16 +15,19 @@ const RollDropdownItem: React.FC<RollDropdownItemProps> = ({ roll }) => {
     <DropdownItem
       href={`/rolls/${roll._id}`}
       key={roll._id}
-      className="flex flex-row items-center justify-center   gap-2"
+      className="flex flex-row items-center justify-start gap-2 px-8 py-4"
     >
-      <Image
-        src={roll.imageUrl}
-        alt={roll.name}
-        width={40}
-        height={40}
-        className="w-10 h-10 rounded-full object-cover"
-      />
-      {roll.name}
+      <div className="w-12 h-12 relative">
+        <Image
+          src={roll.imageUrl}
+          alt={roll.name}
+          fill
+          className="rounded-2xl w-full h-full object-cover"
+        />
+      </div>
+      <Text className="font-semibold" size="s">
+        {roll.name}
+      </Text>
     </DropdownItem>
   );
 };

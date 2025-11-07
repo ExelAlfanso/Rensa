@@ -32,7 +32,10 @@ export const ImageWithSkeleton: React.FC<ImageWithSkeletonProps> = ({
         className={`w-full h-full object-cover ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
-        onLoad={handleLoad}
+        onLoad={() => {
+          console.log("Image loaded:", image.src);
+          handleLoad();
+        }}
       />
     </div>
   );

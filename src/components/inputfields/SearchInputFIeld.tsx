@@ -21,6 +21,7 @@ const SearchInputField: React.FC<SearchInputFieldProps> = ({
       placeholder="Search"
       Icon={MagnifyingGlassIcon}
       iconPosition="right"
+      className={className}
       onChange={(e) => console.log(e.target.value)}
     />
   );

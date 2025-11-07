@@ -37,8 +37,8 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
     >
       <Link
         href={id ? `/photo/${id}` : "#"}
-        prefetch={false}
         onClick={(e) => e.stopPropagation()}
+        prefetch={false}
         className="block"
       >
         <div
@@ -55,6 +55,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
             }}
           />
           <div
+            onClick={(e) => e.stopPropagation()}
             className={`absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40 ${
               isDropdownOpen ? "opacity-40" : "opacity-0"
             }`}
