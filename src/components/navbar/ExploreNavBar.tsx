@@ -5,7 +5,7 @@ import Heading from "../Heading";
 import ProfileButton from "@/components/buttons/ProfileIconButton";
 import BookmarkButton from "../buttons/BookmarkButton";
 import Link from "next/link";
-import NotificationDropdown from "../dropdowns/Notification/NotificationDropdown";
+import NotificationDropdown from "../dropdowns/notification/NotificationDropdown";
 import SearchInputField from "../inputfields/SearchInputField";
 import AccountDropdown from "../dropdowns/AccountDropdown";
 import { useAuthStore } from "@/stores/useAuthStore";

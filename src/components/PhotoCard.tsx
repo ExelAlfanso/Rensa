@@ -6,7 +6,7 @@ import {
 import { PlusIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import Link from "next/link";
-import RollDropdown from "./dropdowns/RollDropdown";
+import RollDropdown from "./dropdowns/rolls/RollDropdown";
 import { ImageWithSkeleton } from "./ImageWithSkeleton";
 import { PopulatedPhoto } from "@/types/PopulatedPhoto";
 import Text from "./Text";

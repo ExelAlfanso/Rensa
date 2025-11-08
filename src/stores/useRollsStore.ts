@@ -13,6 +13,7 @@ interface RollsState {
   isLoading: boolean;
   fetchRolls: () => Promise<void>;
   clearRolls: () => void;
+  createRoll: (newRoll: { name: string; imageUrl?: string }) => Promise<void>;
 }
 
 export const useRollsStore = create<RollsState>((set, get) => ({
@@ -33,6 +34,25 @@ export const useRollsStore = create<RollsState>((set, get) => ({
       set({ rolls: res.data.data || [] });
     } catch (err) {
       console.error("Error fetching rolls:", err);
+    } finally {
+      set({ isLoading: false });
+    }
+  },
+  createRoll: async (newRoll: { name: string; imageUrl?: string }) => {
+    const user = useAuthStore.getState().user;
+    if (!user) throw new Error("User not authenticated");
+    set({ isLoading: true });
+    try {
+      const res = await api.post("/rolls/newRoll", {
+        ...newRoll,
+        userId: user.id,
+      });
+      set((state) => ({
+        rolls: [...state.rolls, res.data.data],
+      }));
+    } catch (err) {
+      console.error("Error creating roll:", err);
+      throw err;
     } finally {
       set({ isLoading: false });
     }

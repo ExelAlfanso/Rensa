@@ -8,6 +8,7 @@ const PrimaryButton: React.FC<ButtonProps> = ({
   children,
   onClick,
   type,
+  disabled,
 }) => {
   return (
     <Button
@@ -15,7 +16,8 @@ const PrimaryButton: React.FC<ButtonProps> = ({
       id={id}
       onClick={onClick}
       href={href}
-      className={`btn-primary hover:bg-black-300 focus:bg-black-400 ${className}`}
+      disabled={disabled}
+      className={`btn-primary hover:bg-black-300 focus:bg-black-400 disabled:bg-black-200 ${className}`}
     >
       {children}
     </Button>

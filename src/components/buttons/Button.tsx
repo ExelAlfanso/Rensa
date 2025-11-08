@@ -9,6 +9,7 @@ export interface ButtonProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: "submit" | "button";
   paddingX?: number;
+  disabled?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -19,8 +20,9 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   paddingX = 6,
   type,
+  disabled,
 }) => {
-  if (href) {
+  if (href && !disabled) {
     return (
       <Link href={href}>
         <div
@@ -33,6 +35,7 @@ const Button: React.FC<ButtonProps> = ({
   }
   return (
     <button
+      disabled={disabled}
       type={type}
       id={id}
       onClick={onClick}
