@@ -30,7 +30,7 @@ export const useRollsStore = create<RollsState>((set, get) => ({
     set({ isLoading: true });
     try {
       const res = await api.get(`/rolls?userId=${user.id}`);
-      console.log("Fetched rolls:", res.data);
+      // console.log("Fetched rolls:", res.data);
       set({ rolls: res.data.data || [] });
     } catch (err) {
       console.error("Error fetching rolls:", err);

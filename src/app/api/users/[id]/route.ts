@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import User from "@/models/User";
+import Roll from "@/models/Roll";
+import { connectDB } from "@/lib/mongodb";
+import Photo from "@/models/Photo";
 
 export async function GET(
   request: Request,
@@ -8,11 +11,20 @@ export async function GET(
   const { id } = await context.params;
 
   try {
-    const user = await User.findById(id).lean(); // lean() returns plain JS object
+    await connectDB();
+    const user = await User.findById(id).lean();
     if (!user) {
       return NextResponse.json({ message: "User not found" }, { status: 404 });
     }
-    return NextResponse.json(user, { status: 200 });
+
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Sucessfully fetched user",
+        data: { user },
+      },
+      { status: 200 }
+    );
   } catch (error) {
     console.error("Error fetching user:", error);
     return NextResponse.json(
