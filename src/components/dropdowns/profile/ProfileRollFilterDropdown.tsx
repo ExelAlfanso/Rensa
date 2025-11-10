@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import TertiaryDropdown from "../TertiaryDropdown";
 
@@ -11,9 +13,10 @@ const ProfileRollFilterDropdown: React.FC<ProfileRollFilterDropdownProps> = ({
   const filters = ["Latest", "Oldest", "Most Popular", "Least Popular"];
   return (
     <TertiaryDropdown
+      className="w-48"
       initialValue={"Latest"}
       values={filters}
-      onChange={(e) => setFilter?.(e.currentTarget.innerText)}
+      onChange={(value) => setFilter?.(value)}
     />
   );
 };

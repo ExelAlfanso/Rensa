@@ -1,6 +1,7 @@
 import AccentButton from "@/components/buttons/AccentButton";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
 import RollCard from "@/components/cards/RollCard";
+import ProfileRollFilterDropdown from "@/components/dropdowns/profile/ProfileRollFilterDropdown";
 import TertiaryDropdown from "@/components/dropdowns/TertiaryDropdown";
 import Heading from "@/components/Heading";
 import api from "@/lib/axios";
@@ -38,10 +39,7 @@ export default async function ProfilePage({
           <AccentButton>Edit Profile</AccentButton>
         </div>
         <div className="flex flex-col items-start justify-center gap-6">
-          <TertiaryDropdown
-            initialValue={profileData.user?.role}
-            className="w-60"
-          />
+          <ProfileRollFilterDropdown />
           <div className="grid gap-3 grid-cols-5">
             {profileData.rolls && profileData.rolls.length > 0 ? (
               profileData.rolls.map(

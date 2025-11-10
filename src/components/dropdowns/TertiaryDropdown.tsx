@@ -1,16 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { CaretDownIcon } from "@phosphor-icons/react";
 import Text from "../Text";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import TertiaryButton from "../buttons/TertiaryButton";
 interface TertiaryDropdownProps {
   placeholder?: string;
-  values?: string[];
+  values: string[];
   label?: string;
-  initialValue?: string | number | object;
-  onChange?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  initialValue: string;
+  onChange?: (value: string) => void;
   className?: string;
 }
 
@@ -24,13 +24,17 @@ const TertiaryDropdown: React.FC<TertiaryDropdownProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useOutsideClick<HTMLDivElement>(() => setIsOpen(false));
-  const [value, setValue] = useState<string>((initialValue as string) || "");
+  const [value, setValue] = useState<string>(initialValue);
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const target = e.currentTarget;
     setValue(target.innerText);
-    onChange?.(e);
+    onChange?.(target.innerText);
     setIsOpen(false);
   };
+  useEffect(() => {
+    console.log("isOpen changed:", isOpen);
+  }, [isOpen]);
+
   return (
     <div ref={dropdownRef} className={`relative ${className} text-primary`}>
       {label && (
@@ -42,15 +46,18 @@ const TertiaryDropdown: React.FC<TertiaryDropdownProps> = ({
         <Text size="m">{value || placeholder || "Select an option"}</Text>
       </TertiaryButton>
       <div
-        className={`origin-top z-10 absolute top-15 bg-white-200 border border-gray-500 rounded-2xl transition-transform duration-300 ${
-          isOpen ? "scale-y-100" : "scale-y-0"
-        } ${(values?.length ?? 0) > 6 ? "grid grid-cols-2" : "flex flex-col"}`}
+        className={`absolute left-0 mt-2 w-full z-10 bg-white border border-gray-300 rounded-2xl shadow-md
+              origin-top transform transition-transform duration-200 ease-out
+              ${isOpen ? "scale-y-100" : "scale-y-0"}
+              ${
+                (values?.length ?? 0) > 6 ? "grid grid-cols-2" : "flex flex-col"
+              }`}
       >
         {values?.map((val, index) => (
           <button
             key={index}
             onClick={(e) => handleClick(e)}
-            className="px-4 py-2 text-left cursor-pointer hover:bg-gray-100 text-primary"
+            className="px-4 py-2 text-left cursor-pointer hover:bg-gray-100 font-semibold text-primary"
           >
             {val}
           </button>

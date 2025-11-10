@@ -43,7 +43,7 @@ const InputDropdown: React.FC<InputDropdownProps> = ({
       </button>
 
       <div
-        className={`origin-top z-10 absolute top-15 bg-white-200 border border-gray-500 rounded-2xl transition-transform duration-300 ${
+        className={`origin-top z-10 absolute top-12 bg-white-200 border border-gray-500 rounded-2xl transition-transform duration-300 ${
           isOpen ? "scale-y-100" : "scale-y-0"
         } ${(values?.length ?? 0) > 6 ? "grid grid-cols-2" : "flex flex-col"}`}
       >
