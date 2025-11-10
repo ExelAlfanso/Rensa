@@ -8,8 +8,8 @@ import Image from "next/image";
 import Link from "next/link";
 export default function NotFound() {
   return (
-    <>
-      <div className="relative flex flex-col justify-between min-h-screen bg-white text-black rounded-b-3xl">
+    <div className="w-full bg-white">
+      <div className="relative flex flex-col justify-between min-h-screen text-black rounded-b-3xl">
         <Image
           src="/images/not-found/not-found.png"
           alt="Not found"
@@ -63,6 +63,6 @@ export default function NotFound() {
         </div>
       </div>
       <Footer />
-    </>
+    </div>
   );
 }
