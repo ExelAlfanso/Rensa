@@ -7,7 +7,7 @@ import Heading from "../../Heading";
 import PrimaryButton from "../../buttons/PrimaryButton";
 import { useRollsStore } from "@/stores/useRollsStore";
 import RollDropdownItem from "./RollDropdownItem";
-import SearchInputField from "../../inputfields/SearchInputField";
+import SearchInputField from "@/components/inputfields/SearchInputField";
 import { useAuthStore } from "@/stores/useAuthStore";
 import RollDropdownInputItem from "./RollDropdownInputItem";
 
@@ -30,7 +30,6 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
   const [isCreating, setIsCreating] = useState(false);
   const [newRollName, setNewRollName] = useState("");
   const { rolls, fetchRolls, isLoading, createRoll } = useRollsStore();
-  const user = useAuthStore((state) => state.user);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const dropdownRef = useOutsideClick<HTMLDivElement>(() => {

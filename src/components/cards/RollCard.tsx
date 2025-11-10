@@ -12,7 +12,7 @@ interface RollCardProps {
 }
 
 const RollCard: React.FC<RollCardProps> = ({ name, imageUrls, createdAt }) => {
-  const previews = imageUrls.slice(0, 2);
+  const previews = imageUrls.slice(0, 4);
   let previewGridCols = "";
   if (previews.length === 1) {
     previewGridCols = "grid-cols-1";
