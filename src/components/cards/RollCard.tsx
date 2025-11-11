@@ -30,7 +30,7 @@ const RollCard: React.FC<RollCardProps> = ({
   }
 
   return (
-    <Link href={`/rolls/${id}`} className="block">
+    <Link href={`/roll/${id}`} className="block">
       <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-200 h-auto w-[170px] md:w-[265px] p-3 border border-gray-300 cursor-pointer">
         <div className={`gap-[10px] grid ${previewGridCols}`}>
           {previews.map((url, idx) => {

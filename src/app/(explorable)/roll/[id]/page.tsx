@@ -8,11 +8,12 @@ export default async function RollPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  let rollData = null;
   const { id } = await params;
+  let rollData = null;
   try {
     const res = await fetchRollById(id);
     rollData = res.data.data;
+    console.log("Roll data:", rollData);
   } catch (err) {
     console.error("Error fetching roll data:", err);
   }

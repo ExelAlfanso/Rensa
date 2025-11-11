@@ -12,6 +12,7 @@ import DropdownItem from "./DropdownItem";
 interface AccountDropdownProps {
   src: string;
   user?: {
+    id?: string | null | undefined;
     name?: string | null | undefined;
     email?: string | null | undefined;
     image?: string | null | undefined;
@@ -28,7 +29,7 @@ const AccountDropdown = ({ src, user }: AccountDropdownProps) => {
         iconSize={24}
       >
         <DropdownItem
-          href="/profile"
+          href={`/profile/${user?.id}`}
           className="flex flex-col items-start justify-start gap-2 roundend-t-2xl"
         >
           <div className="flex flex-row justify-center items-center gap-3 ">
