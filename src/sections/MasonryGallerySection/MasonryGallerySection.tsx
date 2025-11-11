@@ -6,8 +6,9 @@ import { useInView } from "react-intersection-observer";
 import {
   fetchImagesFromDB,
   fetchImagesFromPicSum,
+  fetchImagesFromRoll, // 🆕 New service
   Photo,
-  FetchPhotosResponse, // Import the unified type
+  FetchPhotosResponse,
 } from "@/services/ImageServices";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import MasonryGalleryGrid from "./MasonryGalleryGrid";
@@ -17,6 +18,7 @@ interface MasonryGallerySectionProps {
   activeTab?: string;
   filters?: string[];
   useDatabase?: boolean;
+  rollId?: string; // 🆕 Optional roll source
   onPhotoClick?: (photo: Photo | string, index: number) => void;
 }
 
@@ -24,10 +26,10 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
   activeTab,
   filters,
   useDatabase = true,
+  rollId, // 🆕 destructure it
 }) => {
   const { ref, inView } = useInView({ threshold: 0.5 });
 
-  // Use FetchPhotosResponse directly
   const {
     data,
     fetchNextPage,
@@ -36,10 +38,17 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
     status,
     error,
   } = useInfiniteQuery<FetchPhotosResponse>({
-    queryKey: ["photos", filters, useDatabase ? "db" : "picsum"],
+    queryKey: ["photos", filters, useDatabase ? "db" : "picsum", rollId],
     queryFn: async ({ pageParam }) => {
       const page = pageParam as number;
-      if (useDatabase) {
+
+      // 🧩 Priority order:
+      // 1️⃣ Roll (if provided)
+      // 2️⃣ DB (default)
+      // 3️⃣ Picsum (fallback)
+      if (rollId) {
+        return await fetchImagesFromRoll(rollId, page, filters);
+      } else if (useDatabase) {
         return await fetchImagesFromDB(page, filters);
       } else {
         return await fetchImagesFromPicSum(page);

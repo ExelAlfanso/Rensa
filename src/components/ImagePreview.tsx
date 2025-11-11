@@ -20,7 +20,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
     <div className="flex flex-col items-center justify-center gap-5 relative">
       <LinkIconButton
         className="self-start"
-        href={"/explore"}
+        href={"back"}
         Icon={XIcon}
       ></LinkIconButton>
       <div className="w-full xl:max-w-3xl">

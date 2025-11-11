@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import React from "react";
 
 interface LinkIconButtonProps {
   href: string;
@@ -15,8 +19,23 @@ const LinkIconButton: React.FC<LinkIconButtonProps> = ({
   children,
   Icon,
 }) => {
+  const router = useRouter();
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (href === "back") {
+      e.preventDefault();
+      router.back();
+    } else if (onClick) {
+      onClick();
+    }
+  };
+
   return (
-    <Link href={href} className={className} onClick={onClick}>
+    <Link
+      href={href === "back" ? "#" : href}
+      onClick={handleClick}
+      className={className}
+    >
       {Icon && <Icon size={32} className="text-primary hover:text-black-200" />}
       {children}
     </Link>

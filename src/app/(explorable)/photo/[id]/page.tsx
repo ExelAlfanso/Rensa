@@ -3,7 +3,7 @@ import Heading from "@/components/Heading";
 import PhotoInfoCard from "@/components/cards/PhotoInfoCard";
 import ImagePreview from "@/components/ImagePreview";
 import api from "@/lib/axios";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 export default async function PhotoPage({
   params,
@@ -43,7 +43,7 @@ export default async function PhotoPage({
           title={photo?.title}
           description={photo?.description}
           metadata={photo?.metadata}
-          userId={photo?.userId.toString() || ""}
+          userId={photo?.userId?._id.toString() || ""}
         />
       </div>
       <div className="flex flex-col items-start justify-start min-h-screen bg-white-500">
