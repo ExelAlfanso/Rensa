@@ -8,9 +8,9 @@ import { redirect } from "next/navigation";
 export default async function PhotoPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const id = params.id;
+  const { id } = await params;
   let photo = null;
   try {
     const res = await api.get(`/photos/photo/${id}`);

@@ -25,7 +25,7 @@ const FilterSection = () => {
       <MasonryGalleryPage
         activeTab={activeTab}
         filters={filters}
-        useDatabase={false}
+        useDatabase={true}
       ></MasonryGalleryPage>
     </div>
   );

@@ -7,7 +7,7 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   await connectDB();
-  const { id } = params;
+  const { id } = await params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return Response.json({ error: "Invalid photo ID" }, { status: 400 });
   }
