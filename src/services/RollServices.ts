@@ -1,8 +1,9 @@
+import api from "@/lib/axios";
+
 export function fetchRollsForUser(userId: string) {
-  return fetch(`/api/rolls?userId=${userId}`).then((res) => {
-    if (!res.ok) {
-      throw new Error("Failed to fetch rolls");
-    }
-    return res.json();
-  });
+  return api.get(`/rolls/user/${userId}`);
+}
+
+export function fetchRollById(rollId: string) {
+  return api.get(`/rolls/${rollId}`);
 }

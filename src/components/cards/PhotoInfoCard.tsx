@@ -77,8 +77,9 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
   const fetchProfileData = async (userId: string) => {
     try {
       const response = await api.get(`/users/${userId}`);
-      setUsername(response.data.username);
-      setAvatarUrl(response.data.avatarUrl);
+      const user = response.data.data.user;
+      setUsername(user.username);
+      setAvatarUrl(user.avatarUrl);
     } catch (err) {
       console.error("Error fetching profile data:", err);
     }

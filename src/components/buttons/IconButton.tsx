@@ -8,7 +8,7 @@ import TertiaryButton from "./TertiaryButton";
 
 interface IconButtonProps {
   type?: "submit" | "button";
-  iconPosition: "left" | "right";
+  iconPosition: "left" | "right" | "center";
   color?: "primary" | "secondary" | "tertiary";
   children?: React.ReactNode;
   weight?: "regular" | "bold";

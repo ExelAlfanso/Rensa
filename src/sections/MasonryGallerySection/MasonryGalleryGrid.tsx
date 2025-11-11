@@ -7,6 +7,7 @@ import { useState } from "react";
 
 interface MasonryGalleryGridProps {
   photos: (PopulatedPhoto | string)[];
+  photosId?: string[];
 }
 
 const MasonryGalleryGrid: React.FC<MasonryGalleryGridProps> = ({ photos }) => {

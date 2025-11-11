@@ -104,3 +104,31 @@ export async function searchPhotosByTags(
     nextPage: res.data.hasMore ? page + 1 : undefined,
   };
 }
+
+// 🆕 Fetch photos by Roll ID
+export async function fetchImagesFromRoll(
+  rollId: string,
+  page: number,
+  filters?: string[]
+): Promise<FetchPhotosResponse> {
+  try {
+    const params: Record<string, string | number | undefined> = {
+      page,
+      limit: 10,
+      filters: filters ? filters.join(",") : undefined,
+    };
+
+    // Assuming your backend route looks like: /rolls/:rollId/photos
+    const res = await api.get(`/rolls/${rollId}/photos`, {
+      params,
+    });
+    return {
+      data: res.data.photos,
+      urls: res.data.photos.map((photo: PopulatedPhoto) => photo.url),
+      nextPage: res.data.hasMore ? page + 1 : undefined,
+    };
+  } catch (error) {
+    console.error("Error fetching photos from roll:", error);
+    throw error;
+  }
+}

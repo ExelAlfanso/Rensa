@@ -38,9 +38,9 @@ export default async function ProfilePage({
           <AccentButton>Share</AccentButton>
           <AccentButton>Edit Profile</AccentButton>
         </div>
-        <div className="flex flex-col items-start justify-center gap-6">
+        <div className="flex flex-col items-start justify-center gap-6 mt-10 xl:mt-0">
           <ProfileRollFilterDropdown />
-          <div className="grid gap-3 grid-cols-5">
+          <div className="grid gap-3 grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
             {profileData.rolls && profileData.rolls.length > 0 ? (
               profileData.rolls.map(
                 (roll: {
@@ -51,6 +51,7 @@ export default async function ProfilePage({
                   createdAt: string;
                 }) => (
                   <RollCard
+                    id={roll._id}
                     key={roll._id}
                     name={roll.name}
                     imageUrls={roll.previewPhotos}

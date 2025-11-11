@@ -1,8 +1,6 @@
 import { NextResponse } from "next/server";
 import User from "@/models/User";
-import Roll from "@/models/Roll";
 import { connectDB } from "@/lib/mongodb";
-import Photo from "@/models/Photo";
 
 export async function GET(
   request: Request,
