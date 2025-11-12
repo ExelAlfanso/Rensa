@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Text from "../../Text";
-import { useState } from "react";
 import { CheckIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import { rollDropdownItemVariants } from "../../animations/dropdownAnimations";
@@ -10,26 +9,22 @@ interface RollDropdownItemProps {
     name: string;
     imageUrl?: string;
   };
-  setSelectedRolls: React.Dispatch<React.SetStateAction<string[]>>;
+  onSelectedRoll: (id: string) => void;
   isCreating?: boolean;
+  selectedRollId: string | null;
 }
 
 const RollDropdownItem: React.FC<RollDropdownItemProps> = ({
   roll,
-  setSelectedRolls,
+  onSelectedRoll,
+  selectedRollId,
   isCreating,
 }) => {
-  const [isSelected, setIsSelected] = useState(false);
+  const isSelected = selectedRollId === roll._id;
 
   const handleClick = () => {
     if (isCreating) return;
-    setSelectedRolls((prev: string[]) => {
-      if (isSelected) {
-        return prev.filter((id) => id !== roll._id);
-      }
-      return [...prev, roll._id];
-    });
-    setIsSelected(!isSelected);
+    onSelectedRoll(roll._id);
   };
   return (
     <motion.li

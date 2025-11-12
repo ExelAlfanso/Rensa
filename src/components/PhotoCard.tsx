@@ -10,6 +10,8 @@ import RollDropdown from "./dropdowns/rolls/RollDropdown";
 import { ImageWithSkeleton } from "./ImageWithSkeleton";
 import { PopulatedPhoto } from "@/types/PopulatedPhoto";
 import Text from "./Text";
+import { useState } from "react";
+import { addPhotoToRoll } from "@/services/RollServices";
 
 interface PhotoCardProps {
   id: string | null;
@@ -26,6 +28,32 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
   onToggleDropdown,
   closeAllDropdowns,
 }) => {
+  const [selectedRoll, setSelectedRoll] = useState<{
+    id: string;
+    name: string;
+  } | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  // const [saved, setSaved] = useState(false);
+  const handleSaveClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!selectedRoll) {
+      console.warn("No roll selected");
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      console.log(`Adding photo ${id} to roll ${selectedRoll.name}`);
+      await addPhotoToRoll(selectedRoll.id, id || "");
+      // Optionally show a toast or close dropdown
+    } catch (error) {
+      console.error("Failed to add photo to roll:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <motion.div
       layout
@@ -55,7 +83,10 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
             }}
           />
           <div
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
             className={`absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40 ${
               isDropdownOpen ? "opacity-40" : "opacity-0"
             }`}
@@ -73,10 +104,21 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
                   setIsOpen={onToggleDropdown}
                   closeAll={closeAllDropdowns}
                   photoId={id || ""}
+                  selectedRoll={selectedRoll}
+                  setSelectedRoll={setSelectedRoll}
                 />
-                <div className="w-[32px] h-[32px] flex items-center justify-center rounded-full border-2 border-white bg-white">
-                  <PlusIcon className="text-black text-[16px]" />
-                </div>
+
+                <button
+                  onClick={handleSaveClick}
+                  disabled={!selectedRoll || isLoading}
+                  className="w-[32px] h-[32px] flex items-center justify-center rounded-full border-2 border-white bg-white cursor-pointer"
+                >
+                  {isLoading ? (
+                    <div className="loading loading-spinner text-black" />
+                  ) : (
+                    <PlusIcon className="text-black text-[16px]" />
+                  )}
+                </button>
               </div>
             </div>
             <Text
