@@ -72,6 +72,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
                   isOpen={isDropdownOpen}
                   setIsOpen={onToggleDropdown}
                   closeAll={closeAllDropdowns}
+                  photoId={id || ""}
                 />
                 <div className="w-[32px] h-[32px] flex items-center justify-center rounded-full border-2 border-white bg-white">
                   <PlusIcon className="text-black text-[16px]" />

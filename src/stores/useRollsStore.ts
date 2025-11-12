@@ -43,7 +43,7 @@ export const useRollsStore = create<RollsState>((set, get) => ({
     if (!user) throw new Error("User not authenticated");
     set({ isLoading: true });
     try {
-      const res = await api.post("/rolls/newRoll", {
+      const res = await api.post(`/rolls/`, {
         ...newRoll,
         userId: user.id,
       });

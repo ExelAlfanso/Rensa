@@ -10,29 +10,36 @@ import RollDropdownItem from "./RollDropdownItem";
 import SearchInputField from "@/components/inputfields/SearchInputField";
 import { useAuthStore } from "@/stores/useAuthStore";
 import RollDropdownInputItem from "./RollDropdownInputItem";
+import { addPhotosToRolls } from "@/services/RollServices";
 
 interface RollDropdownProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   closeAll: () => void;
+  photoId: string;
 }
 
 const RollDropdown: React.FC<RollDropdownProps> = ({
   isOpen,
   setIsOpen,
   closeAll,
+  photoId,
 }) => {
   const [selectedRolls, setSelectedRolls] = useState<string[]>([]);
   const [dropdownPosition, setDropdownPosition] = useState({
     top: 0,
     left: 0,
   });
+  const [isAdding, setIsAdding] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [newRollName, setNewRollName] = useState("");
   const { rolls, fetchRolls, isLoading, createRoll } = useRollsStore();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const dropdownRef = useOutsideClick<HTMLDivElement>(() => {
+    setIsCreating(false);
+    setNewRollName("");
     if (buttonRef.current?.contains(event?.target as Node)) return;
     closeAll();
   });
@@ -127,6 +134,21 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
       setNewRollName("");
     }
   };
+
+  const handleAdd = async () => {
+    if (selectedRolls.length === 0) return;
+    console.log("🟢 Adding photo", photoId, "to rolls:", selectedRolls);
+    setLoading(true);
+    try {
+      const res = await addPhotosToRolls(selectedRolls, photoId);
+      console.log("✅ Photo added to rolls:", res.data);
+      setIsOpen(false);
+      setSelectedRolls([]);
+    } catch (err) {
+      console.error("❌ handleAdd error:", err);
+    }
+  };
+
   const dropdownContent = (
     <div
       ref={dropdownRef}
@@ -150,7 +172,7 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
       <SearchInputField className="ml-2 w-[178px] md:w-[309px]" />
 
       <ul ref={listRef} className="w-full max-h-60 overflow-y-auto">
-        {isLoading ? (
+        {isLoading || loading ? (
           <div className="w-full h-32 relative flex items-center justify-center">
             <div className="loading loading-spinner" />
           </div>
@@ -162,6 +184,7 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
                   roll={roll}
                   key={roll._id}
                   setSelectedRolls={setSelectedRolls}
+                  isCreating={isCreating}
                 />
               ))
             ) : (
@@ -181,10 +204,20 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
 
       <PrimaryButton
         className="mx-4 mt-2"
-        onClick={isCreating ? handleSave : handleCreate}
-        disabled={isLoading}
+        onClick={
+          isCreating
+            ? handleSave
+            : selectedRolls.length > 0
+            ? handleAdd
+            : handleCreate
+        }
+        disabled={isLoading || isAdding || loading}
       >
-        {isCreating ? "Save Roll" : "New Roll"}
+        {isCreating
+          ? "Save Roll"
+          : selectedRolls.length > 0
+          ? "Add Photo"
+          : "New Roll"}
       </PrimaryButton>
     </div>
   );
