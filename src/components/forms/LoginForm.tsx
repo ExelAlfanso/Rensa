@@ -2,7 +2,6 @@
 import { useState, FormEvent } from "react";
 import Link from "next/link";
 import AuthFormLayout from "./AuthFormLayout";
-import InputField from "@/components/inputfields/InputField";
 import PasswordInputField from "@/components/inputfields/PasswordInputField";
 import { useLoading } from "@/hooks/useLoading";
 import { signIn } from "next-auth/react";
