@@ -72,3 +72,37 @@ export async function GET(
     );
   }
 }
+
+export async function POST(
+  req: Request,
+  context: { params: Promise<{ rollId: string; photoId: string }> }
+) {
+  try {
+    await connectDB();
+
+    const { rollId, photoId } = await context.params;
+
+    if (!rollId?.length || !photoId) {
+      return NextResponse.json(
+        { message: "Missing rollId or photoId" },
+        { status: 400 }
+      );
+    }
+
+    const result = await Roll.updateMany(
+      { _id: { $in: rollId } },
+      { $addToSet: { photos: photoId } }
+    );
+
+    return NextResponse.json({
+      message: "Photo added to selected rolls",
+      modifiedCount: result.modifiedCount,
+    });
+  } catch (error) {
+    console.error("❌ Failed to add photo to rolls:", error);
+    return NextResponse.json(
+      { message: "Failed to add photo to rolls" },
+      { status: 500 }
+    );
+  }
+}
