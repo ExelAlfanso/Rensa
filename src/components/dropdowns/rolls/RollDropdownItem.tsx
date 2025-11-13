@@ -12,6 +12,7 @@ interface RollDropdownItemProps {
   onSelectedRoll: (id: string) => void;
   isCreating?: boolean;
   selectedRollId: string | null;
+  isSaved?: boolean;
 }
 
 const RollDropdownItem: React.FC<RollDropdownItemProps> = ({
@@ -19,9 +20,9 @@ const RollDropdownItem: React.FC<RollDropdownItemProps> = ({
   onSelectedRoll,
   selectedRollId,
   isCreating,
+  isSaved,
 }) => {
   const isSelected = selectedRollId === roll._id;
-
   const handleClick = () => {
     if (isCreating) return;
     onSelectedRoll(roll._id);
@@ -49,9 +50,14 @@ const RollDropdownItem: React.FC<RollDropdownItemProps> = ({
             className="rounded-2xl w-full h-full object-cover"
           />
         </div>
-        <Text className="font-semibold" size="s">
-          {roll?.name || "Untitled Roll"}
-        </Text>
+        <div className="flex flex-col">
+          <Text className="font-semibold text-left" size="s">
+            {roll?.name || "Untitled Roll"}
+          </Text>
+          <p className="font-figtree text-primary text-xs">
+            {isSaved ? "Saved here already." : ""}
+          </p>
+        </div>
         <CheckIcon
           size={24}
           className={`ml-auto text-black transition-opacity duration-150 ${

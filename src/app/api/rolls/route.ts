@@ -2,6 +2,11 @@ import { NextResponse } from "next/server";
 import Roll from "@/models/Roll";
 import { connectDB } from "@/lib/mongodb";
 
+/*
+  GET /api/rolls?userId=<userId>
+  Fetch rolls for a specific user
+  Returns { success: boolean, message: string, data: rolls[] }
+*/
 export async function GET(req: Request) {
   await connectDB();
   const { searchParams } = new URL(req.url);
@@ -20,6 +25,11 @@ export async function GET(req: Request) {
     );
   }
 }
+
+/*
+  POST /api/rolls
+  Create a new roll
+*/
 
 export async function POST(req: Request) {
   await connectDB();

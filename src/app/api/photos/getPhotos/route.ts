@@ -3,6 +3,11 @@ import Photo, { PhotoDocument } from "@/models/Photo";
 import { FilterQuery } from "mongoose";
 import { NextResponse } from "next/server";
 
+/*
+  GET /api/photos?page=1&limit=10&filters=tag1,tag2
+  Fetch paginated photos with optional filters
+*/
+
 export async function GET(req: Request) {
   await connectDB();
   const { searchParams } = new URL(req.url);

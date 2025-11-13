@@ -4,6 +4,10 @@ import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import { loginLimiter } from "@/lib/rateLimiter";
 
+/*
+  POST /api/auth/login
+  User login endpoint
+*/
 export async function POST(req: Request) {
   try {
     await connectDB();

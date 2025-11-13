@@ -2,6 +2,10 @@ import Photo from "@/models/Photo";
 import { Types } from "mongoose";
 import { NextResponse } from "next/server";
 
+/*
+  POST /api/photos/bookmark/[id]
+  Increment or decrement bookmark count for a photo
+*/
 export async function POST(
   request: Request,
   context: { params: Promise<{ id: string }> }

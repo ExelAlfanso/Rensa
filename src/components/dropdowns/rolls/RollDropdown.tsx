@@ -8,34 +8,33 @@ import PrimaryButton from "../../buttons/PrimaryButton";
 import { useRollsStore } from "@/stores/useRollsStore";
 import RollDropdownItem from "./RollDropdownItem";
 import SearchInputField from "@/components/inputfields/SearchInputField";
-import { useAuthStore } from "@/stores/useAuthStore";
 import RollDropdownInputItem from "./RollDropdownInputItem";
-import { addPhotoToRoll } from "@/services/RollServices";
 
 interface RollDropdownProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   closeAll: () => void;
-  photoId: string;
   selectedRoll: { id: string; name: string } | null;
   setSelectedRoll: React.Dispatch<
     React.SetStateAction<{ id: string; name: string } | null>
   >;
+  savedToRolls: string[];
+  disabled: boolean;
 }
 
 const RollDropdown: React.FC<RollDropdownProps> = ({
   isOpen,
   setIsOpen,
   closeAll,
-  photoId,
+  savedToRolls,
   selectedRoll,
   setSelectedRoll,
+  disabled,
 }) => {
   const [dropdownPosition, setDropdownPosition] = useState({
     top: 0,
     left: 0,
   });
-  // const [isAdding, setIsAdding] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [newRollName, setNewRollName] = useState("");
@@ -177,6 +176,7 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
                   }
                   isCreating={isCreating}
                   selectedRollId={selectedRoll?.id || null}
+                  isSaved={savedToRolls.includes(roll._id)}
                 />
               ))
             ) : (
@@ -207,12 +207,13 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
     <div>
       <button
         ref={buttonRef}
+        disabled={disabled}
         onClick={handleClick}
         className="flex flex-row items-center gap-2 px-4 py-2 font-semibold cursor-pointer rounded-3xl ring-0 outline-0"
       >
         <Text size="xs">{selectedRoll ? selectedRoll.name : "All Photos"}</Text>
 
-        <CaretDownIcon weight="bold" />
+        {!disabled && <CaretDownIcon weight="bold" />}
       </button>
 
       {isOpen && createPortal(dropdownContent, document.body)}

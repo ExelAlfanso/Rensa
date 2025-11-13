@@ -10,8 +10,12 @@ import RollDropdown from "./dropdowns/rolls/RollDropdown";
 import { ImageWithSkeleton } from "./ImageWithSkeleton";
 import { PopulatedPhoto } from "@/types/PopulatedPhoto";
 import Text from "./Text";
-import { useState } from "react";
-import { addPhotoToRoll, removePhotoFromRoll } from "@/services/RollServices";
+import { useEffect, useState } from "react";
+import {
+  addPhotoToRoll,
+  fetchIsSavedToRolls,
+  removePhotoFromRoll,
+} from "@/services/RollServices";
 
 interface PhotoCardProps {
   id: string | null;
@@ -38,6 +42,8 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
     id: string;
     name: string;
   } | null>(null);
+  const [savedToRolls, setSavedToRolls] = useState<string[]>([]);
+
   const handleSaveClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -76,6 +82,21 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
       setIsLoading(false);
     }
   };
+
+  const handleFetchSavedRolls = async () => {
+    if (!id) return;
+    try {
+      const res = await fetchIsSavedToRolls(id);
+      setSavedToRolls(res || []);
+    } catch (error) {
+      console.error("Failed to check saved rolls:", error);
+    }
+  };
+
+  useEffect(() => {
+    handleFetchSavedRolls();
+  }, [id]);
+
   return (
     <motion.div
       layout
@@ -125,9 +146,10 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
                   isOpen={isDropdownOpen}
                   setIsOpen={onToggleDropdown}
                   closeAll={closeAllDropdowns}
-                  photoId={id || ""}
                   selectedRoll={selectedRoll}
+                  disabled={isSaved}
                   setSelectedRoll={setSelectedRoll}
+                  savedToRolls={savedToRolls}
                 />
 
                 {/* Save Button */}
