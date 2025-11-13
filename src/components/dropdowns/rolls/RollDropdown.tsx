@@ -35,7 +35,6 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
     top: 0,
     left: 0,
   });
-  const [loading, setLoading] = useState(false);
   const [isCreating, setIsCreating] = useState(false);
   const [newRollName, setNewRollName] = useState("");
   const { rolls, fetchRolls, isLoading, createRoll } = useRollsStore();
@@ -160,7 +159,7 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
       <SearchInputField className="ml-2 w-[178px] md:w-[309px]" />
 
       <ul ref={listRef} className="w-full max-h-60 overflow-y-auto">
-        {isLoading || loading ? (
+        {isLoading ? (
           <div className="w-full h-32 relative flex items-center justify-center">
             <div className="loading loading-spinner" />
           </div>
