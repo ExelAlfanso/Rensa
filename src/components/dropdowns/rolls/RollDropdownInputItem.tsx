@@ -4,14 +4,14 @@ import { rollDropdownItemVariants } from "@/components/animations/dropdownAnimat
 interface RollDropdownItemProps {
   setIsCreating: React.Dispatch<React.SetStateAction<boolean>>;
   setNewRollName: React.Dispatch<React.SetStateAction<string>>;
-  handleSave: () => void;
+  handleCreateRoll: () => void;
   newRollName: string;
 }
 
 const RollDropdownInputItem: React.FC<RollDropdownItemProps> = ({
   setIsCreating,
   setNewRollName,
-  handleSave,
+  handleCreateRoll,
   newRollName,
 }) => {
   return (
@@ -36,7 +36,7 @@ const RollDropdownInputItem: React.FC<RollDropdownItemProps> = ({
           value={newRollName}
           onChange={(e) => setNewRollName(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === "Enter") handleSave();
+            if (e.key === "Enter") handleCreateRoll();
             if (e.key === "Escape") {
               setIsCreating(false);
               setNewRollName("");

@@ -33,7 +33,7 @@ export const ImageWithSkeleton: React.FC<ImageWithSkeletonProps> = ({
           loaded ? "opacity-100" : "opacity-0"
         }`}
         onLoad={() => {
-          console.log("Image loaded:", image.src);
+          // console.log("Image loaded:", image.src);
           handleLoad();
         }}
       />

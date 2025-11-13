@@ -3,13 +3,19 @@ import {
   getPhotoTitle,
   getPhotoUserId,
 } from "@/utils/MasonryGalleryUtils";
-import { PlusIcon } from "@phosphor-icons/react";
+import { PlusIcon, CheckIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import RollDropdown from "./dropdowns/rolls/RollDropdown";
 import { ImageWithSkeleton } from "./ImageWithSkeleton";
 import { PopulatedPhoto } from "@/types/PopulatedPhoto";
 import Text from "./Text";
+import { useEffect, useState } from "react";
+import {
+  addPhotoToRoll,
+  fetchIsSavedToRolls,
+  removePhotoFromRoll,
+} from "@/services/RollServices";
 
 interface PhotoCardProps {
   id: string | null;
@@ -26,6 +32,71 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
   onToggleDropdown,
   closeAllDropdowns,
 }) => {
+  const [selectedRoll, setSelectedRoll] = useState<{
+    id: string;
+    name: string;
+  } | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSaved, setSaved] = useState(false);
+  const [savedRoll, setSavedRoll] = useState<{
+    id: string;
+    name: string;
+  } | null>(null);
+  const [savedToRolls, setSavedToRolls] = useState<string[]>([]);
+
+  const handleSaveClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (!selectedRoll) {
+      console.warn("No roll selected");
+      return;
+    }
+
+    try {
+      setIsLoading(true);
+      console.log(`Adding photo ${id} to roll ${selectedRoll.name}`);
+      await addPhotoToRoll(selectedRoll.id, id || "");
+      setSavedRoll({ id: selectedRoll.id, name: selectedRoll.name });
+      setSaved(true);
+      // Optionally show a toast or close dropdown
+    } catch (error) {
+      console.error("Failed to add photo to roll:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleUnsaveClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      setIsLoading(true);
+      console.log(`Removed photo ${id} from roll ${savedRoll?.name}`);
+      await removePhotoFromRoll(savedRoll?.id || "", id || "");
+      setSaved(false);
+      // Optionally show a toast or close dropdown
+    } catch (error) {
+      console.error("Failed to add photo to roll:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleFetchSavedRolls = async () => {
+    if (!id) return;
+    try {
+      const res = await fetchIsSavedToRolls(id);
+      setSavedToRolls(res || []);
+    } catch (error) {
+      console.error("Failed to check saved rolls:", error);
+    }
+  };
+
+  useEffect(() => {
+    handleFetchSavedRolls();
+  }, [id]);
+
   return (
     <motion.div
       layout
@@ -55,7 +126,10 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
             }}
           />
           <div
-            onClick={(e) => e.stopPropagation()}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
             className={`absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40 ${
               isDropdownOpen ? "opacity-40" : "opacity-0"
             }`}
@@ -72,11 +146,33 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
                   isOpen={isDropdownOpen}
                   setIsOpen={onToggleDropdown}
                   closeAll={closeAllDropdowns}
-                  photoId={id || ""}
+                  selectedRoll={selectedRoll}
+                  disabled={isSaved}
+                  setSelectedRoll={setSelectedRoll}
+                  savedToRolls={savedToRolls}
                 />
-                <div className="w-[32px] h-[32px] flex items-center justify-center rounded-full border-2 border-white bg-white">
-                  <PlusIcon className="text-black text-[16px]" />
-                </div>
+
+                {/* Save Button */}
+                <button
+                  onClick={isSaved ? handleUnsaveClick : handleSaveClick}
+                  disabled={!selectedRoll || isLoading}
+                  className={`w-[32px] h-[32px] flex items-center justify-center rounded-full border-2 cursor-pointer transition-colors duration-200
+                    ${
+                      isSaved
+                        ? "bg-black border-black text-white"
+                        : "bg-white border-white text-black"
+                    }
+                    ${isLoading ? "opacity-70 cursor-wait" : ""}
+                  `}
+                >
+                  {isLoading ? (
+                    <div className="loading loading-spinner text-current" />
+                  ) : isSaved ? (
+                    <CheckIcon size={16} weight="bold" />
+                  ) : (
+                    <PlusIcon size={16} />
+                  )}
+                </button>
               </div>
             </div>
             <Text
@@ -91,5 +187,4 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
     </motion.div>
   );
 };
-
 export default PhotoCard;
