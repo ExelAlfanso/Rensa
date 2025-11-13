@@ -123,9 +123,9 @@ export async function fetchImagesFromRoll(
       params,
     });
     return {
-      data: res.data.photos,
-      urls: res.data.photos.map((photo: PopulatedPhoto) => photo.url),
-      nextPage: res.data.hasMore ? page + 1 : undefined,
+      data: res.data.data.photos,
+      urls: res.data.data.photos.map((photo: PopulatedPhoto) => photo.url),
+      nextPage: res.data.data.hasMore ? page + 1 : undefined,
     };
   } catch (error) {
     console.error("Error fetching photos from roll:", error);

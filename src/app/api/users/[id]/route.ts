@@ -4,6 +4,12 @@ import { connectDB } from "@/lib/mongodb";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 
+/*
+  GET /api/users/[id]
+  Fetch user by ID
+  Returns { success: boolean, message: string, data: { user } }
+*/
+
 export async function GET(
   request: Request,
   context: { params: Promise<{ id: string }> }

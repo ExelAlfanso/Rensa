@@ -3,6 +3,11 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { logoutLimiter } from "@/lib/rateLimiter";
 
+/*
+  POST /api/auth/logout
+  User logout endpoint
+*/
+
 export async function POST(req: Request) {
   try {
     // 🌐 Get client IP for rate limiting

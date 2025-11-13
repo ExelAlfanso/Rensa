@@ -26,6 +26,11 @@ async function compressImageUnder10MB(buffer: Buffer): Promise<Buffer> {
 
   return output;
 }
+
+/*
+  POST /api/photos/upload
+  Upload a photo
+*/
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Text from "../../Text";
-import { useState } from "react";
 import { CheckIcon } from "@phosphor-icons/react";
 import { motion } from "motion/react";
 import { rollDropdownItemVariants } from "../../animations/dropdownAnimations";
@@ -10,26 +9,23 @@ interface RollDropdownItemProps {
     name: string;
     imageUrl?: string;
   };
-  setSelectedRolls: React.Dispatch<React.SetStateAction<string[]>>;
+  onSelectedRoll: (id: string) => void;
   isCreating?: boolean;
+  selectedRollId: string | null;
+  isSaved?: boolean;
 }
 
 const RollDropdownItem: React.FC<RollDropdownItemProps> = ({
   roll,
-  setSelectedRolls,
+  onSelectedRoll,
+  selectedRollId,
   isCreating,
+  isSaved,
 }) => {
-  const [isSelected, setIsSelected] = useState(false);
-
+  const isSelected = selectedRollId === roll._id;
   const handleClick = () => {
     if (isCreating) return;
-    setSelectedRolls((prev: string[]) => {
-      if (isSelected) {
-        return prev.filter((id) => id !== roll._id);
-      }
-      return [...prev, roll._id];
-    });
-    setIsSelected(!isSelected);
+    onSelectedRoll(roll._id);
   };
   return (
     <motion.li
@@ -54,9 +50,14 @@ const RollDropdownItem: React.FC<RollDropdownItemProps> = ({
             className="rounded-2xl w-full h-full object-cover"
           />
         </div>
-        <Text className="font-semibold" size="s">
-          {roll?.name || "Untitled Roll"}
-        </Text>
+        <div className="flex flex-col">
+          <Text className="font-semibold text-left" size="s">
+            {roll?.name || "Untitled Roll"}
+          </Text>
+          <p className="font-figtree text-primary text-xs">
+            {isSaved ? "Saved here already." : ""}
+          </p>
+        </div>
         <CheckIcon
           size={24}
           className={`ml-auto text-black transition-opacity duration-150 ${

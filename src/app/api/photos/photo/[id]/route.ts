@@ -2,6 +2,11 @@ import { connectDB } from "@/lib/mongodb";
 import Photo, { PhotoDocument } from "@/models/Photo";
 import mongoose from "mongoose";
 
+/*
+  GET /api/photos/[id]
+  Fetch photo details by ID
+*/
+
 export async function GET(
   req: Request,
   { params }: { params: { id: string } }

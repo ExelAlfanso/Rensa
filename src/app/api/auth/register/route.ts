@@ -4,6 +4,10 @@ import User from "@/models/User";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
+/*
+  POST /api/auth/register
+  User registration endpoint
+*/
 export async function POST(req: Request) {
   try {
     // 🌐 Get client IP for rate limiting

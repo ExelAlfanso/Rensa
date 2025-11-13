@@ -4,6 +4,10 @@ import Roll from "@/models/Roll";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
 
+/*
+  GET /api/profile/[id]
+  Fetch user profile by ID along with their rolls and preview photos
+*/
 export async function GET(
   req: Request,
   context: { params: Promise<{ id: string }> }
