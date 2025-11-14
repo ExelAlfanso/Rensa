@@ -1,5 +1,5 @@
 import Heading from "@/components/Heading";
-import MasonryGallerySection from "@/sections/MasonryGallerySection/MasonryGallerySection";
+import RollPageMasonryGallerySection from "@/sections/RollPageMasonryGallerySection/RollPageMasonryGallerySection";
 import { fetchRollById } from "@/services/RollServices";
 import { DotsThreeCircleIcon } from "@phosphor-icons/react/dist/ssr";
 
@@ -26,7 +26,7 @@ export default async function RollPage({
           size={32}
         />
       </span>
-      <MasonryGallerySection rollId={id} />
+      <RollPageMasonryGallerySection rollId={id} />
     </div>
   );
 }

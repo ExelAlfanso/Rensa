@@ -156,7 +156,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
                 <button
                   onClick={isSaved ? handleUnsaveClick : handleSaveClick}
                   disabled={!selectedRoll || isLoading}
-                  className={`w-[32px] h-[32px] flex items-center justify-center rounded-full border-2 cursor-pointer transition-colors duration-200
+                  className={`w-[32px] h-[32px] flex items-center justify-center rounded-full cursor-pointer transition-colors duration-200 text-black hover:bg-white-700
                     ${
                       isSaved
                         ? "bg-black border-black text-white"
