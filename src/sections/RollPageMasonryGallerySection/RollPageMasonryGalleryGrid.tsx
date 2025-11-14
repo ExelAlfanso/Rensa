@@ -40,13 +40,6 @@ const RollPageMasonryGalleryGrid: React.FC<RollPageMasonryGalleryGridProps> = ({
         className={`${masonryWidthClass} my-masonry-grid`}
         columnClassName="my-masonry-grid_column"
       >
-        {photos.length === 0 && (
-          <div>
-            <p className="text-center text-gray-500 col-span-full py-10">
-              No photos available.
-            </p>
-          </div>
-        )}
         {photos.map((photo, idx) => {
           const photoId = (photo as PopulatedPhoto)._id || idx.toString();
           return (

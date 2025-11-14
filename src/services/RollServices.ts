@@ -21,3 +21,11 @@ export async function fetchIsSavedToRolls(photoId: string) {
   });
   return res.data.data.rollIds;
 }
+
+export async function updateRollDetails(
+  rollId: string,
+  name: string,
+  description: string
+) {
+  return api.patch(`/rolls/${rollId}`, { name, description });
+}

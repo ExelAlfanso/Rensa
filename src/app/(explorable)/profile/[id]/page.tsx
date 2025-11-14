@@ -13,6 +13,8 @@ export default async function ProfilePage({
 }: {
   params: Promise<{ id: string }>;
 }) {
+  //TODO: Change roll name after edited
+
   const { id } = await params;
 
   try {
@@ -22,13 +24,13 @@ export default async function ProfilePage({
     if (!profileData) throw notFound();
 
     return (
-      <div className="flex flex-col items-center justify-center min-h-screen w-full bg-white">
+      <div className="flex flex-col items-center justify-center w-full min-h-screen bg-white">
         <div className="w-[131px] h-[131px] relative rounded-full overflow-hidden">
           <Image
             src={profileData.user?.avatar || "/profile.jpg"}
             alt={profileData.user?.username || "User Avatar"}
             fill
-            className="w-full h-full object-cover"
+            className="object-cover w-full h-full"
           />
         </div>
         <Heading size="l" className="text-black">
@@ -40,7 +42,7 @@ export default async function ProfilePage({
         </div>
         <div className="flex flex-col items-start justify-center gap-6 mt-10 xl:mt-0">
           <ProfileRollFilterDropdown />
-          <div className="grid gap-3 grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <div className="grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-5">
             {profileData.rolls && profileData.rolls.length > 0 ? (
               profileData.rolls.map(
                 (roll: {

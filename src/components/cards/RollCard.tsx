@@ -5,6 +5,9 @@ import Link from "next/link";
 import React from "react";
 import Heading from "../Heading";
 import { formatDate } from "@/utils/DateFormatter";
+import { PencilIcon } from "@phosphor-icons/react";
+import SmallIconButton from "../buttons/SmallIconButton";
+import { useEditRoll } from "@/providers/EditRollProvider";
 
 interface RollCardProps {
   id: string;
@@ -19,6 +22,7 @@ const RollCard: React.FC<RollCardProps> = ({
   imageUrls,
   createdAt,
 }) => {
+  const { openEditor } = useEditRoll();
   const previews = imageUrls.slice(0, 4);
   let previewGridCols = "";
   if (previews.length <= 1) {
@@ -30,11 +34,11 @@ const RollCard: React.FC<RollCardProps> = ({
   }
 
   return (
-    <Link href={`/roll/${id}`} className="relative block">
-      <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-200 h-full w-[170px] md:w-[265px] p-3 border border-gray-300 cursor-pointer">
+    <Link href={`/roll/${id}`}>
+      <div className="relative bg-white shadow-md rounded-2xl overflow-hidden group hover:scale-[1.02] transition-transform duration-200 h-full w-[170px] md:w-[265px] p-3 border border-gray-300 cursor-pointer">
         <div className={`gap-[10px] grid ${previewGridCols}`}>
           {previews.length < 1 && (
-            <div className="relative w-full aspect-square max-h-[150px] md:max-h-[200px] bg-gray-200 rounded-lg flex items-center justify-center">
+            <div className="w-full aspect-square max-h-[150px] md:max-h-[200px] bg-gray-200 rounded-lg flex items-center justify-center">
               <span className="text-gray-500"></span>
             </div>
           )}
@@ -66,24 +70,38 @@ const RollCard: React.FC<RollCardProps> = ({
         </div>
 
         <div>
-          <Heading size="s" className="font-forum text-black">
+          <Heading size="s" className="text-black font-forum">
             {name}
           </Heading>
         </div>
 
         {createdAt && (
           <div>
-            <p className="text-gray-500 text-sm">{formatDate(createdAt)}</p>
+            <p className="text-sm text-gray-500">{formatDate(createdAt)}</p>
           </div>
         )}
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+          }}
+          className={`absolute inset-0 transition-opacity rounded-2xl duration-300 bg-black opacity-0 group-hover:opacity-10`}
+        />
+        <div
+          className={`transition-opacity duration-300 opacity-0 bg-gradient-to-t group-hover:opacity-100  `}
+        >
+          <div className="absolute top-0 right-0 w-full p-4">
+            <div className="flex flex-row justify-end">
+              <SmallIconButton
+                onClick={() => openEditor({ rollId: id, name })}
+                className="absolute p-2 bg-white rounded-full shadow-md opacity-0 top-3 right-3 group-hover:opacity-100"
+              >
+                <PencilIcon size={16} weight="bold" />
+              </SmallIconButton>
+            </div>
+          </div>
+        </div>
       </div>
-      <div
-        onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        }}
-        className={`absolute inset-0 transition-opacity rounded-2xl duration-300 bg-black opacity-0 hover:opacity-10`}
-      />
     </Link>
   );
 };

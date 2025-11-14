@@ -98,7 +98,7 @@ const RollPageMasonryGallerySection: React.FC<
         {isFetchingNextPage && (
           <div className="text-black loading loading-spinner loading-lg" />
         )}
-        {!hasNextPage && photos.length > 0 && (
+        {status === "success" && !hasNextPage && photos.length === 0 && (
           <p className="text-gray-500">No more images to load</p>
         )}
       </div>

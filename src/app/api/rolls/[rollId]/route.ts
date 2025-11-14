@@ -34,3 +34,44 @@ export async function GET(
     );
   }
 }
+
+/*
+  PATCH /api/rolls/[rollId]
+  Update roll details (name)
+*/
+
+export async function PATCH(
+  req: Request,
+  context: { params: Promise<{ rollId: string }> }
+) {
+  const { rollId } = await context.params;
+  const { name } = await req.json();
+  try {
+    await connectDB();
+    const updatedRoll = await Roll.findByIdAndUpdate(
+      rollId,
+      { name },
+      { new: true }
+    ).lean();
+    if (!updatedRoll) {
+      return NextResponse.json(
+        { success: false, message: "Roll not found" },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Roll updated successfully",
+        data: updatedRoll,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error updating roll:", error);
+    return NextResponse.json(
+      { message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}

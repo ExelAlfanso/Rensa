@@ -6,6 +6,7 @@ import { PopulatedPhoto } from "@/types/PopulatedPhoto";
 import { useEffect, useState } from "react";
 import { removePhotoFromRoll } from "@/services/RollServices";
 import { TrashIcon } from "@phosphor-icons/react";
+import SmallIconButton from "./buttons/SmallIconButton";
 
 interface RollPagePhotoCardProps {
   id: string;
@@ -52,7 +53,6 @@ const RollPagePhotoCard: React.FC<RollPagePhotoCardProps> = ({
         href={id ? `/photo/${id}` : "#"}
         onClick={(e) => e.stopPropagation()}
         prefetch={false}
-        className="block"
       >
         <div
           className={`relative overflow-hidden transition-transform duration-300 cursor-pointer rounded-3xl group`}
@@ -78,7 +78,7 @@ const RollPagePhotoCard: React.FC<RollPagePhotoCardProps> = ({
           >
             <div className="absolute top-0 right-0 w-full p-4">
               <div className="flex flex-row justify-end">
-                <button
+                <SmallIconButton
                   onClick={handleUnsaveClick}
                   disabled={isLoading}
                   className={`w-[32px] h-[32px] flex items-center justify-center rounded-full cursor-pointer transition-colors duration-200 bg-white text-black hover:bg-white-700 ${
@@ -86,11 +86,11 @@ const RollPagePhotoCard: React.FC<RollPagePhotoCardProps> = ({
                   }`}
                 >
                   {isLoading ? (
-                    <div className="loading loading-spinner text-current" />
+                    <div className="text-current loading loading-spinner" />
                   ) : (
                     <TrashIcon size={16} weight="bold" />
                   )}
-                </button>
+                </SmallIconButton>
               </div>
             </div>
           </div>
