@@ -95,9 +95,9 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
         {isFetchingNextPage && (
           <div className="text-black loading loading-spinner loading-lg" />
         )}
-        {!hasNextPage && photos.length > 0 && (
+        {/* {!hasNextPage && photos.length > 0 && (
           <p className="text-gray-500">No more images to load</p>
-        )}
+        )} */}
       </div>
     </div>
   );

@@ -13,7 +13,6 @@ export default async function RollPage({
   try {
     const res = await fetchRollById(id);
     rollData = res.data.data;
-    console.log("Roll data:", rollData);
   } catch (err) {
     console.error("Error fetching roll data:", err);
   }

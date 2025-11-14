@@ -21,7 +21,7 @@ const RollCard: React.FC<RollCardProps> = ({
 }) => {
   const previews = imageUrls.slice(0, 4);
   let previewGridCols = "";
-  if (previews.length === 1) {
+  if (previews.length <= 1) {
     previewGridCols = "grid-cols-1";
   } else if (previews.length === 2) {
     previewGridCols = "grid-cols-1 grid-rows-2";
@@ -30,9 +30,14 @@ const RollCard: React.FC<RollCardProps> = ({
   }
 
   return (
-    <Link href={`/roll/${id}`} className="block">
-      <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-200 h-auto w-[170px] md:w-[265px] p-3 border border-gray-300 cursor-pointer">
+    <Link href={`/roll/${id}`} className="relative block">
+      <div className="bg-white shadow-md rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-200 h-full w-[170px] md:w-[265px] p-3 border border-gray-300 cursor-pointer">
         <div className={`gap-[10px] grid ${previewGridCols}`}>
+          {previews.length < 1 && (
+            <div className="relative w-full aspect-square max-h-[150px] md:max-h-[200px] bg-gray-200 rounded-lg flex items-center justify-center">
+              <span className="text-gray-500"></span>
+            </div>
+          )}
           {previews.map((url, idx) => {
             const count = previews.length;
             const baseClass = "relative w-full aspect-square";
@@ -72,6 +77,13 @@ const RollCard: React.FC<RollCardProps> = ({
           </div>
         )}
       </div>
+      <div
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+        className={`absolute inset-0 transition-opacity rounded-2xl duration-300 bg-black opacity-0 hover:opacity-10`}
+      />
     </Link>
   );
 };
