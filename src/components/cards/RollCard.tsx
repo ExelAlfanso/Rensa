@@ -12,7 +12,7 @@ import { useAuthStore } from "@/stores/useAuthStore";
 
 interface RollCardProps {
   id: string;
-  userId?: string;
+  userId?: string; // owner of the roll
   name: string;
   imageUrls: string[];
   createdAt?: string;
@@ -28,23 +28,20 @@ const RollCard: React.FC<RollCardProps> = ({
   const { user } = useAuthStore();
   const isOwner = user?.id === userId;
   const { openEditor } = useEditRoll();
+
   const previews = imageUrls.slice(0, 4);
   let previewGridCols = "";
-  if (previews.length <= 1) {
-    previewGridCols = "grid-cols-1";
-  } else if (previews.length === 2) {
-    previewGridCols = "grid-cols-1 grid-rows-2";
-  } else {
-    previewGridCols = "grid-rows-2 grid-cols-2";
-  }
+  if (previews.length <= 1) previewGridCols = "grid-cols-1";
+  else if (previews.length === 2) previewGridCols = "grid-cols-1 grid-rows-2";
+  else previewGridCols = "grid-rows-2 grid-cols-2";
 
   return (
-    <Link href={`/roll/${id}`}>
-      <div className="relative bg-white shadow-md rounded-2xl overflow-hidden group hover:scale-[1.02] transition-transform duration-200 h-full w-[170px] md:w-[265px] p-3 border border-gray-300 cursor-pointer">
+    <Link href={`/roll/${id}`} className="group">
+      <div className="relative bg-white shadow-md rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-200 h-full w-[170px] md:w-[265px] p-3 border border-gray-300 cursor-pointer">
         <div className={`gap-[10px] grid ${previewGridCols}`}>
           {previews.length < 1 && (
             <div className="w-full aspect-square max-h-[150px] md:max-h-[200px] bg-gray-200 rounded-lg flex items-center justify-center">
-              <span className="text-gray-500"></span>
+              <span className="text-gray-500">No image</span>
             </div>
           )}
           {previews.map((url, idx) => {
@@ -74,44 +71,32 @@ const RollCard: React.FC<RollCardProps> = ({
           })}
         </div>
 
-        <div>
-          <Heading size="s" className="text-black font-forum">
-            {name}
-          </Heading>
-        </div>
+        <Heading size="s" className="text-black font-forum mt-2">
+          {name}
+        </Heading>
 
         {createdAt && (
-          <div>
-            <p className="text-sm text-gray-500">{formatDate(createdAt)}</p>
+          <p className="text-sm text-gray-500">{formatDate(createdAt)}</p>
+        )}
+
+        {/* Hover overlay */}
+        <div className="absolute inset-0 rounded-2xl bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none" />
+
+        {/* Edit button (only for owner) */}
+        {isOwner && (
+          <div className="absolute top-3 right-3 pointer-events-auto">
+            <SmallIconButton
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                openEditor({ rollId: id, name });
+              }}
+              className="p-2 bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+            >
+              <PencilIcon size={16} weight="bold" />
+            </SmallIconButton>
           </div>
         )}
-        <div
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-          }}
-          className={`absolute inset-0 transition-opacity rounded-2xl duration-300 bg-black opacity-0 group-hover:opacity-10`}
-        />
-        <div
-          className={`transition-opacity duration-300 opacity-0 bg-gradient-to-t group-hover:opacity-100  `}
-        >
-          {isOwner && (
-            <div className="absolute top-0 right-0 w-full p-4">
-              <div className="flex flex-row justify-end">
-                <SmallIconButton
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    openEditor({ rollId: id, name });
-                  }}
-                  className="absolute p-2 bg-white rounded-full shadow-md opacity-0 top-3 right-3 group-hover:opacity-100"
-                >
-                  <PencilIcon size={16} weight="bold" />
-                </SmallIconButton>
-              </div>
-            </div>
-          )}
-        </div>
       </div>
     </Link>
   );

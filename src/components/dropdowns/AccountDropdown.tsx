@@ -30,7 +30,7 @@ const AccountDropdown = ({ src, user }: AccountDropdownProps) => {
       >
         <DropdownItem
           href={`/profile/${user?.id}`}
-          className="flex flex-col items-start justify-start gap-2 roundend-t-2xl"
+          className="flex flex-col items-start justify-start gap-2 rounded-t-2xl"
         >
           <div className="flex flex-row justify-center items-center gap-3 ">
             <div className="relative rounded-full w-10 h-10 md:w-12 md:h-12">

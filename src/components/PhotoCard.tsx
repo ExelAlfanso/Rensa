@@ -106,12 +106,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
       transition={{ duration: 0.35, ease: "easeOut" }}
       className="m-3 mb-5"
     >
-      <Link
-        href={id ? `/photo/${id}` : "#"}
-        onClick={(e) => e.stopPropagation()}
-        prefetch={false}
-        className="block"
-      >
+      <Link href={id ? `/photo/${id}` : "#"} prefetch={false} className="block">
         <div
           className={`relative overflow-hidden transition-transform duration-300 cursor-pointer rounded-3xl group ${
             isDropdownOpen ? "scale-103" : "scale-100"
@@ -125,59 +120,55 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
               height: 450,
             }}
           />
+
+          {/* Overlay: for hover effect, pass clicks through */}
           <div
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-            }}
-            className={`absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40 ${
+            className={`absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40 pointer-events-none ${
               isDropdownOpen ? "opacity-40" : "opacity-0"
             }`}
           />
 
+          {/* Gradient / interactive container */}
           <div
-            className={`transition-opacity duration-300 opacity-0 bg-gradient-to-t group-hover:opacity-100  ${
+            className={`transition-opacity duration-300 opacity-0 group-hover:opacity-100 pointer-events-none ${
               isDropdownOpen ? "opacity-100" : "opacity-0"
             }`}
           >
-            <div className="absolute top-0 right-0 w-full p-4">
-              <div className="flex flex-row justify-between">
-                <RollDropdown
-                  isOpen={isDropdownOpen}
-                  setIsOpen={onToggleDropdown}
-                  closeAll={closeAllDropdowns}
-                  selectedRoll={selectedRoll}
-                  disabled={isSaved}
-                  setSelectedRoll={setSelectedRoll}
-                  savedToRolls={savedToRolls}
-                />
+            <div className="absolute top-0 right-0 w-full p-4 flex justify-between pointer-events-auto">
+              <RollDropdown
+                isOpen={isDropdownOpen}
+                setIsOpen={onToggleDropdown}
+                closeAll={closeAllDropdowns}
+                selectedRoll={selectedRoll}
+                disabled={isSaved}
+                setSelectedRoll={setSelectedRoll}
+                savedToRolls={savedToRolls}
+              />
 
-                {/* Save Button */}
-                <button
-                  onClick={isSaved ? handleUnsaveClick : handleSaveClick}
-                  disabled={!selectedRoll || isLoading}
-                  className={`w-[32px] h-[32px] flex items-center justify-center rounded-full cursor-pointer transition-colors duration-200 text-black hover:bg-white-700
-                    ${
-                      isSaved
-                        ? "bg-black border-black text-white"
-                        : "bg-white border-white text-black"
-                    }
-                    ${isLoading ? "opacity-70 cursor-wait" : ""}
-                  `}
-                >
-                  {isLoading ? (
-                    <div className="loading loading-spinner text-current" />
-                  ) : isSaved ? (
-                    <CheckIcon size={16} weight="bold" />
-                  ) : (
-                    <PlusIcon size={16} />
-                  )}
-                </button>
-              </div>
+              <button
+                onClick={isSaved ? handleUnsaveClick : handleSaveClick}
+                disabled={!selectedRoll || isLoading}
+                className={`w-[32px] h-[32px] flex items-center justify-center rounded-full cursor-pointer transition-colors duration-200 text-black hover:bg-white-700
+              ${
+                isSaved
+                  ? "bg-black border-black text-white"
+                  : "bg-white border-white text-black"
+              }
+              ${isLoading ? "opacity-70 cursor-wait" : ""}`}
+              >
+                {isLoading ? (
+                  <div className="loading loading-spinner text-current" />
+                ) : isSaved ? (
+                  <CheckIcon size={16} weight="bold" />
+                ) : (
+                  <PlusIcon size={16} />
+                )}
+              </button>
             </div>
+
             <Text
               size={"xs"}
-              className="absolute bottom-0 right-0 p-4 font-normal"
+              className="absolute bottom-0 right-0 p-4 font-normal pointer-events-none"
             >
               @{getPhotoUserId(photo)?.username}
             </Text>
