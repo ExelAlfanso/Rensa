@@ -92,7 +92,12 @@ export const EditRollProvider = ({
 
             <div className="flex justify-end gap-2 mt-5">
               <TertiaryButton onClick={closeEditor}>Cancel</TertiaryButton>
-              <PrimaryButton onClick={() => saveChanges(roll.rollId, name)}>
+              <PrimaryButton
+                onClick={() => {
+                  closeEditor();
+                  saveChanges(roll.rollId, name);
+                }}
+              >
                 Save
               </PrimaryButton>
             </div>

@@ -13,7 +13,7 @@
   --color-secondary: var(--secondary);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-
+  --color-error: #d64527;
   --font-forum: "Forum", serif;
   --font-figtree: "Figtree", sans-serif;
 

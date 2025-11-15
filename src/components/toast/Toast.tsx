@@ -7,21 +7,21 @@ export default function Toast() {
   const { toasts } = useToast();
 
   return (
-    <div className="fixed top-4 right-4 z-[9999] flex flex-col gap-3 font-figtree">
+    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-3 font-figtree items-center">
       {toasts.map((toast) => (
         <motion.div
           key={toast.id}
-          initial={{ opacity: 0, y: -10 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
+          exit={{ opacity: 0, y: 10 }}
           className={`
             px-4 py-3 rounded-xl shadow-lg text-white 
             ${
               toast.type === "success"
-                ? "bg-green-500"
+                ? "bg-black-400"
                 : toast.type === "error"
-                ? "bg-red-500"
-                : "bg-blue-500"
+                ? "bg-error"
+                : "bg-black-600"
             }
           `}
         >
