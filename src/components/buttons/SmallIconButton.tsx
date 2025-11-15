@@ -2,16 +2,14 @@
 
 import React from "react";
 
-interface IconButtonProps {
-  onClick:
-    | (() => void)
-    | ((e: React.MouseEvent<HTMLButtonElement>) => Promise<void>);
+interface SmallIconButtonProps {
+  onClick: (e: React.MouseEvent<HTMLButtonElement>) => void | Promise<void>;
   disabled?: boolean;
   className?: string;
   children?: React.ReactNode;
 }
 
-const IconButton: React.FC<IconButtonProps> = ({
+const SmallIconButton: React.FC<SmallIconButtonProps> = ({
   onClick,
   className,
   disabled,
@@ -33,4 +31,4 @@ const IconButton: React.FC<IconButtonProps> = ({
   );
 };
 
-export default IconButton;
+export default SmallIconButton;

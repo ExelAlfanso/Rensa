@@ -42,7 +42,10 @@ const TertiaryDropdown: React.FC<TertiaryDropdownProps> = ({
           {label}
         </label>
       )}
-      <TertiaryButton onClick={() => setIsOpen((prev) => !prev)}>
+      <TertiaryButton
+        className="w-full"
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
         <Text size="m">{value || placeholder || "Select an option"}</Text>
       </TertiaryButton>
       <div

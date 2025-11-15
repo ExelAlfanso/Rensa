@@ -1,16 +1,12 @@
 "use client";
 
-import { set } from "mongoose";
+import PrimaryButton from "@/components/buttons/PrimaryButton";
+import TertiaryButton from "@/components/buttons/TertiaryButton";
 import React, { createContext, useState, useContext, ReactNode } from "react";
-
-// ─────────────────────────────────────────────
-// Types
-// ─────────────────────────────────────────────
 
 interface EditRollState {
   rollId: string;
   name: string;
-  //   description: string;
 }
 
 interface EditRollContextType {
@@ -18,16 +14,8 @@ interface EditRollContextType {
   roll: EditRollState | null;
   openEditor: (roll: EditRollState) => void;
   closeEditor: () => void;
-  saveChanges: (
-    rollId: string,
-    name: string,
-    description: string
-  ) => Promise<void>;
+  saveChanges: (rollId: string, name: string) => Promise<void>;
 }
-
-// ─────────────────────────────────────────────
-// Context
-// ─────────────────────────────────────────────
 
 const EditRollContext = createContext<EditRollContextType | undefined>(
   undefined
@@ -39,21 +27,22 @@ export const useEditRoll = () => {
   return ctx;
 };
 
-// ─────────────────────────────────────────────
-// Provider
-// ─────────────────────────────────────────────
+interface EditRollProviderProps {
+  children: ReactNode;
+  onRollUpdate?: (roll: EditRollState) => void;
+}
 
-export const EditRollProvider = ({ children }: { children: ReactNode }) => {
+export const EditRollProvider = ({
+  children,
+  onRollUpdate,
+}: EditRollProviderProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [roll, setRoll] = useState<EditRollState | null>(null);
-
   const [name, setName] = useState("");
-  //   const [description, setDescription] = useState("");
 
   const openEditor = (roll: EditRollState) => {
     setRoll(roll);
     setName(roll.name);
-    // setDescription(roll.description);
     setIsOpen(true);
   };
 
@@ -61,7 +50,6 @@ export const EditRollProvider = ({ children }: { children: ReactNode }) => {
     setIsOpen(false);
     setRoll(null);
     setName("");
-    // setDescription("");
   };
 
   const saveChanges = async (rollId: string, name: string) => {
@@ -72,7 +60,8 @@ export const EditRollProvider = ({ children }: { children: ReactNode }) => {
         body: JSON.stringify({ name }),
       });
 
-      // Optional: refresh UI, invalidate queries, etc.
+      if (onRollUpdate) onRollUpdate({ rollId, name });
+
       closeEditor();
     } catch (err) {
       console.error("Failed to update roll:", err);
@@ -81,19 +70,12 @@ export const EditRollProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <EditRollContext.Provider
-      value={{
-        isOpen,
-        roll,
-        openEditor,
-        closeEditor,
-        saveChanges,
-      }}
+      value={{ isOpen, roll, openEditor, closeEditor, saveChanges }}
     >
       {children}
 
-      {/* UI PANEL / MODAL */}
       {isOpen && roll && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center text-black bg-black/50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 text-black">
           <div className="bg-white rounded-2xl p-6 w-[380px] shadow-xl">
             <h2 className="mb-4 text-xl font-semibold">Edit Roll</h2>
 
@@ -104,27 +86,11 @@ export const EditRollProvider = ({ children }: { children: ReactNode }) => {
               onChange={(e) => setName(e.target.value)}
             />
 
-            {/* <label className="text-sm font-medium">Description</label> */}
-            {/* <textarea
-              className="w-full px-3 py-2 mt-1 border rounded-lg"
-              rows={3}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-            /> */}
-
             <div className="flex justify-end gap-2 mt-5">
-              <button
-                onClick={closeEditor}
-                className="px-4 py-2 text-black bg-gray-200 rounded-lg hover:bg-gray-300"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => saveChanges(roll.rollId, name)}
-                className="px-4 py-2 text-white bg-black rounded-lg hover:bg-gray-800"
-              >
+              <TertiaryButton onClick={closeEditor}>Cancel</TertiaryButton>
+              <PrimaryButton onClick={() => saveChanges(roll.rollId, name)}>
                 Save
-              </button>
+              </PrimaryButton>
             </div>
           </div>
         </div>

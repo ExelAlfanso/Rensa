@@ -8,9 +8,11 @@ import { formatDate } from "@/utils/DateFormatter";
 import { PencilIcon } from "@phosphor-icons/react";
 import SmallIconButton from "../buttons/SmallIconButton";
 import { useEditRoll } from "@/providers/EditRollProvider";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 interface RollCardProps {
   id: string;
+  userId?: string;
   name: string;
   imageUrls: string[];
   createdAt?: string;
@@ -18,10 +20,13 @@ interface RollCardProps {
 
 const RollCard: React.FC<RollCardProps> = ({
   id,
+  userId,
   name,
   imageUrls,
   createdAt,
 }) => {
+  const { user } = useAuthStore();
+  const isOwner = user?.id === userId;
   const { openEditor } = useEditRoll();
   const previews = imageUrls.slice(0, 4);
   let previewGridCols = "";
@@ -90,16 +95,22 @@ const RollCard: React.FC<RollCardProps> = ({
         <div
           className={`transition-opacity duration-300 opacity-0 bg-gradient-to-t group-hover:opacity-100  `}
         >
-          <div className="absolute top-0 right-0 w-full p-4">
-            <div className="flex flex-row justify-end">
-              <SmallIconButton
-                onClick={() => openEditor({ rollId: id, name })}
-                className="absolute p-2 bg-white rounded-full shadow-md opacity-0 top-3 right-3 group-hover:opacity-100"
-              >
-                <PencilIcon size={16} weight="bold" />
-              </SmallIconButton>
+          {isOwner && (
+            <div className="absolute top-0 right-0 w-full p-4">
+              <div className="flex flex-row justify-end">
+                <SmallIconButton
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    openEditor({ rollId: id, name });
+                  }}
+                  className="absolute p-2 bg-white rounded-full shadow-md opacity-0 top-3 right-3 group-hover:opacity-100"
+                >
+                  <PencilIcon size={16} weight="bold" />
+                </SmallIconButton>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </Link>

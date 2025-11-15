@@ -15,7 +15,7 @@ const TertiaryButton: React.FC<ButtonProps> = ({
       id={id}
       href={href}
       onClick={onClick}
-      className={`w-full btn-ghost text-primary hover:bg-transparent hover:text-black-200 hover:border-white-600 border-1 border-primary ${className}`}
+      className={`btn-ghost text-primary hover:bg-transparent hover:text-black-200 hover:border-white-600 border-1 border-primary ${className}`}
     >
       {children}
     </Button>
