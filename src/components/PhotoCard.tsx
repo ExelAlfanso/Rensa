@@ -16,6 +16,7 @@ import {
   fetchIsSavedToRolls,
   removePhotoFromRoll,
 } from "@/services/RollServices";
+import { useToast } from "@/providers/ToastProvider";
 
 interface PhotoCardProps {
   id: string | null;
@@ -43,6 +44,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
     name: string;
   } | null>(null);
   const [savedToRolls, setSavedToRolls] = useState<string[]>([]);
+  const { showToast } = useToast();
 
   const handleSaveClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -58,9 +60,10 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
       await addPhotoToRoll(selectedRoll.id, id || "");
       setSavedRoll({ id: selectedRoll.id, name: selectedRoll.name });
       setSaved(true);
-      // Optionally show a toast or close dropdown
+      showToast("Photo added to roll successfully", "success");
     } catch (error) {
       console.error("Failed to add photo to roll:", error);
+      showToast("Failed to add photo to roll", "error");
     } finally {
       setIsLoading(false);
     }
@@ -75,9 +78,10 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
       console.log(`Removed photo ${id} from roll ${savedRoll?.name}`);
       await removePhotoFromRoll(savedRoll?.id || "", id || "");
       setSaved(false);
-      // Optionally show a toast or close dropdown
+      showToast("Photo removed from roll successfully", "success");
     } catch (error) {
-      console.error("Failed to add photo to roll:", error);
+      showToast("Failed to remove photo from roll", "error");
+      console.error("Failed to remove photo from roll:", error);
     } finally {
       setIsLoading(false);
     }

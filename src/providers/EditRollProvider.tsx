@@ -3,6 +3,7 @@
 import PrimaryButton from "@/components/buttons/PrimaryButton";
 import TertiaryButton from "@/components/buttons/TertiaryButton";
 import React, { createContext, useState, useContext, ReactNode } from "react";
+import { useToast } from "./ToastProvider";
 
 interface EditRollState {
   rollId: string;
@@ -39,6 +40,7 @@ export const EditRollProvider = ({
   const [isOpen, setIsOpen] = useState(false);
   const [roll, setRoll] = useState<EditRollState | null>(null);
   const [name, setName] = useState("");
+  const { showToast } = useToast();
 
   const openEditor = (roll: EditRollState) => {
     setRoll(roll);
@@ -63,7 +65,9 @@ export const EditRollProvider = ({
       if (onRollUpdate) onRollUpdate({ rollId, name });
 
       closeEditor();
+      showToast("Roll updated successfully", "success");
     } catch (err) {
+      showToast("Failed to update roll", "error");
       console.error("Failed to update roll:", err);
     }
   };

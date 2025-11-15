@@ -9,6 +9,7 @@ import { useRollsStore } from "@/stores/useRollsStore";
 import RollDropdownItem from "./RollDropdownItem";
 import SearchInputField from "@/components/inputfields/SearchInputField";
 import RollDropdownInputItem from "./RollDropdownInputItem";
+import { useToast } from "@/providers/ToastProvider";
 
 interface RollDropdownProps {
   isOpen: boolean;
@@ -38,6 +39,7 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
   const [isCreating, setIsCreating] = useState(false);
   const [newRollName, setNewRollName] = useState("");
   const { rolls, fetchRolls, isLoading, createRoll } = useRollsStore();
+  const { showToast } = useToast();
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const dropdownRef = useOutsideClick<HTMLDivElement>(() => {
@@ -128,7 +130,9 @@ const RollDropdown: React.FC<RollDropdownProps> = ({
       await createRoll({
         name: newRollName,
       });
+      showToast("Roll created successfully", "success");
     } catch (error) {
+      showToast("Failed to create roll", "error");
       console.error("Failed to create roll:", error);
     } finally {
       setIsCreating(false);

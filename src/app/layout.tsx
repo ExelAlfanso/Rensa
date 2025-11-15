@@ -4,6 +4,8 @@ import "./globals.css";
 import SessionProviderWrapper from "@/providers/SessionProviderWrapper";
 import { LoadingProvider } from "@/hooks/useLoading";
 import QueryProvider from "@/providers/QueryProvider";
+import { ToastProvider } from "@/providers/ToastProvider";
+import Toast from "@/components/toast/Toast";
 
 const forum = Forum({
   subsets: ["latin"],
@@ -30,11 +32,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`antialiased ${forum.variable} ${figtree.variable}`}>
-        <QueryProvider>
-          <SessionProviderWrapper>
-            <LoadingProvider>{children}</LoadingProvider>
-          </SessionProviderWrapper>
-        </QueryProvider>
+        <ToastProvider>
+          <QueryProvider>
+            <SessionProviderWrapper>
+              <LoadingProvider>{children}</LoadingProvider>
+            </SessionProviderWrapper>
+          </QueryProvider>
+          <Toast />
+        </ToastProvider>
       </body>
     </html>
   );

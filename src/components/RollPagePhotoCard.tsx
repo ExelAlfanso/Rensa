@@ -7,6 +7,7 @@ import { useState } from "react";
 import { removePhotoFromRoll } from "@/services/RollServices";
 import { TrashIcon } from "@phosphor-icons/react";
 import SmallIconButton from "./buttons/SmallIconButton";
+import { useToast } from "@/providers/ToastProvider";
 
 interface RollPagePhotoCardProps {
   id: string;
@@ -22,7 +23,7 @@ const RollPagePhotoCard: React.FC<RollPagePhotoCardProps> = ({
   onPhotoRemoved,
 }) => {
   const [isLoading, setIsLoading] = useState(false);
-
+  const { showToast } = useToast();
   const handleUnsaveClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     e.stopPropagation();
@@ -31,8 +32,10 @@ const RollPagePhotoCard: React.FC<RollPagePhotoCardProps> = ({
       setIsLoading(true);
       await removePhotoFromRoll(rollId, id);
       if (onPhotoRemoved) onPhotoRemoved(id);
+      showToast("Photo removed from roll successfully", "success");
     } catch (error) {
       console.error("Failed to remove photo from roll:", error);
+      showToast("Failed to remove photo from roll", "error");
     } finally {
       setIsLoading(false);
     }
