@@ -16,6 +16,7 @@ interface ProfilePageClientProps {
   };
 }
 
+//TODO: handle delete on handlerollupdate
 export default function ProfilePageClient({
   profileData,
 }: ProfilePageClientProps) {
@@ -27,8 +28,14 @@ export default function ProfilePageClient({
       prev.map((r) => (r._id === roll.rollId ? { ...r, name: roll.name } : r))
     );
   };
+  const handleRollDelete = (rollId: string) => {
+    setRolls((prev) => prev.filter((r) => r._id !== rollId));
+  };
   return (
-    <EditRollProvider onRollUpdate={handleRollUpdate}>
+    <EditRollProvider
+      onRollDelete={handleRollDelete}
+      onRollUpdate={handleRollUpdate}
+    >
       <div className="flex flex-col items-center justify-center w-full min-h-screen bg-white">
         <div className="w-[131px] h-[131px] relative rounded-full overflow-hidden">
           <Image

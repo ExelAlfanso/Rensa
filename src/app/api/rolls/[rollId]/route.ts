@@ -75,3 +75,39 @@ export async function PATCH(
     );
   }
 }
+
+/*
+  DELETE /api/rolls/[rollId]
+  Delete a specific roll by ID
+*/
+
+export async function DELETE(
+  req: Request,
+  context: { params: Promise<{ rollId: string }> }
+) {
+  const { rollId } = await context.params;
+  try {
+    await connectDB();
+    const deletedRoll = await Roll.findByIdAndDelete(rollId).lean();
+    if (!deletedRoll) {
+      return NextResponse.json(
+        { success: false, message: "Roll not found" },
+        { status: 404 }
+      );
+    }
+    return NextResponse.json(
+      {
+        success: true,
+        message: "Roll deleted successfully",
+        data: deletedRoll,
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error deleting roll:", error);
+    return NextResponse.json(
+      { success: false, message: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
+}
