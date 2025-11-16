@@ -46,7 +46,7 @@ const IconDropdown: React.FC<IconDropdownProps> = ({
       <ul
         className={`absolute ${
           positionClasses[position]
-        } menu dropdown top-10 md:top-13 mt-2 w-60 flex flex-col items-center rounded-2xl bg-white-200 p-0 shadow-lg transform transition-all duration-200 ease-out origin-top
+        } top-10 md:top-13 mt-2 w-60 flex flex-col items-center rounded-2xl bg-white-200 p-0 shadow-lg transform transition-all duration-200 ease-out origin-top
           ${
             open
               ? "opacity-100 scale-100 translate-y-0"

@@ -51,7 +51,13 @@ const AccountDropdown = ({ src, user }: AccountDropdownProps) => {
         </DropdownItem>
         <div className="border-t border-white-700 w-[90%] my-2"></div>
         {accountDropdownDatas.map((item, idx) => (
-          <DropdownItem key={idx} href={item.href}>
+          <DropdownItem
+            key={idx}
+            href={item.href}
+            className={`${
+              idx === accountDropdownDatas.length - 1 ? "rounded-b-2xl" : ""
+            }`}
+          >
             <item.icon className="w-6 h-6 mr-2" />
             <Text size="s">{item.title}</Text>
           </DropdownItem>
