@@ -79,7 +79,6 @@ const RollCard: React.FC<RollCardProps> = ({
           <p className="text-sm text-gray-500">{formatDate(createdAt)}</p>
         )}
 
-        {/* Hover overlay */}
         <div className="absolute inset-0 rounded-2xl bg-black opacity-0 group-hover:opacity-10 transition-opacity duration-300 pointer-events-none" />
 
         {/* Edit button (only for owner) */}

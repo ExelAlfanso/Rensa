@@ -58,6 +58,7 @@ export const EditRollProvider = ({
     setIsOpen(false);
     setRoll(null);
     setName("");
+    setIsDeleting(false);
   };
   const removeRoll = async (rollId: string) => {
     try {
