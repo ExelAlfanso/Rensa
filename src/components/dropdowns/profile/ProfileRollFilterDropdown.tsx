@@ -13,7 +13,7 @@ const ProfileRollFilterDropdown: React.FC<ProfileRollFilterDropdownProps> = ({
   const filters = ["Latest", "Oldest", "Most Popular", "Least Popular"];
   return (
     <TertiaryDropdown
-      className="w-48"
+      className="w-35"
       initialValue={"Latest"}
       values={filters}
       onChange={(value) => setFilter?.(value)}

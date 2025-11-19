@@ -56,7 +56,6 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
 
     try {
       setIsLoading(true);
-      console.log(`Adding photo ${id} to roll ${selectedRoll.name}`);
       await addPhotoToRoll(selectedRoll.id, id || "");
       setSavedRoll({ id: selectedRoll.id, name: selectedRoll.name });
       setSaved(true);

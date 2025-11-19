@@ -9,6 +9,7 @@ import RollList, { Roll } from "@/components/lists/RollList";
 import { EditRollProvider } from "@/providers/EditRollProvider";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { CreateRollProvider } from "@/providers/CreateRollProvider";
+import ShareButton from "@/components/buttons/ShareButton";
 
 interface ProfilePageClientProps {
   profileData: {
@@ -64,7 +65,7 @@ export default function ProfilePageClient({
             @{profileData.user?.username || "User Name"}
           </Heading>
           <div className="flex flex-row items-center justify-center gap-4 mt-4">
-            <AccentButton>Share</AccentButton>
+            <ShareButton userId={user?.id || ""}></ShareButton>
             {isOwner && <AccentButton>Edit Profile</AccentButton>}
           </div>
           <div className="flex flex-col items-start justify-center gap-6 mt-10 xl:mt-0 w-full px-6">
