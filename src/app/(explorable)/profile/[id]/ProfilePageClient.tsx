@@ -18,7 +18,6 @@ interface ProfilePageClientProps {
   };
 }
 
-//TODO: handle delete on handlerollupdate
 export default function ProfilePageClient({
   profileData,
 }: ProfilePageClientProps) {

@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import Heading from "../Heading";
 import Text from "../Text";
-import Comment from "../Comment";
 
 import { BookmarkSimpleIcon, CaretDownIcon } from "@phosphor-icons/react";
 import IconButton from "../buttons/IconButton";
@@ -11,10 +10,12 @@ import { formatDate } from "@/utils/DateFormatter";
 import { PhotoMetadata } from "@/models/Photo";
 import RecipeList from "../lists/RecipeList";
 import ProfileBadge from "../badges/ProfileBadge";
-import CommentInputField from "../inputfields/CommentInputField";
 import api from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import PrimaryButton from "../buttons/PrimaryButton";
+import CommentSection from "@/sections/CommentSection";
+import photoCommentsAtom from "@/stores/atoms/CommentSection/photoCommentsAtom";
+import { useAtom } from "jotai";
 interface PhotoInfoCardProps {
   id?: string;
   className?: string;
@@ -27,13 +28,13 @@ interface PhotoInfoCardProps {
   metadata?: PhotoMetadata;
   bookmarkedBy?: string[];
 }
+
 //TODO: Comment feature
 //TODO: Save feature
 
 const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
   id,
   className,
-  children,
   title,
   initialBookmarks,
   description,
@@ -45,6 +46,9 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
   const currentUserId = session?.user?.id as string | undefined;
   const [username, setUsername] = useState("Loading...");
   const [avatarUrl, setAvatarUrl] = useState("/profile.jpg");
+
+  const [comments, setComments] = useAtom(photoCommentsAtom);
+
   const [isBookmarked, setIsBookmarked] = useState(
     currentUserId ? bookmarkedBy?.includes(currentUserId) : false
   );
@@ -56,7 +60,7 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
       currentUserId ? bookmarkedBy?.includes(currentUserId) : false
     );
     fetchProfileData(userId);
-  }, [userId, currentUserId, bookmarkedBy]);
+  }, [userId, currentUserId, bookmarkedBy, id]);
 
   const handleBookmarkToggle = async () => {
     setIsBookmarked((prev) => !prev);
@@ -141,29 +145,7 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
       <div>
         <RecipeList metadata={metadata}></RecipeList>
       </div>
-      <div>
-        <Heading size="m" className="mb-5">
-          Comments
-        </Heading>
-        <div className="overflow-y-scroll no-scrollbar h-35">
-          {/*TODO: Map through comments and render them*/}
-          <Comment username="user1">Nice looking picture mate!</Comment>
-          <Comment>Nice looking picture mate!</Comment>
-          <Comment>Nice looking picture mate!</Comment>
-          <Comment>Nice looking picture mate!</Comment>
-          <Comment>Nice looking picture mate!</Comment>
-          <Comment>Nice looking picture mate!</Comment>
-          <Comment>Nice looking picture mate!</Comment>
-          <Comment>Nice looking picture mate!</Comment>
-          <Comment>Nice looking picture mate!</Comment>
-          <Comment>Nice looking picture mate!</Comment>
-          <Comment>Nice looking picture mate!</Comment>
-          <Comment>Nice looking picture mate!</Comment>
-        </div>
-        <CommentInputField></CommentInputField>
-      </div>
-
-      {children}
+      <CommentSection id={id}></CommentSection>
     </div>
   );
 };

@@ -6,6 +6,7 @@ interface ProfileBadgeProps {
   className?: string;
   avatarUrl?: string;
   username?: string;
+  href?: string;
 }
 
 const ProfileBadge: React.FC<ProfileBadgeProps> = ({
@@ -14,6 +15,7 @@ const ProfileBadge: React.FC<ProfileBadgeProps> = ({
   className,
   avatarUrl,
   username,
+  href,
 }) => {
   return (
     <span className={`inline-flex items-center gap-3 ${className}`}>
@@ -21,6 +23,7 @@ const ProfileBadge: React.FC<ProfileBadgeProps> = ({
         src={avatarUrl || "/profile.jpg"}
         alt={alt}
         size={size}
+        href={href}
       ></ProfileIconButton>
       <h2 className="text-[13px] font-figtree text-black-200">@{username}</h2>
     </span>

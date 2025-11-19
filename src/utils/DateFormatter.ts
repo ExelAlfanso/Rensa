@@ -24,3 +24,29 @@ export function formatDate(
     return "";
   }
 }
+
+export function formatTimeAgo(dateString: string) {
+  const date = new Date(dateString);
+  const now = new Date();
+
+  const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+  const units = [
+    { name: "year", value: 60 * 60 * 24 * 365 },
+    { name: "month", value: 60 * 60 * 24 * 30 },
+    { name: "day", value: 60 * 60 * 24 },
+    { name: "hour", value: 60 * 60 },
+    { name: "min", value: 60 },
+    { name: "sec", value: 1 },
+  ];
+
+  for (const unit of units) {
+    const amount = Math.floor(seconds / unit.value);
+    if (amount > 0) {
+      const plural = amount > 1 ? "s" : "";
+      return `${amount} ${unit.name}${plural}`;
+    }
+  }
+
+  return "0 sec";
+}

@@ -88,6 +88,7 @@ const InputField: React.FC<InputFieldProps> = ({
             } pr-4 ${sizeClasses[size]} ${className}`}
             placeholder={placeholder}
             onChange={onChange}
+            onKeyDown={onKeyDown}
           />
           <div
             className={`absolute inset-y-0 ${

@@ -68,7 +68,7 @@ export async function fetchImagesFromDB(
     };
     // console.log("📤 Sending request to /photos/getPhotos with params:", params);
 
-    const res = await api.get<BackendPhotosResponse>("/photos/getPhotos", {
+    const res = await api.get<BackendPhotosResponse>("/photos", {
       params,
     });
 

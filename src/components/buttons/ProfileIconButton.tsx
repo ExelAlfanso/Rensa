@@ -1,16 +1,19 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 interface ProfileButtonProps {
   src: string;
   alt: string;
   size?: "8" | "10" | "12" | "16" | "20"; // restrict to supported Tailwind sizes
+  href?: string;
 }
 
 const ProfileButton: React.FC<ProfileButtonProps> = ({
   src,
   alt,
   size = "8",
+  href,
 }) => {
   const sizeClasses: Record<string, string> = {
     "8": "w-8 h-8 md:w-10 md:h-10",
@@ -21,7 +24,8 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({
   };
 
   return (
-    <button
+    <Link
+      href={href || "#"}
       className={`relative ${sizeClasses[size]} transition-all duration-300 rounded-full cursor-pointer hover:opacity-50`}
     >
       <Image
@@ -31,7 +35,7 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({
         sizes="(max-width: 768px) 40px, (max-width: 1200px) 60px, 80px"
         className="object-cover rounded-full aspect-square"
       />
-    </button>
+    </Link>
   );
 };
 

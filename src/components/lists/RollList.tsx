@@ -15,6 +15,7 @@ interface RollListProps {
 }
 
 export default function RollList({ rolls }: RollListProps) {
+  const { user } = useAuthStore();
   return (
     <div className="grid grid-cols-2 gap-3 lg:grid-cols-3 xl:grid-cols-5">
       <CreateNewRollCard key="create-new-roll" />
