@@ -10,13 +10,7 @@ import RollDropdown from "./dropdowns/rolls/RollDropdown";
 import { ImageWithSkeleton } from "./ImageWithSkeleton";
 import { PopulatedPhoto } from "@/types/PopulatedPhoto";
 import Text from "./Text";
-import { useEffect, useState } from "react";
-import {
-  addPhotoToRoll,
-  fetchIsSavedToRolls,
-  removePhotoFromRoll,
-} from "@/services/RollServices";
-import { useToast } from "@/providers/ToastProvider";
+import usePhotoRoll from "@/hooks/usePhotoRoll";
 
 interface PhotoCardProps {
   id: string | null;
@@ -33,72 +27,15 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
   onToggleDropdown,
   closeAllDropdowns,
 }) => {
-  const [selectedRoll, setSelectedRoll] = useState<{
-    id: string;
-    name: string;
-  } | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSaved, setSaved] = useState(false);
-  const [savedRoll, setSavedRoll] = useState<{
-    id: string;
-    name: string;
-  } | null>(null);
-  const [savedToRolls, setSavedToRolls] = useState<string[]>([]);
-  const { showToast } = useToast();
-
-  const handleSaveClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!selectedRoll) {
-      console.warn("No roll selected");
-      return;
-    }
-
-    try {
-      setIsLoading(true);
-      await addPhotoToRoll(selectedRoll.id, id || "");
-      setSavedRoll({ id: selectedRoll.id, name: selectedRoll.name });
-      setSaved(true);
-      showToast("Photo added to roll successfully", "success");
-    } catch (error) {
-      console.error("Failed to add photo to roll:", error);
-      showToast("Failed to add photo to roll", "error");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleUnsaveClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    try {
-      setIsLoading(true);
-      console.log(`Removed photo ${id} from roll ${savedRoll?.name}`);
-      await removePhotoFromRoll(savedRoll?.id || "", id || "");
-      setSaved(false);
-      showToast("Photo removed from roll successfully", "success");
-    } catch (error) {
-      showToast("Failed to remove photo from roll", "error");
-      console.error("Failed to remove photo from roll:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleFetchSavedRolls = async () => {
-    if (!id) return;
-    try {
-      const res = await fetchIsSavedToRolls(id);
-      setSavedToRolls(res || []);
-    } catch (error) {
-      console.error("Failed to check saved rolls:", error);
-    }
-  };
-
-  useEffect(() => {
-    handleFetchSavedRolls();
-  }, [id]);
+  const {
+    selectedRoll,
+    setSelectedRoll,
+    isLoading,
+    isSaved,
+    savedToRolls,
+    saveToRoll,
+    removeFromRoll,
+  } = usePhotoRoll(id);
 
   return (
     <motion.div
@@ -124,14 +61,12 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
             }}
           />
 
-          {/* Overlay: for hover effect, pass clicks through */}
           <div
             className={`absolute inset-0 transition-opacity duration-300 bg-black opacity-0 group-hover:opacity-40 pointer-events-none ${
               isDropdownOpen ? "opacity-40" : "opacity-0"
             }`}
           />
 
-          {/* Gradient / interactive container */}
           <div
             className={`transition-opacity duration-300 opacity-0 group-hover:opacity-100 pointer-events-none ${
               isDropdownOpen ? "opacity-100" : "opacity-0"
@@ -149,7 +84,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
               />
 
               <button
-                onClick={isSaved ? handleUnsaveClick : handleSaveClick}
+                onClick={isSaved ? removeFromRoll : saveToRoll}
                 disabled={!selectedRoll || isLoading}
                 className={`w-[32px] h-[32px] flex items-center justify-center rounded-full cursor-pointer transition-colors duration-200 text-black hover:bg-white-700
               ${

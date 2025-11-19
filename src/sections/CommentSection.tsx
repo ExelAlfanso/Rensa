@@ -68,7 +68,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ id }) => {
 
   // -------- Scroll to latest comment --------
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   }, [comments]);
 
   // -------- Add Comment (Optimistic UI) --------
@@ -88,7 +88,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ id }) => {
             <Comment
               key={comment._id}
               createdAt={comment.createdAt}
-              ref={idx === comments.length - 1 ? bottomRef : null}
+              // ref={idx === comments.length - 1 ? bottomRef : null}
               username={comment.userId.username}
               userId={comment.userId._id}
               avatarUrl={comment.userId.avatarUrl}
@@ -104,6 +104,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ id }) => {
             No comments yet. Be the first to comment!
           </p>
         )}
+        <div ref={bottomRef} />
 
         {hasMore && (
           <button

@@ -16,6 +16,8 @@ import PrimaryButton from "../buttons/PrimaryButton";
 import CommentSection from "@/sections/CommentSection";
 import photoCommentsAtom from "@/stores/atoms/CommentSection/photoCommentsAtom";
 import { useAtom } from "jotai";
+import RollDropdownIconButton from "../dropdowns/rolls/RollDropdownIconButton";
+import usePhotoRoll from "@/hooks/usePhotoRoll";
 interface PhotoInfoCardProps {
   id?: string;
   className?: string;
@@ -55,6 +57,16 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
 
   const [bookmarks, setBookmarks] = useState(initialBookmarks);
 
+  const {
+    selectedRoll,
+    setSelectedRoll,
+    isLoading,
+    isSaved,
+    savedToRolls,
+    saveToRoll,
+    removeFromRoll,
+  } = usePhotoRoll(id || null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   useEffect(() => {
     setIsBookmarked(
       currentUserId ? bookmarkedBy?.includes(currentUserId) : false
@@ -113,16 +125,27 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
           </button>
         </span>
         <div className="inline-flex gap-5">
-          <IconButton
+          {/* <IconButton
             Icon={CaretDownIcon}
             color="tertiary"
             iconPosition={"right"}
             paddingX={1}
           >
             All Photos
-          </IconButton>
+          </IconButton> */}
+          <RollDropdownIconButton
+            isOpen={isDropdownOpen}
+            setIsOpen={setIsDropdownOpen}
+            selectedRoll={selectedRoll}
+            setSelectedRoll={setSelectedRoll}
+            savedToRolls={savedToRolls}
+            disabled={isLoading}
+          />
 
-          <PrimaryButton>Save</PrimaryButton>
+          <PrimaryButton onClick={isSaved ? removeFromRoll : saveToRoll}>
+            Save
+          </PrimaryButton>
+          {/* <PrimaryButton>Save</PrimaryButton> */}
         </div>
       </div>
       <div className="mb-9">
