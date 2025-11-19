@@ -23,7 +23,7 @@ const ImagePreview: React.FC<ImagePreviewProps> = ({
         href={"back"}
         Icon={XIcon}
       ></LinkIconButton>
-      <div className="w-full xl:max-w-3xl">
+      <div className="w-full xl:max-w-2xl">
         <Image
           src={src}
           alt={alt}

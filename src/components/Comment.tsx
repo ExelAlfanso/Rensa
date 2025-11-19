@@ -2,11 +2,12 @@ import React, { forwardRef } from "react";
 import ProfileBadge from "./badges/ProfileBadge";
 import { formatTimeAgo } from "@/utils/DateFormatter";
 import Text from "@/components/Text";
+
 interface CommentProps {
   id?: string;
   className?: string;
   avatarUrl?: string;
-  children?: string;
+  children?: React.ReactNode;
   username?: string;
   userId?: string;
   disableBorder?: boolean;
@@ -17,18 +18,20 @@ const Comment = forwardRef<HTMLDivElement, CommentProps>(
   (
     {
       id,
-      className,
+      className = "",
       children,
-      username,
-      avatarUrl,
-      disableBorder,
-      userId,
+      username = "Unknown",
+      avatarUrl = "/profile.jpg",
+      disableBorder = false,
+      userId = "",
       createdAt,
     },
     ref
   ) => {
+    const time = createdAt ? formatTimeAgo(createdAt) : "Just now";
+
     return (
-      <div id={id} ref={ref} className={`${className} text-[13px]`}>
+      <div id={id} ref={ref} className={`text-[13px] ${className}`}>
         <div className="flex flex-row items-center justify-between">
           <ProfileBadge
             username={username}
@@ -36,11 +39,13 @@ const Comment = forwardRef<HTMLDivElement, CommentProps>(
             className="mb-2"
             href={`/profile/${userId}`}
           />
+
           <Text size="xs" className="text-white-700 mb-1">
-            {formatTimeAgo(createdAt || "")}
+            {time}
           </Text>
         </div>
-        <h1 className="font-figtree text-black">{children}</h1>
+
+        <p className="font-figtree text-black">{children}</p>
 
         {!disableBorder && (
           <div className="border-t border-white-700 w-full my-2" />
@@ -49,5 +54,6 @@ const Comment = forwardRef<HTMLDivElement, CommentProps>(
     );
   }
 );
+
 Comment.displayName = "Comment";
 export default Comment;

@@ -1,7 +1,6 @@
 import React from "react";
 import RollCard from "@/components/cards/RollCard";
 import CreateNewRollCard from "../cards/CreateNewRollCard";
-import { useAuthStore } from "@/stores/useAuthStore";
 
 export interface Roll {
   _id: string;
