@@ -69,7 +69,7 @@ export default function ProfilePageClient({
           </div>
           <div className="flex flex-col items-start justify-center gap-6 mt-10 xl:mt-0 w-full px-6">
             <ProfileRollFilterDropdown />
-            <RollList rolls={rolls} />
+            <RollList rolls={rolls} isOwner={isOwner} />
           </div>
         </div>
       </EditRollProvider>
