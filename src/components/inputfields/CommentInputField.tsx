@@ -33,18 +33,14 @@ const CommentInputField: React.FC<CommentInputFieldProps> = ({
       createdAt: new Date().toISOString(),
     };
 
-    // Optimistic UI
     onAddComment(newComment);
     setComment("");
 
     try {
-      const res = await api.post(`/photos/${id}/comments`, {
+      await api.post(`/photos/${id}/comments`, {
         text: newComment.text,
         userId: user?.id,
       });
-
-      // Optional: Replace temp ID with real ID
-      // (only if you need it — otherwise ignore)
     } catch (err) {
       console.error("Error posting comment:", err);
     }

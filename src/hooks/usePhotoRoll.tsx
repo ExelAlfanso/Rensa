@@ -5,6 +5,7 @@ import {
   fetchIsSavedToRolls,
 } from "@/services/RollServices";
 import { useToast } from "@/providers/ToastProvider";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 export function usePhotoRoll(photoId: string | null) {
   const { showToast } = useToast();
@@ -22,7 +23,7 @@ export function usePhotoRoll(photoId: string | null) {
   } | null>(null);
 
   const [savedToRolls, setSavedToRolls] = useState<string[]>([]);
-
+  const { user } = useAuthStore();
   const fetchSavedRolls = useCallback(async () => {
     if (!photoId) return;
     try {
@@ -34,8 +35,8 @@ export function usePhotoRoll(photoId: string | null) {
   }, [photoId]);
 
   useEffect(() => {
-    fetchSavedRolls();
-  }, [fetchSavedRolls]);
+    if (user) fetchSavedRolls();
+  }, [fetchSavedRolls, user]);
 
   const saveToRoll = async () => {
     if (!selectedRoll) return;
@@ -46,7 +47,7 @@ export function usePhotoRoll(photoId: string | null) {
       setSavedRoll(selectedRoll);
       setSaved(true);
       showToast("Photo added to roll", "success");
-    } catch (e) {
+    } catch {
       showToast("Failed to add photo", "error");
     } finally {
       setIsLoading(false);
@@ -59,7 +60,7 @@ export function usePhotoRoll(photoId: string | null) {
       await removePhotoFromRoll(savedRoll?.id || "", photoId || "");
       setSaved(false);
       showToast("Photo removed from roll", "success");
-    } catch (e) {
+    } catch {
       showToast("Failed to remove photo", "error");
     } finally {
       setIsLoading(false);

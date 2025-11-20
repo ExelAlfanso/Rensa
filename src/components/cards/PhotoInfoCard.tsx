@@ -4,8 +4,7 @@ import React, { useEffect, useState } from "react";
 import Heading from "../Heading";
 import Text from "../Text";
 
-import { BookmarkSimpleIcon, CaretDownIcon } from "@phosphor-icons/react";
-import IconButton from "../buttons/IconButton";
+import { BookmarkSimpleIcon } from "@phosphor-icons/react";
 import { formatDate } from "@/utils/DateFormatter";
 import { PhotoMetadata } from "@/models/Photo";
 import RecipeList from "../lists/RecipeList";
@@ -14,10 +13,9 @@ import api from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import PrimaryButton from "../buttons/PrimaryButton";
 import CommentSection from "@/sections/CommentSection";
-import photoCommentsAtom from "@/stores/atoms/CommentSection/photoCommentsAtom";
-import { useAtom } from "jotai";
 import RollDropdownIconButton from "../dropdowns/rolls/RollDropdownIconButton";
 import usePhotoRoll from "@/hooks/usePhotoRoll";
+import { useAuthStore } from "@/stores/useAuthStore";
 interface PhotoInfoCardProps {
   id?: string;
   className?: string;
@@ -44,17 +42,12 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
   userId,
   bookmarkedBy,
 }) => {
-  const { data: session } = useSession();
-  const currentUserId = session?.user?.id as string | undefined;
+  const { user } = useAuthStore();
   const [username, setUsername] = useState("Loading...");
   const [avatarUrl, setAvatarUrl] = useState("/profile.jpg");
-
-  const [comments, setComments] = useAtom(photoCommentsAtom);
-
   const [isBookmarked, setIsBookmarked] = useState(
-    currentUserId ? bookmarkedBy?.includes(currentUserId) : false
+    user ? bookmarkedBy?.includes(user.id) : false
   );
-
   const [bookmarks, setBookmarks] = useState(initialBookmarks);
 
   const {
@@ -68,11 +61,9 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
   } = usePhotoRoll(id || null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   useEffect(() => {
-    setIsBookmarked(
-      currentUserId ? bookmarkedBy?.includes(currentUserId) : false
-    );
+    setIsBookmarked(user ? bookmarkedBy?.includes(user.id) : false);
     fetchProfileData(userId);
-  }, [userId, currentUserId, bookmarkedBy, id]);
+  }, [userId, user, bookmarkedBy, id]);
 
   const handleBookmarkToggle = async () => {
     setIsBookmarked((prev) => !prev);
@@ -82,7 +73,7 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
 
       const res = await api.post(`/photos/bookmark/${id}`, {
         action,
-        userId: currentUserId,
+        userId: user?.id,
       });
       setBookmarks(res.data.bookmarks);
     } catch (err) {
@@ -103,7 +94,7 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
   return (
     <div
       id={id}
-      className={`flex flex-col gap-1.5 bg-white-200 ${className} shadow-lg p-10 rounded-3xl text-primary w-full lg:max-w-3xl xl:w-[30%]`}
+      className={`flex flex-col gap-1.5 bg-white-200 ${className} shadow-lg p-10 rounded-3xl text-primary w-full lg:max-w-3xl xl:w-[40%]`}
     >
       <div className="inline-flex items-center justify-between w-full">
         <span className="text-black inline-flex items-center justify-center">
@@ -112,27 +103,19 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
             {isBookmarked ? (
               <BookmarkSimpleIcon
                 weight="fill"
-                size={28}
+                size={24}
                 className="hover:scale-110 transition-transform cursor-pointer focus:border-0"
               />
             ) : (
               <BookmarkSimpleIcon
                 weight="regular"
-                size={28}
+                size={24}
                 className="hover:scale-110 transition-transform cursor-pointer focus:border-0"
               />
             )}
           </button>
         </span>
         <div className="inline-flex gap-5">
-          {/* <IconButton
-            Icon={CaretDownIcon}
-            color="tertiary"
-            iconPosition={"right"}
-            paddingX={1}
-          >
-            All Photos
-          </IconButton> */}
           <RollDropdownIconButton
             isOpen={isDropdownOpen}
             setIsOpen={setIsDropdownOpen}
@@ -145,7 +128,6 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
           <PrimaryButton onClick={isSaved ? removeFromRoll : saveToRoll}>
             Save
           </PrimaryButton>
-          {/* <PrimaryButton>Save</PrimaryButton> */}
         </div>
       </div>
       <div className="mb-9">

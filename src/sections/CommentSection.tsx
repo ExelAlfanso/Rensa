@@ -82,43 +82,44 @@ const CommentSection: React.FC<CommentSectionProps> = ({ id }) => {
         Comments
       </Heading>
 
-      <div className="overflow-y-auto no-scrollbar max-h-80 mb-5">
+      <div className="mb-5 overflow-y-auto no-scrollbar max-h-90">
         {comments.length > 0 ? (
           comments.map((comment, idx) => (
-            <Comment
-              key={comment._id}
-              createdAt={comment.createdAt}
-              // ref={idx === comments.length - 1 ? bottomRef : null}
-              username={comment.userId.username}
-              userId={comment.userId._id}
-              avatarUrl={comment.userId.avatarUrl}
-              disableBorder={idx === comments.length - 1}
-            >
-              {comment.text}
-            </Comment>
+            <div key={comment._id} className="relative">
+              <Comment
+                createdAt={comment.createdAt}
+                username={comment.userId.username}
+                userId={comment.userId._id}
+                avatarUrl={comment.userId.avatarUrl}
+                disableBorder={idx === comments.length - 1}
+              >
+                {comment.text}
+              </Comment>
+              {hasMore && idx === comments.length - 1 && (
+                <div
+                  onClick={() => !loading && fetchMoreComments(id!)}
+                  className="*absolute bottom-0 left-0 flex items-center justify-center w-full h-10 cursor-pointer bg-gradient-to-t from-white/95 via-white/60 to-transparent backdrop-blur-[1px]"
+                >
+                  {loading ? (
+                    <div className="scale-75 loading loading-spinner text-primary"></div>
+                  ) : (
+                    <span className="text-xs text-primary font-figtree">
+                      Load more
+                    </span>
+                  )}
+                </div>
+              )}
+            </div>
           ))
         ) : loading ? (
           ""
         ) : (
-          <p className="text-black-200 text-xs font-figtree">
+          <p className="text-xs text-black-200 font-figtree">
             No comments yet. Be the first to comment!
           </p>
         )}
-        <div ref={bottomRef} />
 
-        {hasMore && (
-          <button
-            onClick={() => fetchMoreComments(id!)}
-            disabled={loading}
-            className="text-xs text-primary hover:underline mt-2 cursor-pointer w-full text-center"
-          >
-            {loading ? (
-              <div className="loading loading-spinner text-primary"></div>
-            ) : (
-              "Load more comments"
-            )}
-          </button>
-        )}
+        <div ref={bottomRef} />
       </div>
 
       <CommentInputField id={id} onAddComment={handleAddComment} />

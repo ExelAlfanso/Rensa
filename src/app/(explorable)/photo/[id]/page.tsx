@@ -11,6 +11,7 @@ export default async function PhotoPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+
   let photo = null;
   try {
     const res = await api.get(`/photos/photo/${id}`);
