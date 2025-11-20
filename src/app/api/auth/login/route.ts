@@ -3,6 +3,7 @@ import User from "@/models/User";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 import { loginLimiter } from "@/lib/rateLimiter";
+import Roll from "@/models/Roll";
 
 /*
   POST /api/auth/login
@@ -50,7 +51,17 @@ export async function POST(req: Request) {
         { status: 401 }
       );
     }
-
+    // creates default "All Photos" roll
+    const defaultRoll = await Roll.create({
+      name: "All Photos",
+      userId: user._id,
+    });
+    if (!defaultRoll) {
+      return NextResponse.json(
+        { success: false, message: "Error creating default roll" },
+        { status: 500 }
+      );
+    }
     // validate password
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) {
