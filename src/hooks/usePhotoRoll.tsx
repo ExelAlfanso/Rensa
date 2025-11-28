@@ -13,17 +13,25 @@ export function usePhotoRoll(photoId: string | null) {
   const [selectedRoll, setSelectedRoll] = useState<{
     id: string;
     name: string;
-  } | null>(null);
+  } | null>({ id: "", name: "All Photos" });
 
   const [isLoading, setIsLoading] = useState(false);
   const [isSaved, setSaved] = useState(false);
   const [savedRoll, setSavedRoll] = useState<{
     id: string;
     name: string;
-  } | null>(null);
+  } | null>({ id: "", name: "All Photos" });
 
   const [savedToRolls, setSavedToRolls] = useState<string[]>([]);
   const { user } = useAuthStore();
+
+  const fetchDefaultRollId = useCallback(async () => {
+    if (user) {
+      const res = await fetchDefaultRollId();
+    } else {
+      setSelectedRoll(null);
+    }
+  }, [user]);
   const fetchSavedRolls = useCallback(async () => {
     if (!photoId) return;
     try {

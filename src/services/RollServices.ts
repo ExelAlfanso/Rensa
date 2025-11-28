@@ -29,3 +29,8 @@ export async function updateRollDetails(
 ) {
   return api.patch(`/rolls/${rollId}`, { name, description });
 }
+
+export async function fetchDefaultRoll() {
+  const res = await api.get(`/rolls/default`);
+  return res.data.data;
+}
