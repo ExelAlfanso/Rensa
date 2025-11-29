@@ -122,11 +122,11 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
             selectedRoll={selectedRoll}
             setSelectedRoll={setSelectedRoll}
             savedToRolls={savedToRolls}
-            disabled={isLoading}
+            disabled={isLoading || isSaved}
           />
 
           <PrimaryButton onClick={isSaved ? removeFromRoll : saveToRoll}>
-            Save
+            {isLoading ? "Loading..." : isSaved ? "Saved" : "Save"}
           </PrimaryButton>
         </div>
       </div>
