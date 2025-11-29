@@ -29,7 +29,7 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
   rollId, // 🆕 destructure it
 }) => {
   const { ref, inView } = useInView({ threshold: 0.5 });
-
+  const sort = activeTab === "tab2" ? "popular" : "recent";
   const {
     data,
     fetchNextPage,
@@ -38,7 +38,13 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
     status,
     error,
   } = useInfiniteQuery<FetchPhotosResponse>({
-    queryKey: ["photos", filters, useDatabase ? "db" : "picsum", rollId],
+    queryKey: [
+      "photos",
+      filters,
+      activeTab,
+      useDatabase ? "db" : "picsum",
+      rollId,
+    ],
     queryFn: async ({ pageParam }) => {
       const page = pageParam as number;
 
@@ -47,9 +53,9 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
       // 2️⃣ DB (default)
       // 3️⃣ Picsum (fallback)
       if (rollId) {
-        return await fetchImagesFromRoll(rollId, page, filters);
+        return await fetchImagesFromRoll(rollId, page, filters, sort);
       } else if (useDatabase) {
-        return await fetchImagesFromDB(page, filters);
+        return await fetchImagesFromDB(page, filters, sort);
       } else {
         return await fetchImagesFromPicSum(page);
       }

@@ -58,12 +58,14 @@ export interface FetchPhotosResponse {
 // Fetch photos from your MongoDB backend
 export async function fetchImagesFromDB(
   page: number,
-  filters: string[] | undefined
+  filters: string[] | undefined,
+  sort: "recent" | "popular" = "recent"
 ): Promise<FetchPhotosResponse> {
   try {
     const params: Record<string, string | number | undefined> = {
       page,
       limit: 10,
+      sort,
       filters: filters ? filters.join(",") : undefined,
     };
     // console.log("📤 Sending request to /photos/getPhotos with params:", params);
@@ -109,12 +111,14 @@ export async function searchPhotosByTags(
 export async function fetchImagesFromRoll(
   rollId: string,
   page: number,
-  filters?: string[]
+  filters?: string[],
+  sort: "recent" | "popular" = "recent"
 ): Promise<FetchPhotosResponse> {
   try {
     const params: Record<string, string | number | undefined> = {
       page,
       limit: 10,
+      sort,
       filters: filters ? filters.join(",") : undefined,
     };
 

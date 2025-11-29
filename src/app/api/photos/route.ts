@@ -1,6 +1,6 @@
 import { connectDB } from "@/lib/mongodb";
 import Photo, { PhotoDocument } from "@/models/Photo";
-import { FilterQuery } from "mongoose";
+import { FilterQuery, SortOrder } from "mongoose";
 import { NextResponse } from "next/server";
 
 /*
@@ -14,6 +14,13 @@ export async function GET(req: Request) {
 
   const page = parseInt(searchParams.get("page") || "1");
   const limit = parseInt(searchParams.get("limit") || "10");
+
+  const sortField = searchParams.get("sort") || "latest";
+
+  const sortOptions: Record<string, SortOrder> =
+    sortField === "popular"
+      ? { bookmarks: -1, createdAt: -1 }
+      : { createdAt: -1 };
 
   // Structured filters
   const filtersParam = searchParams.get("filters") || "";
@@ -35,7 +42,7 @@ export async function GET(req: Request) {
 
     const [photos, total] = await Promise.all([
       Photo.find(filter)
-        .sort({ createdAt: -1 })
+        .sort(sortOptions)
         .skip(skip)
         .limit(limit)
         .populate("userId", "username avatar")
