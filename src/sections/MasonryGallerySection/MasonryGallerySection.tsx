@@ -22,6 +22,8 @@ interface MasonryGallerySectionProps {
   onPhotoClick?: (photo: Photo | string, index: number) => void;
 }
 
+const TAB_RECENT = "tab1";
+const TAB_POPULAR = "tab2";
 const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
   activeTab,
   filters,
@@ -29,7 +31,7 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
   rollId, // 🆕 destructure it
 }) => {
   const { ref, inView } = useInView({ threshold: 0.5 });
-  const sort = activeTab === "tab2" ? "popular" : "recent";
+  const sort = activeTab === TAB_POPULAR ? "popular" : "recent";
   const {
     data,
     fetchNextPage,

@@ -15,14 +15,13 @@ export async function GET(req: Request) {
   const page = parseInt(searchParams.get("page") || "1");
   const limit = parseInt(searchParams.get("limit") || "10");
 
-  const sortField = searchParams.get("sort") || "latest";
+  const sortField = searchParams.get("sort") || "recent";
 
   const sortOptions: Record<string, SortOrder> =
     sortField === "popular"
       ? { bookmarks: -1, createdAt: -1 }
       : { createdAt: -1 };
 
-  // Structured filters
   const filtersParam = searchParams.get("filters") || "";
   const filters = filtersParam ? filtersParam.split(",") : [];
   const filter: FilterQuery<PhotoDocument> =
