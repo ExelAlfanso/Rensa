@@ -9,7 +9,7 @@ interface RollDropdownItemProps {
     name: string;
     imageUrl?: string;
   };
-  onSelectedRoll: (id: string) => void;
+  onSelectedRoll: (roll: { id: string; name: string }) => void;
   isCreating?: boolean;
   selectedRollId: string | null;
   isSaved?: boolean;
@@ -25,7 +25,7 @@ const RollDropdownItem: React.FC<RollDropdownItemProps> = ({
   const isSelected = selectedRollId === roll._id;
   const handleClick = () => {
     if (isCreating) return;
-    onSelectedRoll(roll._id);
+    onSelectedRoll({ id: roll._id, name: roll.name });
   };
   return (
     <motion.li

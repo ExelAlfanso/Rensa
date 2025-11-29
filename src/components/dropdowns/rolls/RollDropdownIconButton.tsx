@@ -221,7 +221,7 @@ const RollDropdownIconButton: React.FC<RollDropdownIconButtonProps> = ({
       >
         <Text size="xs">{selectedRoll ? selectedRoll.name : "All Photos"}</Text>
 
-        {!disabled && <CaretDownIcon weight="bold" />}
+        <CaretDownIcon weight="bold" />
       </IconButton>
 
       {isOpen && createPortal(dropdownContent, document.body)}

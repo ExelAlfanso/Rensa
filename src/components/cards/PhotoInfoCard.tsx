@@ -52,9 +52,9 @@ const PhotoInfoCard: React.FC<PhotoInfoCardProps> = ({
 
   const {
     selectedRoll,
-    setSelectedRoll,
     isLoading,
     isSaved,
+    setSelectedRoll,
     savedToRolls,
     saveToRoll,
     removeFromRoll,

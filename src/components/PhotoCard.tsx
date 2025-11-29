@@ -87,7 +87,15 @@ const PhotoCard: React.FC<PhotoCardProps> = ({
                   />
 
                   <button
-                    onClick={isSaved ? removeFromRoll : saveToRoll}
+                    onClick={(e) => {
+                      e.stopPropagation(); // Stops click from bubbling to parent container
+                      e.preventDefault(); // (Optional) Prevents default behavior if inside a link
+                      if (isSaved) {
+                        removeFromRoll();
+                      } else {
+                        saveToRoll();
+                      }
+                    }}
                     disabled={!selectedRoll || isLoading}
                     className={`w-[32px] h-[32px] flex items-center justify-center rounded-full cursor-pointer transition-colors duration-200 text-black hover:bg-white-700
               ${
