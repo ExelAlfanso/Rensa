@@ -29,7 +29,7 @@ The application allows photographers to share and discover **"Camera Recipes"**â
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Testing**: [Jest](https://jestjs.io/) & React Testing Library
 - **Linting**: ESLint
-
+- **EXIF Detection**: [Express.js](https://expressjs.com)
 ## ðŸš€ Getting Started
 
 Follow these steps to set up the project locally.
