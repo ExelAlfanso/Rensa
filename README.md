@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📷 Rensa
 
-## Getting Started
+> **Where Every Picture Tells Its Recipe.**
 
-First, run the development server:
+![Project Status](https://img.shields.io/badge/status-active-success.svg)
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Next.js](https://img.shields.io/badge/Next.js-14-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.0-38bdf8)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📖 About
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Rensa** is a platform dedicated to the art of authentic photography. In a world of heavy post-processing and filters, Rensa focuses on the magic that happens *inside* the camera.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The application allows photographers to share and discover **"Camera Recipes"**—the specific combination of film simulations, white balance shifts, dynamic range settings, and tone curves used to capture a distinct look. Whether you are shooting with Fujifilm, Ricoh, or other custom-profile capable cameras, Rensa helps you document and share the exact settings that created your image.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✨ Key Features
 
-## Learn More
+- **🎞️ Recipe Sharing**: Upload your photos alongside the detailed camera settings (Film Simulation, ISO, Grain Effect, WB Shift, etc.) used to create them.
+- **🔍 EXIF Integration**: Automatically extracts metadata to help populate recipe details (if implemented).
+- **🎨 Visual Library**: Browse a gallery of distinct visual styles (Vintage, Cinematic, B&W) and apply the settings to your own camera.
+- **📱 Responsive Design**: Built with Tailwind CSS for a beautiful viewing experience on any device.
+- **⚡ Modern Performance**: Powered by Next.js and TypeScript for fast loading and seamless navigation.
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Framework**: [Next.js](https://nextjs.org/) (App Router)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Testing**: [Jest](https://jestjs.io/) & React Testing Library
+- **Linting**: ESLint
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Getting Started
 
-## Deploy on Vercel
+Follow these steps to set up the project locally.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Prerequisites
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Node.js (v18 or higher)
+- npm, yarn, pnpm, or bun
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone [https://github.com/ExelAlfanso/Rensa.git](https://github.com/ExelAlfanso/Rensa.git)
+   cd Rensa
