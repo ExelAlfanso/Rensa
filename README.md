@@ -45,3 +45,34 @@ Follow these steps to set up the project locally.
    ```bash
    git clone [https://github.com/ExelAlfanso/Rensa.git](https://github.com/ExelAlfanso/Rensa.git)
    cd Rensa
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+3. Run the development server
+   ```bash
+   npm run dev
+   ```
+4. Open your browser Navigate to http://localhost:3000 to see the application running.
+
+## 🧪 Running Tests
+Ensure the application is working correctly by running the test suite.
+   ```bash
+
+   npm run test
+   # or to watch for changes
+   npm run test:watch
+   ```
+### 🤝 Contributing
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+
+1. Fork the Project
+2. Create your Feature Branch (git checkout -b feature/AmazingFeature)
+3. Commit your Changes (git commit -m 'Add some AmazingFeature')
+4. Push to the Branch (git push origin feature/AmazingFeature)
+5. Open a Pull Request
+
+### 📄 License
+Distributed under the MIT License. See LICENSE for more information.
