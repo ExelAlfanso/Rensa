@@ -9,7 +9,7 @@ import { formatDate } from "@/utils/DateFormatter";
 import { PhotoMetadata } from "@/models/Photo";
 import RecipeList from "../lists/RecipeList";
 import ProfileBadge from "../badges/ProfileBadge";
-import api from "@/lib/axios";
+import { api } from "@/lib/axios";
 import { useSession } from "next-auth/react";
 import PrimaryButton from "../buttons/PrimaryButton";
 import CommentSection from "@/sections/CommentSection";

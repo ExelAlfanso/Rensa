@@ -2,8 +2,9 @@ import MasonryGalleryPage from "@/sections/MasonryGallerySection/MasonryGalleryS
 import Heading from "@/components/Heading";
 import PhotoInfoCard from "@/components/cards/PhotoInfoCard";
 import ImagePreview from "@/components/ImagePreview";
-import api from "@/lib/axios";
+
 import { redirect } from "next/navigation";
+import { api } from "@/lib/axios";
 
 export default async function PhotoPage({
   params,

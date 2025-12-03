@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, ReactNode } from "react";
 import { useToast } from "./ToastProvider";
-import api from "@/lib/axios";
+import { api } from "@/lib/axios";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
 import TertiaryButton from "@/components/buttons/TertiaryButton";
 import { useAuthStore } from "@/stores/useAuthStore";

@@ -2,7 +2,7 @@ import Heading from "@/components/Heading";
 import Comment from "@/components/Comment";
 import CommentInputField from "@/components/inputfields/CommentInputField";
 import { useEffect, useRef, useState } from "react";
-import api from "@/lib/axios";
+import { api } from "@/lib/axios";
 
 export interface CommentType {
   _id: string;

@@ -3,6 +3,7 @@ import cloudinary from "@/lib/cloudinary";
 import { connectDB } from "@/lib/mongodb";
 import Photo from "@/models/Photo";
 import sharp from "sharp";
+import { fastApi } from "@/lib/axios";
 
 async function compressImageUnder10MB(buffer: Buffer): Promise<Buffer> {
   let quality = 90; // start high
@@ -45,6 +46,7 @@ export async function POST(req: Request) {
     const exif = JSON.parse(formData.get("exif") as string);
     const camera = exif.Brand as string;
     const tags = JSON.parse(formData.get("tags") as string);
+    // Validate file
     if (!file) {
       return NextResponse.json(
         { success: false, error: "No file provided" },
@@ -60,6 +62,16 @@ export async function POST(req: Request) {
     const base64File = `data:${file.type};base64,${compressedBuffer.toString(
       "base64"
     )}`;
+
+    const checkNSFW = await fastApi.post("/nsfw/predict", {
+      image: base64File,
+    });
+    if (checkNSFW.data.label === "NSFW") {
+      return NextResponse.json(
+        { success: false, error: "NSFW content detected. Upload rejected." },
+        { status: 400 }
+      );
+    }
 
     await connectDB();
 

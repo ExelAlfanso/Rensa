@@ -1,7 +1,7 @@
 import { CameraSettings, defaultCameraSettings } from "@/app/datas/cameraDatas";
 import { cameraFieldOptions } from "@/app/datas/cameraFieldDatas";
 import { brandModels } from "@/app/datas/cameraModelDatas";
-import api from "@/lib/axios";
+import { api } from "@/lib/axios";
 import {
   detectValueinString,
   extractNumberFromString,

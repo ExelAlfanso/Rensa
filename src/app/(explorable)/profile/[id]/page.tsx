@@ -1,6 +1,6 @@
 import { use } from "react";
 import ProfilePageClient from "./ProfilePageClient";
-import api from "@/lib/axios";
+import { api } from "@/lib/axios";
 import { notFound } from "next/navigation";
 
 function fetchProfile(id: string) {

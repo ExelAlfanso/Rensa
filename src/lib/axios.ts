@@ -7,4 +7,11 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
 });
-export default api;
+const fastApi = axios.create({
+  baseURL: process.env.FAST_API_URL || "http://localhost:8000/api",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+export { api, fastApi };

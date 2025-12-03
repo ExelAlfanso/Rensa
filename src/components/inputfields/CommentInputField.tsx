@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import InputField from "./InputField";
 import { ChatTeardropIcon } from "@phosphor-icons/react";
 import { useAuthStore } from "@/stores/useAuthStore";
-import api from "@/lib/axios";
+import { api } from "@/lib/axios";
 import { CommentType } from "@/sections/CommentSection";
 
 interface CommentInputFieldProps {

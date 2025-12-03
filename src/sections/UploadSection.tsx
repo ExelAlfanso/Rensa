@@ -1,8 +1,7 @@
 "use client";
 
-import api from "@/lib/axios";
 import { ArrowLeftIcon } from "@phosphor-icons/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Text from "../components/Text";
 import Heading from "../components/Heading";
 import { useRouter } from "next/navigation";
@@ -15,6 +14,7 @@ import { CameraSettings, defaultCameraSettings } from "@/app/datas/cameraDatas";
 import { useAuthStore } from "@/stores/useAuthStore";
 import TertiaryButton from "@/components/buttons/TertiaryButton";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
+import { uploadFormData } from "@/services/UploadServices";
 
 interface UploadSectionProps {
   onFileSelect?: (file: File) => void;
@@ -131,11 +131,7 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
 
     setLoading(true);
     try {
-      await api.post("/photos/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await uploadFormData(formData);
     } catch (err) {
       console.error("Upload failed:", err);
     } finally {

@@ -7,7 +7,7 @@ import { useLoading } from "@/hooks/useLoading";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
-import api from "@/lib/axios";
+import { api } from "@/lib/axios";
 import PrimaryButton from "../buttons/PrimaryButton";
 import TextInputField from "../inputfields/TextInputField";
 
