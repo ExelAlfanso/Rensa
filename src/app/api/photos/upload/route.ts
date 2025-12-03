@@ -62,11 +62,16 @@ export async function POST(req: Request) {
     const base64File = `data:${file.type};base64,${compressedBuffer.toString(
       "base64"
     )}`;
+    const formPhoto = new FormData();
+    formPhoto.append("fil e", file);
 
-    const checkNSFW = await fastApi.post("/nsfw/predict", {
-      image: base64File,
+    const res = await fastApi.post("/nsfw/predict", formPhoto, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
-    if (checkNSFW.data.label === "NSFW") {
+    const key = Object.keys(res.data)[0];
+    if (res.data[key].Label === "NSFW") {
       return NextResponse.json(
         { success: false, error: "NSFW content detected. Upload rejected." },
         { status: 400 }

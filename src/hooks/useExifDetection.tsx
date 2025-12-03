@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 
 export function useExifDetection(
-  file: File,
+  file: File | null,
   handleExifChange: (
     field: string,
     value: number | object | string | CameraSettings

@@ -15,6 +15,7 @@ import { useAuthStore } from "@/stores/useAuthStore";
 import TertiaryButton from "@/components/buttons/TertiaryButton";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
 import { uploadFormData } from "@/services/UploadServices";
+import { useExifDetection } from "@/hooks/useExifDetection";
 
 interface UploadSectionProps {
   onFileSelect?: (file: File) => void;
@@ -36,6 +37,7 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
   } = useFileUpload(onFileSelect);
   const user = useAuthStore((state) => state.user);
   const { setLoading } = useLoading();
+
   const [error, setError] = useState<string>("");
   const [form, setForm] = useState<{
     title: string;
@@ -56,9 +58,7 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
     camera: "",
     exif: defaultCameraSettings["Fujifilm"],
   });
-  // useEffect(() => {
-  //   console.log(form);
-  // }, [form]);
+
   const handleExifChange = (
     field: string,
     value: number | object | string | CameraSettings["Brand"]
@@ -70,6 +70,15 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
       setForm((prev) => ({ ...prev, exif: { ...prev.exif, [field]: value } }));
     }
   };
+  const {
+    isDetecting,
+    detectAndApplyExif,
+    settings,
+    selectedCamera,
+    setSelectedCamera,
+    setSettings,
+  } = useExifDetection(uploadedFile, handleExifChange);
+
   const handleTagsChange = (value: string | string[]) => {
     if (typeof value === "string") {
       if (!value.trim() || form.tags.includes(value.trim())) return;
@@ -241,6 +250,12 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
               tags={form.tags}
               handleExifChange={handleExifChange}
               handleTags={handleTagsChange}
+              isDetecting={isDetecting}
+              detectAndApplyExif={detectAndApplyExif}
+              settings={settings}
+              selectedCamera={selectedCamera}
+              setSelectedCamera={setSelectedCamera}
+              setSettings={setSettings}
             ></UploadForm>
           </div>
         </div>
