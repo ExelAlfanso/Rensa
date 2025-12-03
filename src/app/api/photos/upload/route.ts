@@ -5,6 +5,15 @@ import Photo from "@/models/Photo";
 import sharp from "sharp";
 import { fastApi } from "@/lib/axios";
 
+/**
+ * Compresses and resizes an image buffer so the resulting file is at most 10 MB.
+ *
+ * Preserves metadata, limits the image width to 2000 pixels, and encodes the result as JPEG.
+ * The function progressively reduces JPEG quality (down to a minimum of 10) until the size target is met.
+ *
+ * @param buffer - The input image data
+ * @returns The resulting compressed image buffer (JPEG, metadata preserved, width ≤ 2000px) not larger than 10 MB
+ */
 async function compressImageUnder10MB(buffer: Buffer): Promise<Buffer> {
   let quality = 90; // start high
   let output = await sharp(buffer)
@@ -28,10 +37,13 @@ async function compressImageUnder10MB(buffer: Buffer): Promise<Buffer> {
   return output;
 }
 
-/*
-  POST /api/photos/upload
-  Upload a photo
-*/
+/**
+ * Handle photo upload requests: validate and compress the file, run an NSFW check, upload the image to Cloudinary, create a Photo record in the database, and return the created photo.
+ *
+ * The endpoint returns a client error (status 400) if no file is provided or if the NSFW check flags the image; on unexpected failures it returns a server error (status 500).
+ *
+ * @returns An object with `success: true` and the created `photo` on success. On client errors returns `success: false` and an `error` message (status 400 for missing file or NSFW content). On server errors returns `success: false` and the error (status 500).
+ */
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();

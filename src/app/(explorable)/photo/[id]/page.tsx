@@ -6,6 +6,17 @@ import ImagePreview from "@/components/ImagePreview";
 import { redirect } from "next/navigation";
 import { api } from "@/lib/axios";
 
+/**
+ * Render the photo details page for the photo identified by route params.
+ *
+ * If the photo cannot be fetched, redirects to the `/not-found` route. When present,
+ * the page displays an image preview, a photo information card (including bookmarks,
+ * bookmarked-by list, title, description, metadata, and author id), and a related
+ * masonry gallery section.
+ *
+ * @param params - A promise that resolves to an object containing the route `id` of the photo
+ * @returns A React element representing the photo details page
+ */
 export default async function PhotoPage({
   params,
 }: {

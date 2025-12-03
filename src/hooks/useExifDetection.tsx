@@ -8,6 +8,21 @@ import {
 } from "@/utils/ValueDetections";
 import { useState } from "react";
 
+/**
+ * React hook that detects image EXIF metadata and applies detected values to camera settings.
+ *
+ * @param file - The image File to read EXIF from, or `null` when no file is selected.
+ * @param handleExifChange - Callback invoked for each derived setting with `(field, value)` when metadata yields a value.
+ * @returns An object exposing:
+ *  - `isDetecting`: whether a metadata detection request is in progress.
+ *  - `detectMetadata`: function that uploads `file` and returns detected metadata (or `undefined` on failure).
+ *  - `autoFillSettings`: function that applies a metadata object to update local settings and call `handleExifChange`.
+ *  - `settings`: current CameraSettings state populated from defaults and any applied metadata.
+ *  - `selectedCamera`: currently selected camera brand.
+ *  - `setSelectedCamera`: setter to change the selected camera brand.
+ *  - `detectAndApplyExif`: convenience function that runs detection then applies detected metadata.
+ *  - `setSettings`: setter to replace the current settings state.
+ */
 export function useExifDetection(
   file: File | null,
   handleExifChange: (

@@ -1,6 +1,14 @@
 import { api } from "@/lib/axios";
 import { PopulatedPhoto } from "@/types/PopulatedPhoto";
-// import { Filters } from "@/sections/FilterSection";
+/**
+ * Produces a page of placeholder image URLs sourced from picsum.photos.
+ *
+ * @param page - Current page number used to compute the next page; pages greater than or equal to 10 will not produce a next page.
+ * @returns An object with:
+ *  - `data`: an array of image URLs,
+ *  - `urls`: the same array of image URLs,
+ *  - `nextPage`: the next page number if available, or `undefined` when the max page limit is reached.
+ */
 export async function fetchImagesFromPicSum(page: number) {
   const newImages = Array.from({ length: 10 }, () => {
     const h = 300 + Math.floor(Math.random() * 200);

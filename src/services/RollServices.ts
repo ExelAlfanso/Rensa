@@ -1,5 +1,11 @@
 import { api } from "@/lib/axios";
 
+/**
+ * Retrieve a roll by its ID.
+ *
+ * @param rollId - The ID of the roll to fetch
+ * @returns The API response containing the roll data
+ */
 export function fetchRollById(rollId: string) {
   return api.get(`/rolls/${rollId}`);
 }
