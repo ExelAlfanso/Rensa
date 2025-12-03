@@ -1,4 +1,4 @@
-import api from "@/lib/axios";
+import { api } from "@/lib/axios";
 import { PopulatedPhoto } from "@/types/PopulatedPhoto";
 // import { Filters } from "@/sections/FilterSection";
 export async function fetchImagesFromPicSum(page: number) {

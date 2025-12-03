@@ -1,7 +1,7 @@
 import { CameraSettings, defaultCameraSettings } from "@/app/datas/cameraDatas";
 import { cameraFieldOptions } from "@/app/datas/cameraFieldDatas";
 import { brandModels } from "@/app/datas/cameraModelDatas";
-import api from "@/lib/axios";
+import { api } from "@/lib/axios";
 import {
   detectValueinString,
   extractNumberFromString,
@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 
 export function useExifDetection(
-  file: File,
+  file: File | null,
   handleExifChange: (
     field: string,
     value: number | object | string | CameraSettings

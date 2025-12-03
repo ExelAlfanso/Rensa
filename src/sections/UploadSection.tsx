@@ -1,8 +1,7 @@
 "use client";
 
-import api from "@/lib/axios";
 import { ArrowLeftIcon } from "@phosphor-icons/react";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Text from "../components/Text";
 import Heading from "../components/Heading";
 import { useRouter } from "next/navigation";
@@ -15,6 +14,8 @@ import { CameraSettings, defaultCameraSettings } from "@/app/datas/cameraDatas";
 import { useAuthStore } from "@/stores/useAuthStore";
 import TertiaryButton from "@/components/buttons/TertiaryButton";
 import PrimaryButton from "@/components/buttons/PrimaryButton";
+import { uploadFormData } from "@/services/UploadServices";
+import { useExifDetection } from "@/hooks/useExifDetection";
 
 interface UploadSectionProps {
   onFileSelect?: (file: File) => void;
@@ -36,6 +37,7 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
   } = useFileUpload(onFileSelect);
   const user = useAuthStore((state) => state.user);
   const { setLoading } = useLoading();
+
   const [error, setError] = useState<string>("");
   const [form, setForm] = useState<{
     title: string;
@@ -56,9 +58,7 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
     camera: "",
     exif: defaultCameraSettings["Fujifilm"],
   });
-  // useEffect(() => {
-  //   console.log(form);
-  // }, [form]);
+
   const handleExifChange = (
     field: string,
     value: number | object | string | CameraSettings["Brand"]
@@ -70,6 +70,15 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
       setForm((prev) => ({ ...prev, exif: { ...prev.exif, [field]: value } }));
     }
   };
+  const {
+    isDetecting,
+    detectAndApplyExif,
+    settings,
+    selectedCamera,
+    setSelectedCamera,
+    setSettings,
+  } = useExifDetection(uploadedFile, handleExifChange);
+
   const handleTagsChange = (value: string | string[]) => {
     if (typeof value === "string") {
       if (!value.trim() || form.tags.includes(value.trim())) return;
@@ -94,25 +103,30 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
   const validateForm = () => {
     if (!form.title.trim()) {
       setError("Title is required!");
-      return;
+      return false;
     }
     if (!form.description.trim()) {
       setError("Description is required!");
-      return;
+      return false;
     }
     if (!form.tags || form.tags.length === 0) {
       setError("At least one tag is required!");
-      return;
+      return false;
     }
 
     if (!photo) {
       setError("No photo selected!");
-      return;
+      return false;
     }
+    return true;
   };
   const handleUpload = async () => {
     setError("");
-    validateForm();
+    if (!user?.id) {
+      setError("You must be logged in to upload.");
+      return;
+    }
+    if (!validateForm()) return;
     const tagsWithBrand = [...form.tags, form.exif.Brand.toLowerCase()];
 
     const formData = new FormData();
@@ -131,15 +145,12 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
 
     setLoading(true);
     try {
-      await api.post("/photos/upload", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      await uploadFormData(formData);
+      router.push("/explore");
     } catch (err) {
       console.error("Upload failed:", err);
+      setError("Upload failed. Please try again.");
     } finally {
-      router.push("/explore");
       setLoading(false);
     }
   };
@@ -245,6 +256,12 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
               tags={form.tags}
               handleExifChange={handleExifChange}
               handleTags={handleTagsChange}
+              isDetecting={isDetecting}
+              detectAndApplyExif={detectAndApplyExif}
+              settings={settings}
+              selectedCamera={selectedCamera}
+              setSelectedCamera={setSelectedCamera}
+              setSettings={setSettings}
             ></UploadForm>
           </div>
         </div>

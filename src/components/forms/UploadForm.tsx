@@ -1,17 +1,15 @@
 import React, { useEffect } from "react";
-import InputField from "../inputfields/InputField";
 import { CameraSettings, defaultCameraSettings } from "@/app/datas/cameraDatas";
 import CameraSettingsForm from "./CameraSettingsForm";
 import InputDropdown from "../inputfields/InputDropdown";
 import TagsInputField from "../inputfields/TagsInputField";
 import { brandModels } from "@/app/datas/cameraModelDatas";
-import { useExifDetection } from "@/hooks/useExifDetection";
 import { FilterLists } from "@/app/datas/filterDatas";
 import TextAreaInput from "../inputfields/TextAreaInput";
 import BaseInputField from "../inputfields/BaseInputField";
 
 interface UploadFormProps {
-  file: File;
+  file: File | null;
   photo: string;
   onChange: (field: string, value: string | string[]) => void;
   handleExifChange: (
@@ -20,30 +18,31 @@ interface UploadFormProps {
   ) => void;
   handleTags: (value: string | string[]) => void;
   tags: string[];
+  isDetecting: boolean;
+  detectAndApplyExif: () => void;
+  settings: CameraSettings;
+  selectedCamera: CameraSettings["Brand"];
+  setSelectedCamera: (brand: CameraSettings["Brand"]) => void;
+  setSettings: (s: CameraSettings) => void;
 }
 
 const UploadForm: React.FC<UploadFormProps> = ({
   onChange,
   photo,
-  file,
   tags,
   handleExifChange,
   handleTags,
+  isDetecting,
+  detectAndApplyExif,
+  settings,
+  selectedCamera,
+  setSelectedCamera,
+  setSettings,
 }) => {
-  const {
-    isDetecting,
-    detectAndApplyExif,
-    settings,
-    selectedCamera,
-    setSelectedCamera,
-    setSettings,
-  } = useExifDetection(file, handleExifChange);
-
   useEffect(() => {
     if (photo) detectAndApplyExif();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [photo]);
-
   const handleBrandChange = (brand: CameraSettings["Brand"]) => {
     setSelectedCamera(brand);
     setSettings(defaultCameraSettings[brand]);
