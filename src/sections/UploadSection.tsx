@@ -103,25 +103,30 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
   const validateForm = () => {
     if (!form.title.trim()) {
       setError("Title is required!");
-      return;
+      return false;
     }
     if (!form.description.trim()) {
       setError("Description is required!");
-      return;
+      return false;
     }
     if (!form.tags || form.tags.length === 0) {
       setError("At least one tag is required!");
-      return;
+      return false;
     }
 
     if (!photo) {
       setError("No photo selected!");
-      return;
+      return false;
     }
+    return true;
   };
   const handleUpload = async () => {
     setError("");
-    validateForm();
+    if (!user?.id) {
+      setError("You must be logged in to upload.");
+      return;
+    }
+    if (!validateForm()) return;
     const tagsWithBrand = [...form.tags, form.exif.Brand.toLowerCase()];
 
     const formData = new FormData();
@@ -141,10 +146,11 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
     setLoading(true);
     try {
       await uploadFormData(formData);
+      router.push("/explore");
     } catch (err) {
       console.error("Upload failed:", err);
+      setError("Upload failed. Please try again.");
     } finally {
-      router.push("/explore");
       setLoading(false);
     }
   };

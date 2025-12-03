@@ -63,7 +63,7 @@ export async function POST(req: Request) {
       "base64"
     )}`;
     const formPhoto = new FormData();
-    formPhoto.append("fil e", file);
+    formPhoto.append("file", file);
 
     const res = await fastApi.post("/nsfw/predict", formPhoto, {
       headers: {
