@@ -215,7 +215,9 @@ const UploadSection: React.FC<UploadSectionProps> = ({ onFileSelect }) => {
       {uploadedFile ? (
         <div className="flex items-center justify-between py-10 lg:mb-10">
           <TertiaryButton onClick={handleCancelButton}>Cancel</TertiaryButton>
-          <PrimaryButton onClick={handleUpload}>Upload</PrimaryButton>
+          <PrimaryButton disabled={isDetecting} onClick={handleUpload}>
+            Upload
+          </PrimaryButton>
         </div>
       ) : (
         <div className="flex items-end justify-between mb-10">

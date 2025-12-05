@@ -8,7 +8,7 @@ const api = axios.create({
   },
 });
 const fastApi = axios.create({
-  baseURL: process.env.FAST_API_URL || "http://localhost:8000/api",
+  baseURL: process.env.FAST_API_URL || "http://localhost:8000",
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",
