@@ -41,6 +41,10 @@ export const useAuthStore = create<AuthState>()(
           sessionStorage.setItem(name, JSON.stringify(value)),
         removeItem: (name) => sessionStorage.removeItem(name),
       },
+      onRehydrateStorage: () => (state) => {
+        // runs AFTER sessionStorage restored
+        state?.setLoading(false);
+      },
     }
   )
 );

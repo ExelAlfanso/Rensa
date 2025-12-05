@@ -7,6 +7,13 @@ const api = axios.create({
     "Content-Type": "application/json",
   },
 });
+const elysiaApi = axios.create({
+  baseURL: process.env.ELYSIA_URL || "http://localhost:3001",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 const fastApi = axios.create({
   baseURL: process.env.FAST_API_URL || "http://localhost:8000",
   withCredentials: true,
@@ -14,4 +21,4 @@ const fastApi = axios.create({
     "Content-Type": "application/json",
   },
 });
-export { api, fastApi };
+export { api, fastApi, elysiaApi };

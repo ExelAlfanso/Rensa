@@ -15,7 +15,6 @@ import TertiaryButton from "../buttons/TertiaryButton";
 
 const ExploreNavBar = () => {
   const user = useAuthStore((state) => state.user);
-
   return (
     <nav className="z-20 left-1/2 top-5 -translate-x-1/2 fixed w-[90%] lg:w-[70%] h-14 md:h-18 text-black rounded-[48px] flex items-center justify-between bg-white-200 shadow-lg">
       <div className="flex flex-row items-center gap-1 lg:gap-4 ml-2 lg:ml-6">

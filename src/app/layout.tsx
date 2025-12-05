@@ -6,6 +6,8 @@ import { LoadingProvider } from "@/hooks/useLoading";
 import QueryProvider from "@/providers/QueryProvider";
 import { ToastProvider } from "@/providers/ToastProvider";
 import Toast from "@/components/toast/Toast";
+import { NotificationProvider } from "@/providers/NotificationProvider";
+import NotificationProviderWrapper from "@/components/NotificationProviderWrapper";
 
 const forum = Forum({
   subsets: ["latin"],
@@ -35,7 +37,9 @@ export default function RootLayout({
         <ToastProvider>
           <QueryProvider>
             <SessionProviderWrapper>
-              <LoadingProvider>{children}</LoadingProvider>
+              <NotificationProvider>
+                <LoadingProvider>{children}</LoadingProvider>
+              </NotificationProvider>
             </SessionProviderWrapper>
           </QueryProvider>
           <Toast />

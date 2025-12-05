@@ -8,8 +8,11 @@ import Text from "@/components/Text";
 import { notificationDatas } from "@/app/datas/notificationDatas";
 import IconDropdown from "../IconDropdown";
 import DropdownItem from "../DropdownItem";
+import { useNotifications } from "@/hooks/useNotifications";
 
 const NotificationDropdown = () => {
+  const { notifications } = useNotifications();
+
   return (
     <div className="relative z-50 w-full">
       <IconDropdown Tag={BellIcon}>
@@ -17,7 +20,7 @@ const NotificationDropdown = () => {
           Notifications
         </Heading>
         {/* this is a placeholder, here will map through notification data state */}
-        {notificationDatas.map((notification, idx) => (
+        {/* {notificationDatas.map((notification, idx) => (
           <DropdownItem
             key={notification.id}
             href={notification.href}
@@ -35,6 +38,28 @@ const NotificationDropdown = () => {
             </div>
             <Text size="xs" className="inline">
               <span className="inline font-bold">{notification.username}</span>{" "}
+              saved your image
+            </Text>
+          </DropdownItem>
+        ))} */}
+        {notifications.map((notification, idx) => (
+          <DropdownItem
+            key={notification.id}
+            href={notification.href}
+            className={idx === notifications.length - 1 ? "rounded-b-2xl" : ""}
+          >
+            <div className={`avatar w-12 h-12 inline mr-3 `}>
+              <Image
+                src={notification.user.src || "/profile.jpg"}
+                alt="profile"
+                fill
+                className="object-cover rounded-2xl aspect-square"
+              />
+            </div>
+            <Text size="xs" className="inline">
+              <span className="inline font-bold">
+                {notification.user.username}
+              </span>{" "}
               saved your image
             </Text>
           </DropdownItem>
