@@ -8,7 +8,10 @@ const api = axios.create({
   },
 });
 const elysiaApi = axios.create({
-  baseURL: process.env.ELYSIA_URL || "http://localhost:3001",
+  baseURL:
+    process.env.ENVIROMENT === "DEVELOPMENT"
+      ? process.env.NEXT_PUBLIC_ELYSIA_URL
+      : "http://localhost:4000/api",
   withCredentials: true,
   headers: {
     "Content-Type": "application/json",

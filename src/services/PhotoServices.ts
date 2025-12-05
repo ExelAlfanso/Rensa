@@ -56,7 +56,7 @@ export interface FetchPhotosResponse {
 }
 
 // Fetch photos from your MongoDB backend
-export async function fetchImagesFromDB(
+export async function fetchPhotosFromDB(
   page: number,
   filters: string[] | undefined,
   sort: "recent" | "popular" = "recent"
@@ -108,7 +108,7 @@ export async function searchPhotosByTags(
 }
 
 // 🆕 Fetch photos by Roll ID
-export async function fetchImagesFromRoll(
+export async function fetchPhotosFromRoll(
   rollId: string,
   page: number,
   filters?: string[],
@@ -135,4 +135,16 @@ export async function fetchImagesFromRoll(
     console.error("Error fetching photos from roll:", error);
     throw error;
   }
+}
+
+export async function fetchPhotoOwnerByPhotoId(photoId: string) {
+  const res = await api.get<{ data: { ownerId: string } }>(
+    `/photos/${photoId}/owner`
+  );
+  return res.data.data.ownerId;
+}
+
+export async function fetchPhotoById(photoId: string) {
+  const res = await api.get(`/photos/${photoId}`);
+  return res.data.data.photo;
 }

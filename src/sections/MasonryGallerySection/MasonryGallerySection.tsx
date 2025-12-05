@@ -4,12 +4,12 @@ import React, { useEffect } from "react";
 import "@/components/MasonryGallery.css";
 import { useInView } from "react-intersection-observer";
 import {
-  fetchImagesFromDB,
+  fetchPhotosFromDB,
   fetchImagesFromPicSum,
-  fetchImagesFromRoll, // 🆕 New service
+  fetchPhotosFromRoll, // 🆕 New service
   Photo,
   FetchPhotosResponse,
-} from "@/services/ImageServices";
+} from "@/services/PhotoServices";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import MasonryGalleryGrid from "./MasonryGalleryGrid";
 import { PopulatedPhoto } from "@/types/PopulatedPhoto";
@@ -55,9 +55,9 @@ const MasonryGallerySection: React.FC<MasonryGallerySectionProps> = ({
       // 2️⃣ DB (default)
       // 3️⃣ Picsum (fallback)
       if (rollId) {
-        return await fetchImagesFromRoll(rollId, page, filters, sort);
+        return await fetchPhotosFromRoll(rollId, page, filters, sort);
       } else if (useDatabase) {
-        return await fetchImagesFromDB(page, filters, sort);
+        return await fetchPhotosFromDB(page, filters, sort);
       } else {
         return await fetchImagesFromPicSum(page);
       }

@@ -1,4 +1,5 @@
 import Comment from "@/models/Comment";
+import User from "@/models/User"; //
 import { NextResponse } from "next/server";
 
 /*

@@ -1,4 +1,5 @@
 import { elysiaApi } from "@/lib/axios";
+import { fetchPhotoOwnerByPhotoId } from "./PhotoServices";
 
 export async function fetchNotifications(
   recipientId: string,
@@ -14,9 +15,23 @@ export async function fetchNotifications(
 
 export async function sendPhotoSavedNotification(
   actorId: string,
-  recipientId: string,
-  targetId: string
+  photoId: string // roll / photo / profile
 ) {
-  const res = await elysiaApi.post(`/notifications/photo-saved`, {});
+  console.log("Sending photo saved notification...");
+  const recipientId = await fetchPhotoOwnerByPhotoId(photoId);
+  console.log(
+    "actorId:",
+    actorId,
+    "photoId:",
+    photoId,
+    "recipientId:",
+    recipientId
+  );
+  const res = await elysiaApi.post(`/notifications/photo-saved`, {
+    actorId,
+    recipientId,
+    photoId,
+    type: "photo-saved",
+  });
   return res.data;
 }

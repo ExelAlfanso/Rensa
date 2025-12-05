@@ -1,10 +1,16 @@
 import { api } from "@/lib/axios";
+import { sendPhotoSavedNotification } from "./NotificationServices";
 
 export function fetchRollById(rollId: string) {
   return api.get(`/rolls/${rollId}`);
 }
 
-export async function addPhotoToRoll(rollId: string, photoId: string) {
+export async function addPhotoToRoll(
+  actorId: string,
+  rollId: string,
+  photoId: string
+) {
+  await sendPhotoSavedNotification(actorId, photoId);
   return api.post(`/rolls/${rollId}/photos/${photoId}`, {
     rollIds: [rollId],
     photoId,
@@ -30,7 +36,7 @@ export async function updateRollDetails(
   return api.patch(`/rolls/${rollId}`, { name, description });
 }
 
-export async function fetchDefaultRoll({ queryKey }: any) {
+export async function fetchDefaultRoll({ queryKey }: { queryKey: string[] }) {
   const [, userId] = queryKey;
 
   const res = await fetch(`/api/rolls/default?userId=${userId}`);

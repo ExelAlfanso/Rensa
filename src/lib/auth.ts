@@ -81,7 +81,7 @@ export const authOptions: NextAuthOptions = {
       return "/explore";
     },
     async jwt({ token, account, user }) {
-      // console.log("JWT callback:", { token, account, user });
+      // console.log("JWT callback:", { token });
       if (account) {
         token.accessToken = account.access_token;
         token.provider = account.provider;
